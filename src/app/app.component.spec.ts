@@ -6,10 +6,6 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 
-// Components
-import { AppComponent } from './app.component';
-import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
-
 // Angular Material Modules
 import { 
   MatButtonModule,
@@ -18,6 +14,12 @@ import {
   MatInputModule,
   MatToolbarModule 
 } from '@angular/material';
+
+// Components
+import { AppComponent } from './app.component';
+import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
+
+// Services & Pipes
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

@@ -21,10 +21,12 @@ import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
 // Services & Pipes
+import { ConsoleLogPipe } from './ng-pipes/console-log.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
+    ConsoleLogPipe,
     LoginComponent,
     NavToolbarComponent,
     SignUpComponent,
