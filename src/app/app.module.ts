@@ -9,6 +9,7 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 // Angular Material Modules
 import { 
@@ -24,6 +25,7 @@ import {
     AppComponent,
     LoginComponent,
     NavToolbarComponent,
+    SignUpComponent,
   ],
   imports: [
     AppRoutingModule,

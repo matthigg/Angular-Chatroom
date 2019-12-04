@@ -8,14 +8,16 @@ div.grid-container {
   padding: calc(1rem + 1vw);
 }
 
-mat-card.login-form-wrapper {
+mat-card.form-wrapper {
   grid-area: login;
-  & mat-form-field.input-username,
-  & mat-form-field.input-password {
+  & mat-form-field {
     width: 100%;
   }
-  & mat-card-actions.login-buttons {
+  & mat-card-actions.buttons {
     display: flex;
     justify-content: center;
+    & a {
+      text-decoration: none;
+    }
   }
 }
