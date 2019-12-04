@@ -1,0 +1,21 @@
+div.grid-container {
+  display: grid;
+  grid-auto-rows: minmax(15vh, auto);
+  grid-gap: calc(1rem + 1vw);
+  grid-template-areas:
+    ". . login login login . .";
+  grid-template-columns: repeat(7, 1fr);
+  padding: calc(1rem + 1vw);
+}
+
+mat-card.login-form-wrapper {
+  grid-area: login;
+  & mat-form-field.input-username,
+  & mat-form-field.input-password {
+    width: 100%;
+  }
+  & mat-card-actions.login-buttons {
+    display: flex;
+    justify-content: center;
+  }
+}

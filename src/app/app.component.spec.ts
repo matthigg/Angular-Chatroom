@@ -2,18 +2,34 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
+// Modules
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ReactiveFormsModule } from '@angular/forms';
+
 // Components
 import { AppComponent } from './app.component';
 import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
 
 // Angular Material Modules
-import { MatToolbarModule } from '@angular/material';
+import { 
+  MatButtonModule,
+  MatCardModule,
+  MatFormFieldModule,
+  MatInputModule,
+  MatToolbarModule 
+} from '@angular/material';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        BrowserAnimationsModule,
+        MatButtonModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
         MatToolbarModule,
+        ReactiveFormsModule,
         RouterTestingModule,
       ],
       declarations: [
