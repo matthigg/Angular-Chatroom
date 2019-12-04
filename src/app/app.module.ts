@@ -19,6 +19,7 @@ import {
   MatInputModule,
   MatToolbarModule,
 } from '@angular/material';
+import { LogPipePipe } from './log-pipe.pipe';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import {
     LoginComponent,
     NavToolbarComponent,
     SignUpComponent,
+    LogPipePipe,
   ],
   imports: [
     AppRoutingModule,

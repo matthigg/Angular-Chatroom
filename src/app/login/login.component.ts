@@ -9,7 +9,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   loginForm = this.formBuilder.group(
     {
-      username: ['', Validators.required],
+      username: ['', [Validators.required, Validators.minLength(4)]],
       password: ['', Validators.required],
     },
   );
