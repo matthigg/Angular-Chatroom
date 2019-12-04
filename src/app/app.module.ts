@@ -5,12 +5,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
-// Components
-import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
-
 // Angular Material Modules
 import { 
   MatButtonModule,
@@ -19,7 +13,14 @@ import {
   MatInputModule,
   MatToolbarModule,
 } from '@angular/material';
-import { LogPipePipe } from './log-pipe.pipe';
+
+// Components
+import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+
+// Services & Pipes
 
 @NgModule({
   declarations: [
@@ -27,7 +28,6 @@ import { LogPipePipe } from './log-pipe.pipe';
     LoginComponent,
     NavToolbarComponent,
     SignUpComponent,
-    LogPipePipe,
   ],
   imports: [
     AppRoutingModule,

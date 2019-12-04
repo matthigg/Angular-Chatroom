@@ -16,7 +16,6 @@
             matInput 
             type="text"
           >
-          {{ loginForm.get('username') | logPipe }}
           <mat-error *ngIf="
             !loginForm.get('username').valid && 
             loginForm.get('username').value === '' &&
