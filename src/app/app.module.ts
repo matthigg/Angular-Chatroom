@@ -24,7 +24,7 @@ import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
 import { SisuComponent } from './sisu/sisu.component';
 
 // Services & Pipes
-import { ConsoleLogPipe } from './ng-pipes/console-log.pipe';
+import { ConsoleLogPipe } from './shared/console-log.pipe';
 import { CreateAccountComponent } from './create-account/create-account.component';
 
 @NgModule({

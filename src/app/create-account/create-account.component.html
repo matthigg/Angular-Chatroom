@@ -59,22 +59,21 @@
         <mat-form-field>
           <mat-label>Password (again)</mat-label>
           <input 
-            class="input-password"
-            formControlName="password" 
+            class="input-password-retype"
+            formControlName="passwordRetype" 
             matInput 
             required
             type="password"
+            [errorStateMatcher]="errorMatcher"
           >
           <mat-error *ngIf="
-            !formCreateAccount.get('password').valid && 
-            formCreateAccount.get('password').value === '' &&
-            formCreateAccount.get('password').touched === true
+            !formCreateAccount.get('passwordRetype').valid && 
+            formCreateAccount.get('passwordRetype').value === '' &&
+            formCreateAccount.get('passwordRetype').touched === true
           ">*required</mat-error>
           <mat-error *ngIf="
-            !formCreateAccount.get('password').valid && 
-            formCreateAccount.get('password').value.length < 4 &&
-            formCreateAccount.get('password').touched === true
-          ">Password must be at least 4 characters long</mat-error>
+            formCreateAccount.hasError('noMatch')
+          ">Passwords do not match</mat-error>
         </mat-form-field>
         <br><br>
 
@@ -97,9 +96,8 @@
 
       </mat-card-content>
       
-      <!-- Login/Remember Me/Forgot Password Links & Buttons -->
+      <!-- Buttons -->
       <mat-card-actions>
-
         <button 
           class="button-login"
           color="primary"
