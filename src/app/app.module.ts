@@ -25,6 +25,7 @@ import { SisuComponent } from './sisu/sisu.component';
 
 // Services & Pipes
 import { ConsoleLogPipe } from './ng-pipes/console-log.pipe';
+import { CreateAccountComponent } from './create-account/create-account.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { ConsoleLogPipe } from './ng-pipes/console-log.pipe';
     LoginComponent,
     NavToolbarComponent,
     SisuComponent,
+    CreateAccountComponent,
   ],
   imports: [
     AppRoutingModule,
