@@ -21,8 +21,14 @@ function passwordsMatch(formGroup: FormGroup): ValidationErrors | null {
 // https://itnext.io/materror-cross-field-validators-in-angular-material-7-97053b2ed0cf
 class CrossFieldErrorMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | null): boolean {
-    return control.dirty && form.invalid;
+    console.log('--- control.parent.valid:', control.parent.valid);
+    console.log('--- passwordRetype control.valid:', control.valid);
+    return !!(control.parent.invalid && (control.dirty || control.touched));
   }
+  // isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+  //   const isSubmitted = form && form.submitted;
+  //   return !!(control && control.invalid && (control.dirty || control.touched || isSubmitted));
+  // }
 };
 
 @Component({

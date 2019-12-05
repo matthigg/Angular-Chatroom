@@ -74,7 +74,6 @@
               formCreateAccount.get('passwords.passwordRetype').value === '' &&
               formCreateAccount.get('passwords.passwordRetype').touched === true
             ">*required</mat-error>
-            {{ formCreateAccount.controls.passwords.hasError | consoleLog }}
             <mat-error *ngIf="
               formCreateAccount.controls.passwords.hasError('noMatch')
             ">Passwords do not match</mat-error>
