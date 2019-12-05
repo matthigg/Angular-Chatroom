@@ -10,8 +10,11 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { 
   MatButtonModule,
   MatCardModule,
+  MatCheckboxModule,
   MatFormFieldModule,
   MatInputModule,
+  MatSlideToggleModule,
+  MatTabsModule,
   MatToolbarModule 
 } from '@angular/material';
 
@@ -28,8 +31,11 @@ describe('AppComponent', () => {
         BrowserAnimationsModule,
         MatButtonModule,
         MatCardModule,
+        MatCheckboxModule,
         MatFormFieldModule,
         MatInputModule,
+        MatSlideToggleModule,
+        MatTabsModule,
         MatToolbarModule,
         ReactiveFormsModule,
         RouterTestingModule,

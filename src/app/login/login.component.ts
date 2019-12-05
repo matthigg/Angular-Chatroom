@@ -7,12 +7,12 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  loginForm = this.formBuilder.group(
-    {
-      username: ['', [Validators.required, Validators.minLength(4)]],
-      password: ['', [Validators.required, Validators.minLength(4)]],
-    },
-  );
+  checkboxRememberMe: boolean;
+  formLogin = this.formBuilder.group({
+    username: ['', [Validators.required, Validators.minLength(4)]],
+    password: ['', [Validators.required, Validators.minLength(4)]],
+    rememberMe: this.checkboxRememberMe,
+  });
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -20,7 +20,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('loginForm:', this.loginForm.value);
+    this.checkboxRememberMe = this.formLogin.get('rememberMe').value;
+    console.log('formLogin:', this.formLogin.value);
   }
 
 }

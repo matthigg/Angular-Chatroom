@@ -4,7 +4,7 @@
     <mat-card-title>Angular Chatroom</mat-card-title>
     <mat-card-subtitle>A Basic Chatroom App</mat-card-subtitle>
 
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="formx">
+    <form [formGroup]="formLogin" (ngSubmit)="onSubmit()" class="formx">
 
       <!-- Login Input Fields -->
       <mat-card-content>
@@ -17,14 +17,14 @@
             type="text"
           >
           <mat-error *ngIf="
-            !loginForm.get('username').valid && 
-            loginForm.get('username').value === '' &&
-            loginForm.get('username').touched === true
+            !formLogin.get('username').valid && 
+            formLogin.get('username').value === '' &&
+            formLogin.get('username').touched === true
           ">*required</mat-error>
           <mat-error *ngIf="
-            !loginForm.get('username').valid && 
-            loginForm.get('username').value.length < 4 &&
-            loginForm.get('username').touched === true
+            !formLogin.get('username').valid && 
+            formLogin.get('username').value.length < 4 &&
+            formLogin.get('username').touched === true
           ">Username must be at least 4 characters long</mat-error>
         </mat-form-field>
         <br><br>
@@ -37,36 +37,31 @@
             type="password"
           >
           <mat-error *ngIf="
-            !loginForm.get('password').valid && 
-            loginForm.get('password').value === '' &&
-            loginForm.get('password').touched === true
+            !formLogin.get('password').valid && 
+            formLogin.get('password').value === '' &&
+            formLogin.get('password').touched === true
           ">*required</mat-error>
           <mat-error *ngIf="
-            !loginForm.get('password').valid && 
-            loginForm.get('password').value.length < 4 &&
-            loginForm.get('password').touched === true
+            !formLogin.get('password').valid && 
+            formLogin.get('password').value.length < 4 &&
+            formLogin.get('password').touched === true
           ">Password must be at least 4 characters long</mat-error>
         </mat-form-field>
       </mat-card-content>
       
-      <!-- Login/Sign Up Buttons -->
-      <mat-card-actions class="buttons">
+      <!-- Login/Remember Me/Forgot Password Links & Buttons -->
+      <mat-card-actions>
+        <mat-checkbox 
+          class="checkbox-remember-me"
+          color="primary" 
+          formControlName="rememberMe"
+        >Remember Me</mat-checkbox>
         <button 
           class="button-login"
           color="primary"
           mat-raised-button 
-          [disabled]="!loginForm.valid"
-        >
-          Login
-        </button>
-        <button 
-          class="button-sign-up"
-          color="primary" 
-          mat-button 
-          type="button"
-        >
-          <a [routerLink]="['/sign-up']">Sign Up</a>
-        </button>
+          [disabled]="!formLogin.valid"
+        >Login</button>
       </mat-card-actions>
 
     </form>

@@ -9,8 +9,11 @@ import { NgModule } from '@angular/core';
 import { 
   MatButtonModule,
   MatCardModule,
+  MatCheckboxModule,
   MatFormFieldModule,
   MatInputModule,
+  MatSlideToggleModule,
+  MatTabsModule,
   MatToolbarModule,
 } from '@angular/material';
 
@@ -18,7 +21,7 @@ import {
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
+import { SisuComponent } from './sisu/sisu.component';
 
 // Services & Pipes
 import { ConsoleLogPipe } from './ng-pipes/console-log.pipe';
@@ -29,7 +32,7 @@ import { ConsoleLogPipe } from './ng-pipes/console-log.pipe';
     ConsoleLogPipe,
     LoginComponent,
     NavToolbarComponent,
-    SignUpComponent,
+    SisuComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -37,8 +40,11 @@ import { ConsoleLogPipe } from './ng-pipes/console-log.pipe';
     BrowserModule,
     MatButtonModule,
     MatCardModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     MatInputModule,
+    MatSlideToggleModule,
+    MatTabsModule,
     MatToolbarModule,
     ReactiveFormsModule,
   ],
