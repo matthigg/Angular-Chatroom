@@ -32,50 +32,56 @@
         </mat-form-field>
         <br><br>
 
-        <!-- Password -->
-        <mat-form-field>
-          <mat-label>Password</mat-label>
-          <input 
-            class="input-password"
-            formControlName="password" 
-            matInput 
-            required
-            type="password"
-          >
-          <mat-error *ngIf="
-            !formCreateAccount.get('password').valid && 
-            formCreateAccount.get('password').value === '' &&
-            formCreateAccount.get('password').touched === true
-          ">*required</mat-error>
-          <mat-error *ngIf="
-            !formCreateAccount.get('password').valid && 
-            formCreateAccount.get('password').value.length < 4 &&
-            formCreateAccount.get('password').touched === true
-          ">Password must be at least 4 characters long</mat-error>
-        </mat-form-field>
-        <br><br>
+        <!-- Passwords (FormGroup) -->
+        <div formGroupName="passwords">
 
-        <!-- Password Retype -->
-        <mat-form-field>
-          <mat-label>Password (again)</mat-label>
-          <input 
-            class="input-password-retype"
-            formControlName="passwordRetype" 
-            matInput 
-            required
-            type="password"
-            [errorStateMatcher]="errorMatcher"
-          >
-          <mat-error *ngIf="
-            !formCreateAccount.get('passwordRetype').valid && 
-            formCreateAccount.get('passwordRetype').value === '' &&
-            formCreateAccount.get('passwordRetype').touched === true
-          ">*required</mat-error>
-          <mat-error *ngIf="
-            formCreateAccount.hasError('noMatch')
-          ">Passwords do not match</mat-error>
-        </mat-form-field>
-        <br><br>
+          <!-- Password -->
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input 
+              class="input-password"
+              formControlName="password" 
+              matInput 
+              required
+              type="password"
+            >
+            <mat-error *ngIf="
+              !formCreateAccount.get('passwords.password').valid && 
+              formCreateAccount.get('passwords.password').value === '' &&
+              formCreateAccount.get('passwords.password').touched === true
+            ">*required</mat-error>
+            <mat-error *ngIf="
+              !formCreateAccount.get('passwords.password').valid && 
+              formCreateAccount.get('passwords.password').value.length < 4 &&
+              formCreateAccount.get('passwords.password').touched === true
+            ">Password must be at least 4 characters long</mat-error>
+          </mat-form-field>
+          <br><br>
+
+          <!-- Password Retype -->
+          <mat-form-field>
+            <mat-label>Password (again)</mat-label>
+            <input 
+              class="input-password-retype"
+              formControlName="passwordRetype" 
+              matInput 
+              required
+              type="password"
+              [errorStateMatcher]="errorMatcher"
+            >
+            <mat-error *ngIf="
+              !formCreateAccount.get('passwords.passwordRetype').valid && 
+              formCreateAccount.get('passwords.passwordRetype').value === '' &&
+              formCreateAccount.get('passwords.passwordRetype').touched === true
+            ">*required</mat-error>
+            {{ formCreateAccount.controls.passwords.hasError | consoleLog }}
+            <mat-error *ngIf="
+              formCreateAccount.controls.passwords.hasError('noMatch')
+            ">Passwords do not match</mat-error>
+          </mat-form-field>
+          <br><br>
+
+        </div>
 
         <!-- Email -->
         <mat-form-field>
