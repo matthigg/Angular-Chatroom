@@ -18,6 +18,7 @@ import {
 } from '@angular/material';
 
 // Components
+import { CreateAccountComponent } from '../create-account/create-account.component';
 import { LoginComponent } from '../login/login.component';
 import { SisuComponent } from './sisu.component';
 
@@ -28,6 +29,7 @@ describe('SisuComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ 
+        CreateAccountComponent,
         LoginComponent,
         SisuComponent,
       ],

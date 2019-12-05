@@ -3,17 +3,17 @@ div.grid-container {
   grid-auto-rows: minmax(15vh, auto);
   grid-gap: calc(1rem + 1vw);
   grid-template-areas:
-  "login";
+    "login";
   grid-template-columns: 1fr;
   padding: calc(1rem + 1vw);
   @media (min-width: 767px) {
     grid-template-areas:
-    ". login login login login login .";
+      ". login login login login login .";
     grid-template-columns: repeat(7, 1fr);
   }
   @media (min-width: 992px) {
     grid-template-areas:
-    ". . login login login . .";
+      ". . login login login . .";
     grid-template-columns: repeat(7, 1fr);
   }
 }

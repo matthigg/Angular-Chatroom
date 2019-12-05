@@ -8,20 +8,19 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   checkboxRememberMe: boolean;
-  formLogin = this.formBuilder.group({
+  formLogin = this.fb.group({
     username: ['', [Validators.required, Validators.minLength(4)]],
     password: ['', [Validators.required, Validators.minLength(4)]],
     rememberMe: this.checkboxRememberMe,
   });
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
     this.checkboxRememberMe = this.formLogin.get('rememberMe').value;
-    console.log('formLogin:', this.formLogin.value);
   }
 
 }

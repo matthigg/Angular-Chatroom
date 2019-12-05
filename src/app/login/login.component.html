@@ -1,19 +1,22 @@
 <div class="grid-container">
   <mat-card class="form-wrapper" role="form">
 
-    <mat-card-title>Angular Chatroom</mat-card-title>
+    <mat-card-title>Login</mat-card-title>
     <mat-card-subtitle>A Basic Chatroom App</mat-card-subtitle>
 
-    <form [formGroup]="formLogin" (ngSubmit)="onSubmit()" class="formx">
+    <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
 
       <!-- Login Input Fields -->
       <mat-card-content>
         <mat-form-field>
+
+          <!-- Username -->
           <mat-label>Username</mat-label>
           <input 
             class="input-username"
             formControlName="username" 
             matInput 
+            required
             type="text"
           >
           <mat-error *ngIf="
@@ -28,12 +31,15 @@
           ">Username must be at least 4 characters long</mat-error>
         </mat-form-field>
         <br><br>
+
+        <!-- Password -->
         <mat-form-field>
           <mat-label>Password</mat-label>
           <input 
             class="input-password"
             formControlName="password" 
             matInput 
+            required
             type="password"
           >
           <mat-error *ngIf="
