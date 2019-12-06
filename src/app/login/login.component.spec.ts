@@ -101,7 +101,7 @@ describe('LoginComponent', () => {
     expect(component.formLogin.value.rememberMe).toEqual(true);
   });
 
-  it(`should toggle password visibility when clicking the visibility icon`, () => {
+  it(`should toggle 'Password' visibility when clicking the visibility icon`, () => {
     buttonVisibility = fixture.debugElement.query(By.css('.button-password-visibility')).nativeElement;
     expect(inputPassword.type).toEqual('password');
     buttonVisibility.click();

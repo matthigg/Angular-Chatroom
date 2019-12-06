@@ -26,7 +26,7 @@ describe('CreateAccountComponent', () => {
   let inputPasswordRetype: HTMLInputElement;
   let inputEmail: HTMLInputElement;
   let buttonCreateAccount: HTMLButtonElement;
-  let testInput: HTMLInputElement;
+  let buttonVisibility: HTMLButtonElement;
   let controls: HTMLInputElement[];
 
   beforeEach(async(() => {
@@ -160,6 +160,20 @@ describe('CreateAccountComponent', () => {
     expect(component.formCreateAccount.value.passwords.password).toEqual('test@test');
     expect(component.formCreateAccount.value.passwords.passwordRetype).toEqual('test@test');
     expect(component.formCreateAccount.value.email).toEqual('test@test');
+  });
+
+  it(`should toggle 'Password' and 'Password Retype' visibility when clicking the visibility icon`, () => {
+    buttonVisibility = fixture.debugElement.query(By.css('.button-password-visibility')).nativeElement;
+    expect(inputPassword.type).toEqual('password');
+    expect(inputPasswordRetype.type).toEqual('password');
+    buttonVisibility.click();
+    fixture.detectChanges();
+    expect(inputPassword.type).toEqual('text');
+    expect(inputPasswordRetype.type).toEqual('text');
+    buttonVisibility.click();
+    fixture.detectChanges();
+    expect(inputPassword.type).toEqual('password');
+    expect(inputPasswordRetype.type).toEqual('password');
   });
 
 });
