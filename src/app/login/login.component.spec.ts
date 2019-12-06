@@ -57,21 +57,25 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should disable the 'Login' button if the Username input field is empty`, () => {
+  it(`should disable the 'Login' button if the 'Username' input field is empty`, () => {
     inputUsername.value = '';
     inputUsername.dispatchEvent(new Event('input'));
-    fixture.detectChanges();
-    expect(buttonLogin.disabled).toEqual(true);
-  });
-
-  it(`should disable the 'Login' button if the Password input field is empty`, () => {
-    inputPassword.value = '';
+    inputPassword.value = 'test';
     inputPassword.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     expect(buttonLogin.disabled).toEqual(true);
   });
 
-  it(`should enable the 'Login' button if the Username and Password input fields are not empty`, () => {
+  it(`should disable the 'Login' button if the 'Password' input field is empty`, () => {
+    inputPassword.value = '';
+    inputPassword.dispatchEvent(new Event('input'));
+    inputPassword.value = 'test';
+    inputPassword.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    expect(buttonLogin.disabled).toEqual(true);
+  });
+
+  it(`should enable the 'Login' button if the 'Username' and 'Password' input fields are not empty`, () => {
     inputUsername.value = 'test-user';
     inputUsername.dispatchEvent(new Event('input'));
     inputPassword.value = 'test-password';
@@ -80,7 +84,7 @@ describe('LoginComponent', () => {
     expect(buttonLogin.disabled).toEqual(false);
   });
 
-  it(`should capture the Username & Password on form submission`, () => {
+  it(`should capture the 'Username' & 'Password' on form submission`, () => {
     inputUsername.value = 'test-user';
     inputUsername.dispatchEvent(new Event('input'));
     inputPassword.value = 'test-password';
