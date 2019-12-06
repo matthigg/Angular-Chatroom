@@ -17,6 +17,7 @@ import {
   MatCardModule,
   MatCheckboxModule,
   MatFormFieldModule,
+  MatIconModule,
   MatInputModule,
   MatSlideToggleModule,
 } from '@angular/material';
@@ -38,6 +39,7 @@ describe('LoginComponent', () => {
         MatCardModule,
         MatCheckboxModule,
         MatFormFieldModule,
+        MatIconModule,
         MatInputModule,
         MatSlideToggleModule,
         ReactiveFormsModule,
