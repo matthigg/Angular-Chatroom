@@ -2,9 +2,9 @@
   <mat-card class="form-wrapper" role="form">
     <mat-card-title>Login</mat-card-title>
     <mat-card-subtitle>A Basic Chatroom App</mat-card-subtitle>
+    
+    <!-- Login Input Fields -->
     <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
-
-      <!-- Login Input Fields -->
       <mat-card-content>
         <mat-form-field>
 
@@ -36,6 +36,12 @@
             required
             type="password"
           >
+          <button class="button-password-visibility" matSuffix>
+            <mat-icon>visibility</mat-icon>
+          </button>
+          <button class="button-password-visibility-off" matSuffix>
+            <mat-icon>visibility_off</mat-icon>
+          </button>
           <mat-error *ngIf="formLogin.get('password').value === ''; else password4CharsError">
             *required
           </mat-error>

@@ -22,6 +22,11 @@ mat-card.form-wrapper {
   grid-area: login;
   & mat-form-field {
     width: 100%;
+    & .button-password-visibility,
+    & .button-password-visibility-off {
+      background-color: transparent;
+      border: none;
+    }
   }
   & mat-checkbox {
     display: block;
