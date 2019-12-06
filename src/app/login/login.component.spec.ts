@@ -28,6 +28,7 @@ describe('LoginComponent', () => {
   let inputUsername: HTMLInputElement;
   let inputPassword: HTMLInputElement;
   let buttonLogin: HTMLButtonElement;
+  let buttonVisibility: HTMLButtonElement;
   let checkboxRememberMe: HTMLInputElement;
 
   beforeEach(async(() => {
@@ -83,7 +84,7 @@ describe('LoginComponent', () => {
     inputPassword.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     expect(buttonLogin.disabled).toEqual(false);
-  })
+  });
 
   it(`should capture the Username & Password on form submission`, () => {
     inputUsername.value = 'test-user';
@@ -100,6 +101,17 @@ describe('LoginComponent', () => {
     checkboxRememberMe = fixture.debugElement.query(By.css('.checkbox-remember-me')).nativeElement;
     (checkboxRememberMe.firstElementChild as HTMLInputElement).click();
     expect(component.formLogin.value.rememberMe).toEqual(true);
-  })
+  });
+
+  it(`should toggle password visibility when clicking the visibility icon`, () => {
+    buttonVisibility = fixture.debugElement.query(By.css('.button-password-visibility')).nativeElement;
+    expect(inputPassword.type).toEqual('password');
+    buttonVisibility.click();
+    fixture.detectChanges();
+    expect(inputPassword.type).toEqual('text');
+    buttonVisibility.click();
+    fixture.detectChanges();
+    expect(inputPassword.type).toEqual('password');
+  });
 
 });
