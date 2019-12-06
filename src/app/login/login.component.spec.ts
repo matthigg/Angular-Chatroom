@@ -1,14 +1,10 @@
 // Testing
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
-
-// Components
-import { LoginComponent } from './login.component';
 
 // Angular Material Modules & HammerJS
 import 'hammerjs';
@@ -16,11 +12,12 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
-  MatFormFieldModule,
   MatIconModule,
   MatInputModule,
-  MatSlideToggleModule,
 } from '@angular/material';
+
+// Components
+import { LoginComponent } from './login.component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -39,12 +36,9 @@ describe('LoginComponent', () => {
         MatButtonModule,
         MatCardModule,
         MatCheckboxModule,
-        MatFormFieldModule,
         MatIconModule,
         MatInputModule,
-        MatSlideToggleModule,
         ReactiveFormsModule,
-        RouterTestingModule,
       ],
     })
     .compileComponents();
