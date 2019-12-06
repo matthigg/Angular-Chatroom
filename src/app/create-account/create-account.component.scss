@@ -21,6 +21,7 @@ div.grid-container {
 mat-card.form-wrapper {
   grid-area: accnt;
   & mat-form-field {
+    margin-bottom: calc(0.5rem + 0.5vw);
     width: 100%;
   }
 }
