@@ -38,6 +38,7 @@
           <button 
             class="button-password-visibility" 
             matSuffix 
+            type="button" 
             (click)="passwordIsVisible = !passwordIsVisible" 
           >
             <mat-icon>{{ passwordIsVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
@@ -61,7 +62,13 @@
           >
             Remember Me
           </mat-checkbox>
-          <button class="button-forgot-password" mat-button>Forgot Password?</button>
+          <button 
+            class="button-forgot-password" 
+            mat-button
+            type="button"
+          >
+            Forgot Password?
+          </button>
         </div>
         <button 
           class="button-login"

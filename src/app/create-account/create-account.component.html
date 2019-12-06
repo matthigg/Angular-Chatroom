@@ -36,8 +36,16 @@
               formControlName="password" 
               matInput 
               required
-              type="password"
+              [type]="passwordIsVisible ? 'text' : 'password'"
             >
+            <button 
+              class="button-password-visibility" 
+              matSuffix 
+              type="button" 
+              (click)="passwordIsVisible = !passwordIsVisible" 
+            >
+              <mat-icon>{{ passwordIsVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
+            </button>
             <mat-error *ngIf="formCreateAccount.get('passwords.password').value === ''; else password4CharError">
               *required
             </mat-error>

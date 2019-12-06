@@ -33,6 +33,8 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
 export class CreateAccountComponent implements OnInit {
   errorMatcher = new CrossFieldErrorMatcher();
   formCreateAccount: FormGroup;
+  passwordIsVisible: boolean = false;
+  passwordRetypeIsVisible: boolean = false;
 
   constructor(private fb: FormBuilder) { }
 
