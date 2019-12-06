@@ -66,7 +66,7 @@ describe('CreateAccountComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should disable the 'Create Account' button if the 'Username' input field is empty`, () => {
+  it(`should disable the 'Create Account' button if the 'Username' input control is empty`, () => {
     controls.forEach(control => {
       if (control === inputUsername) {
         control.value = '';
@@ -75,12 +75,12 @@ describe('CreateAccountComponent', () => {
         control.value = 'test@test';
         control.dispatchEvent(new Event('input'));
       }
-    })
+    });
     fixture.detectChanges();
     expect(buttonCreateAccount.disabled).toEqual(true);
   });
 
-  it(`should disable the 'Create Account' button if the 'Password' input field is empty`, () => {
+  it(`should disable the 'Create Account' button if the 'Password' input control is empty`, () => {
     controls.forEach(control => {
       if (control === inputPassword) {
         control.value = '';
@@ -89,12 +89,12 @@ describe('CreateAccountComponent', () => {
         control.value = 'test@test';
         control.dispatchEvent(new Event('input'));
       }
-    })
+    });
     fixture.detectChanges();
     expect(buttonCreateAccount.disabled).toEqual(true);
   });
 
-  it(`should disable the 'Create Account' button if the 'Password Retype' input field is empty`, () => {
+  it(`should disable the 'Create Account' button if the 'Password Retype' input control is empty`, () => {
     controls.forEach(control => {
       if (control === inputPasswordRetype) {
         control.value = '';
@@ -103,12 +103,12 @@ describe('CreateAccountComponent', () => {
         control.value = 'test@test';
         control.dispatchEvent(new Event('input'));
       }
-    })
+    });
     fixture.detectChanges();
     expect(buttonCreateAccount.disabled).toEqual(true);
   });
 
-  it(`should disable the 'Create Account' button if the 'Email' input field is empty`, () => {
+  it(`should disable the 'Create Account' button if the 'Email' input control is empty`, () => {
     controls.forEach(control => {
       if (control === inputEmail) {
         control.value = '';
@@ -117,9 +117,49 @@ describe('CreateAccountComponent', () => {
         control.value = 'test@test';
         control.dispatchEvent(new Event('input'));
       }
-    })
+    });
     fixture.detectChanges();
     expect(buttonCreateAccount.disabled).toEqual(true);
+  });
+
+  it(`should have an invalid 'passwords' form group if passwords don't match`, () => {
+    inputPassword.value = 'test-password';
+    inputPassword.dispatchEvent(new Event('input'));
+    inputPasswordRetype.value = 'test-password-retype';
+    inputPasswordRetype.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    expect(component.formCreateAccount.controls.passwords.valid).toEqual(false);
+  });
+
+  it(`should have a valid 'passwords' form group if passwords match`, () => {
+    inputPassword.value = 'test-password';
+    inputPassword.dispatchEvent(new Event('input'));
+    inputPasswordRetype.value = 'test-password';
+    inputPasswordRetype.dispatchEvent(new Event('input'));
+    fixture.detectChanges();
+    expect(component.formCreateAccount.controls.passwords.valid).toEqual(true);
+  });
+
+  it(`should enable the 'Create Account' button if all controls are valid`, () => {
+    controls.forEach(control => {
+      control.value = 'test@test';
+      control.dispatchEvent(new Event('input'));
+    });
+    fixture.detectChanges();
+    expect(buttonCreateAccount.disabled).toEqual(false);
+  });
+
+  it(`should capture all form control values if form is valid and user clicks the 'Create Account' button`, () => {
+    controls.forEach(control => {
+      control.value = 'test@test';
+      control.dispatchEvent(new Event('input'));
+    });
+    buttonCreateAccount.click();
+    fixture.detectChanges();
+    expect(component.formCreateAccount.value.username).toEqual('test@test');
+    expect(component.formCreateAccount.value.passwords.password).toEqual('test@test');
+    expect(component.formCreateAccount.value.passwords.passwordRetype).toEqual('test@test');
+    expect(component.formCreateAccount.value.email).toEqual('test@test');
   });
 
 });
