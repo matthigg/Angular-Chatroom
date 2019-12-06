@@ -62,9 +62,17 @@
               formControlName="passwordRetype" 
               matInput 
               required 
-              type="password" 
+              [type]="passwordRetypeIsVisible ? 'text' : 'password'" 
               [errorStateMatcher]="errorMatcher" 
             >
+            <button 
+              class="button-password-retype-visibility" 
+              matSuffix 
+              type="button"
+              (click)="passwordRetypeIsVisible = !passwordRetypeIsVisible" 
+            >
+              <mat-icon>{{ passwordRetypeIsVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
+            </button>
             <mat-error >
               <div *ngIf="formCreateAccount.get('passwords.passwordRetype').value === ''">
                 *required

@@ -24,7 +24,7 @@ mat-card.form-wrapper {
     margin-bottom: calc(0.5rem + 0.5vw);
     width: 100%;
     & .button-password-visibility,
-    & .button-password-visibility-off {
+    & .button-password-retype-visibility {
       background-color: transparent;
       border: none;
       outline: none;
