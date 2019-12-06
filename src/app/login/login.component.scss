@@ -26,6 +26,7 @@ mat-card.form-wrapper {
     & .button-password-visibility-off {
       background-color: transparent;
       border: none;
+      outline: none;
     }
   }
   & mat-checkbox {

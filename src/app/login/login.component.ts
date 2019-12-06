@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -8,15 +8,16 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
   checkboxRememberMe: boolean;
-  formLogin = this.fb.group({
-    username: ['', [Validators.required, Validators.minLength(4)]],
-    password: ['', [Validators.required, Validators.minLength(4)]],
-    rememberMe: this.checkboxRememberMe,
-  });
+  formLogin: FormGroup;
 
   constructor(private fb: FormBuilder) { }
 
   ngOnInit() {
+    this.formLogin = this.fb.group({
+      username: ['', [Validators.required, Validators.minLength(4)]],
+      password: ['', [Validators.required, Validators.minLength(4)]],
+      rememberMe: this.checkboxRememberMe,
+    });
   }
 
   onSubmit() {
