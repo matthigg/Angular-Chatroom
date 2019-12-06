@@ -48,7 +48,7 @@ export class CreateAccountComponent implements OnInit {
   }
 
   onSubmit() {
-    
+    console.log('formCreateAccount:', this.formCreateAccount);
   }
 
 }
