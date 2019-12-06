@@ -30,17 +30,18 @@
         <mat-form-field>
           <mat-label>Password</mat-label>
           <input 
-            class="input-password"
+            class="input-password" 
             formControlName="password" 
             matInput 
-            required
-            type="password"
+            required 
+            [type]="passwordIsVisible ? 'text' : 'password'" 
           >
-          <button class="button-password-visibility" matSuffix>
-            <mat-icon>visibility</mat-icon>
-          </button>
-          <button class="button-password-visibility-off" matSuffix>
-            <mat-icon>visibility_off</mat-icon>
+          <button 
+            class="button-password-visibility" 
+            matSuffix 
+            (click)="passwordIsVisible = !passwordIsVisible" 
+          >
+            <mat-icon>{{ passwordIsVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
           </button>
           <mat-error *ngIf="formLogin.get('password').value === ''; else password4CharsError">
             *required

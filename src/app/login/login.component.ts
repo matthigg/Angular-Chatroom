@@ -9,6 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   checkboxRememberMe: boolean;
   formLogin: FormGroup;
+  passwordIsVisible: boolean = false;
 
   constructor(private fb: FormBuilder) { }
 
