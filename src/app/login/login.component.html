@@ -1,9 +1,7 @@
 <div class="grid-container">
   <mat-card class="form-wrapper" role="form">
-
     <mat-card-title>Login</mat-card-title>
     <mat-card-subtitle>A Basic Chatroom App</mat-card-subtitle>
-
     <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
 
       <!-- Login Input Fields -->
@@ -19,16 +17,12 @@
             required
             type="text"
           >
-          <mat-error *ngIf="
-            !formLogin.get('username').valid && 
-            formLogin.get('username').value === '' &&
-            formLogin.get('username').touched === true
-          ">*required</mat-error>
-          <mat-error *ngIf="
-            !formLogin.get('username').valid && 
-            formLogin.get('username').value.length < 4 &&
-            formLogin.get('username').touched === true
-          ">Username must be at least 4 characters long</mat-error>
+          <mat-error *ngIf="formLogin.get('username').value === ''; else username4CharsError">
+            *required
+          </mat-error>
+          <ng-template #username4CharsError>
+            <mat-error>Username must be at least 4 characters long</mat-error>
+          </ng-template>
         </mat-form-field>
         <br><br>
 
@@ -42,16 +36,12 @@
             required
             type="password"
           >
-          <mat-error *ngIf="
-            !formLogin.get('password').valid && 
-            formLogin.get('password').value === '' &&
-            formLogin.get('password').touched === true
-          ">*required</mat-error>
-          <mat-error *ngIf="
-            !formLogin.get('password').valid && 
-            formLogin.get('password').value.length < 4 &&
-            formLogin.get('password').touched === true
-          ">Password must be at least 4 characters long</mat-error>
+          <mat-error *ngIf="formLogin.get('password').value === ''; else password4CharsError">
+            *required
+          </mat-error>
+          <ng-template #password4CharsError>
+            <mat-error>Password must be at least 4 characters long</mat-error>
+          </ng-template>
         </mat-form-field>
       </mat-card-content>
       
