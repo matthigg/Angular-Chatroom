@@ -54,17 +54,24 @@
       
       <!-- Login/Remember Me/Forgot Password Links & Buttons -->
       <mat-card-actions>
-        <mat-checkbox 
-          class="checkbox-remember-me"
-          color="primary" 
-          formControlName="rememberMe"
-        >Remember Me</mat-checkbox>
+        <div class="mat-card-actions-row-1">
+          <mat-checkbox 
+            class="checkbox-remember-me"
+            color="primary" 
+            formControlName="rememberMe"
+          >
+            Remember Me
+          </mat-checkbox>
+          <button class="button-forgot-password" mat-button>Forgot Password?</button>
+        </div>
         <button 
           class="button-login"
           color="primary"
           mat-raised-button 
           [disabled]="!formLogin.valid"
-        >Login</button>
+        >
+          Login
+        </button>
       </mat-card-actions>
 
     </form>

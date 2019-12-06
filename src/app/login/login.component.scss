@@ -32,14 +32,22 @@ mat-card.form-wrapper {
       }
     }
   }
-  & mat-checkbox {
-    display: block;
-    font-size: calc(0.75rem + 0.25vw);
-    margin-bottom: calc(1rem + 1vw);
-  }
   & mat-card-actions {
     & a {
       text-decoration: none;
+    }
+    & .mat-card-actions-row-1 {
+      align-items: center;
+      display: flex;
+      margin-bottom: calc(1rem + 1vw);
+      & .button-forgot-password {
+        font-size: calc(0.75rem + 0.25vw);
+        margin-left: auto;
+      }
+    }
+    & mat-checkbox {
+      display: block;
+      font-size: calc(0.75rem + 0.25vw);
     }
   }
 }
