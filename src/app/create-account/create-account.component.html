@@ -17,7 +17,7 @@
             required
             type="text"
           >
-          <mat-error *ngIf="formCreateAccount.get('username').value === ''; else username4CharsError">
+          <mat-error *ngIf="formCreateAccount.get('username').value === ('' || null); else username4CharsError">
             *required
           </mat-error>
           <ng-template #username4CharsError>
@@ -47,7 +47,7 @@
             >
               <mat-icon>{{ passwordIsVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
             </button>
-            <mat-error *ngIf="formCreateAccount.get('passwords.password').value === ''; else password4CharError">
+            <mat-error *ngIf="formCreateAccount.get('passwords.password').value === ('' || null); else password4CharError">
               *required
             </mat-error>
             <ng-template #password4CharError>
@@ -104,11 +104,19 @@
       <!-- Buttons -->
       <mat-card-actions>
         <button 
-          class="button-create-account"
-          color="primary"
+          class="button-create-account" 
+          color="primary" 
           mat-raised-button 
-          [disabled]="!formCreateAccount.valid"
+          type="submit" 
+          [disabled]="!formCreateAccount.valid" 
         >Create Account</button>
+        <button 
+          mat-button 
+          type="button"
+          (click)="test()"
+        >
+          Test
+        </button>
       </mat-card-actions>
 
     </form>

@@ -65,4 +65,8 @@ export class CreateAccountComponent implements OnInit {
     this.formCreateAccount.reset();
   }
 
+  test() {
+    console.log(this.formCreateAccount);
+  }
+
 }
