@@ -34,6 +34,7 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
   styleUrls: ['./create-account.component.scss']
 })
 export class CreateAccountComponent implements OnInit {
+  alreadyExists: boolean = false;
   errorMatcher = new CrossFieldErrorMatcher();
   formCreateAccount: FormGroup;
   passwordIsVisible: boolean = false;
@@ -60,13 +61,16 @@ export class CreateAccountComponent implements OnInit {
     const password = this.formCreateAccount.value.passwords.password;
     this.authService.signUp(email, password).subscribe(
       resData => { console.log(resData); },
-      error => { console.log(error); },
+      error => { 
+        if (error.error.error.message === 'EMAIL_EXISTS') {
+          this.alreadyExists = true;
+        }
+       },
     );
-    this.formCreateAccount.reset();
   }
 
-  test() {
-    console.log(this.formCreateAccount);
-  }
+  // test() {
+  //   console.log(this.alreadyExists);
+  // }
 
 }

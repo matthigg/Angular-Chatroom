@@ -33,4 +33,7 @@ mat-card.form-wrapper {
       }
     }
   }
+  & mat-card-footer mat-error {
+    padding: calc(0.5rem + 0.5vw);
+  }
 }

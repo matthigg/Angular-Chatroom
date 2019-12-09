@@ -67,11 +67,11 @@
               [errorStateMatcher]="errorMatcher" 
             >
             <mat-error >
-              <div *ngIf="formCreateAccount.get('passwords.passwordRetype').value === ''">
+              <div *ngIf="formCreateAccount.get('passwords.passwordRetype').value === ('' || null)">
                 *required
               </div>
               <div *ngIf="
-                formCreateAccount.get('passwords.passwordRetype').value !== '' &&
+                formCreateAccount.get('passwords.passwordRetype').value !== ('' && null) &&
                 formCreateAccount.controls.passwords.hasError('noMatch')
               ">
                 Passwords do not match
@@ -91,7 +91,7 @@
             required
             type="email"
           >
-          <mat-error *ngIf="formCreateAccount.get('email').value === ''; else emailValidError">
+          <mat-error *ngIf="formCreateAccount.get('email').value === ('' || null); else emailValidError">
             *required
           </mat-error>
           <ng-template #emailValidError>
@@ -110,14 +110,11 @@
           type="submit" 
           [disabled]="!formCreateAccount.valid" 
         >Create Account</button>
-        <button 
-          mat-button 
-          type="button"
-          (click)="test()"
-        >
-          Test
-        </button>
       </mat-card-actions>
+
+      <mat-card-footer>
+        <mat-error *ngIf="alreadyExists">Username and/or email is already registered</mat-error>
+      </mat-card-footer>
 
     </form>
   </mat-card>
