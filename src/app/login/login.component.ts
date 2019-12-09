@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.checkboxRememberMe = this.formLogin.get('rememberMe').value;
+    // https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]
   }
 
 }
