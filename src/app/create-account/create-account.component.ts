@@ -11,6 +11,9 @@ import {
 // Angular Material Modules
 import { ErrorStateMatcher } from '@angular/material';
 
+// Services
+import { AuthService } from '../auth.service';
+
 // Password Validator
 function passwordsMatch(formGroup: FormGroup): ValidationErrors | null {
   const passwordsMatch = formGroup.get('password').value === formGroup.get('passwordRetype').value;
@@ -35,13 +38,16 @@ export class CreateAccountComponent implements OnInit {
   formCreateAccount: FormGroup;
   passwordIsVisible: boolean = false;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit() {
     this.formCreateAccount = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(4)]],
+      username: ['', [Validators.required, Validators.minLength(6)]],
       passwords: this.fb.group({
-        password: ['', [Validators.required, Validators.minLength(4)]],
+        password: ['', [Validators.required, Validators.minLength(6)]],
         passwordRetype: ['', [Validators.required]],
       }, { validators: passwordsMatch }),
       email: ['', [Validators.required, Validators.email]],
@@ -49,7 +55,14 @@ export class CreateAccountComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log('formCreateAccount:', this.formCreateAccount);
+    if (!this.formCreateAccount.valid) { return }
+    const email = this.formCreateAccount.value.email;
+    const password = this.formCreateAccount.value.passwords.password;
+    this.authService.signUp(email, password).subscribe(
+      resData => { console.log(resData); },
+      error => { console.log(error); },
+    );
+    this.formCreateAccount.reset();
   }
 
 }

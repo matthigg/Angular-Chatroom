@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -23,7 +24,6 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.checkboxRememberMe = this.formLogin.get('rememberMe').value;
-    // https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=[API_KEY]
   }
 
 }
