@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 
 // Angular Material Modules
@@ -17,6 +18,9 @@ import {
 
 // Components
 import { CreateAccountComponent } from './create-account.component';
+
+// Services
+import { AuthService } from '../auth.service';
 
 describe('CreateAccountComponent', () => {
   let component: CreateAccountComponent;
@@ -33,13 +37,14 @@ describe('CreateAccountComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ CreateAccountComponent ],
       imports: [
-        BrowserAnimationsModule,
-        MatButtonModule,
-        MatCardModule,
-        MatCheckboxModule,
-        MatIconModule,
-        MatInputModule,
-        ReactiveFormsModule,
+        BrowserAnimationsModule, 
+        HttpClientTestingModule, 
+        MatButtonModule, 
+        MatCardModule, 
+        MatCheckboxModule, 
+        MatIconModule, 
+        MatInputModule, 
+        ReactiveFormsModule, 
       ]
     })
     .compileComponents();

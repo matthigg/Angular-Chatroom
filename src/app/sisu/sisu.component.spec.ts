@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 
 // Angular Material Modules & HammerJS
@@ -36,6 +37,7 @@ describe('SisuComponent', () => {
       ],
       imports: [
         BrowserAnimationsModule,
+        HttpClientTestingModule,
         MatButtonModule,
         MatCardModule,
         MatCheckboxModule,
