@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.formLogin = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(4)]],
-      password: ['', [Validators.required, Validators.minLength(4)]],
+      username: ['', [Validators.required, Validators.minLength(6)]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
       rememberMe: this.checkboxRememberMe,
     });
   }
