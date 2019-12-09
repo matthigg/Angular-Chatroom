@@ -69,8 +69,4 @@ export class CreateAccountComponent implements OnInit {
     );
   }
 
-  // test() {
-  //   console.log(this.alreadyExists);
-  // }
-
 }

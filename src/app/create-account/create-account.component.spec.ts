@@ -181,4 +181,8 @@ describe('CreateAccountComponent', () => {
     expect(inputPasswordRetype.type).toEqual('password');
   });
 
+  it(`should display an error message if email already exists`, () => {
+    
+  });
+
 });
