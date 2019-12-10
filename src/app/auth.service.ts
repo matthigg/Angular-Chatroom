@@ -52,13 +52,26 @@ export class AuthService {
 
   login(email: string, password: string) {
     const webAPIKey = 'AIzaSyAAC4JQbA0KOAL5RVMPyAIpp5XxWdnwRy8';
-    return this.http.post<AuthResponseData>(
-      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key' + webAPIKey,
-      {
-        email: email,
-        password: password,
-        returnSecureToken: true
-      }
-    )
+    return this.http
+      .post<AuthResponseData>(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + webAPIKey,
+        {
+          email: email,
+          password: password,
+          returnSecureToken: true
+        }
+      )
+      .pipe(catchError(errorResponse => {
+        let errorMessage = 'An unknown error occurred.';
+        if (!errorResponse.error || !errorResponse.error.error) {
+          return throwError(errorMessage);
+        }
+        switch (errorResponse.error.error.message) {
+          case 'INVALID_EMAIL':
+            errorMessage = 'Email is invalid.';
+            break;
+        }
+        return throwError(errorMessage);
+      }));
   }
 }

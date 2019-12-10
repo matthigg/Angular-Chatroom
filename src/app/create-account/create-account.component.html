@@ -3,6 +3,7 @@
     <mat-card-title>Create Account</mat-card-title>
     <mat-card-subtitle>A Basic Chatroom App</mat-card-subtitle>
 
+    <!-- Loading Spinner -->
     <mat-card-content class="loading-spinner-wrapper" *ngIf="isLoading">
       <app-loading-spinner></app-loading-spinner>
     </mat-card-content>
@@ -14,9 +15,9 @@
       *ngIf="!isLoading" 
     >
       <mat-card-content>
+        
+        <!-- Username -->
         <mat-form-field>
-
-          <!-- Username -->
           <mat-label>Username</mat-label>
           <input 
             class="input-username"

@@ -62,19 +62,20 @@ export class CreateAccountComponent implements OnInit {
     this.isLoading = true;
     const email = this.formCreateAccount.value.email;
     const password = this.formCreateAccount.value.passwords.password;
-    this.authService.createAccount(email, password).subscribe(
-      resData => { 
-        this.isLoading = false;
-        this.isError = false;
-        this.errorMessage = '';
-        // TODO: redirect to home page
-      },
-      errorMessage => { 
-        this.isLoading = false; 
-        this.isError = true; 
-        this.errorMessage = errorMessage; 
-      },
-    );
+    this.authService.createAccount(email, password)
+      .subscribe(
+        response => { 
+          this.isLoading = false;
+          this.isError = false;
+          this.errorMessage = '';
+          // TODO: redirect to home page
+        },
+        errorMessage => { 
+          this.isLoading = false; 
+          this.isError = true; 
+          this.errorMessage = errorMessage; 
+        },
+      );
   }
 
 }

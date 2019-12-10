@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+
+// RxJS
+import { Observable } from 'rxjs';
 
 // Services
 import { AuthService } from '../auth.service';
@@ -12,7 +14,10 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent implements OnInit {
   checkboxRememberMe: boolean;
+  errorMessage: string = '';
   formLogin: FormGroup;
+  isError: boolean = false;
+  isLoading: boolean = false;
   passwordIsVisible: boolean = false;
 
   constructor(
@@ -30,7 +35,21 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.checkboxRememberMe = this.formLogin.get('rememberMe').value;
-    this.authService.login(this.formLogin.value.username, this.formLogin.value.password)
+    const username = this.formLogin.value.username;
+    const password = this.formLogin.value.password;
+    this.authService.login(username, password)
+      .subscribe(
+        response => {
+          this.isError = false;
+          this.errorMessage = '';
+          console.log(response);
+        },
+        errorMessage => {
+          this.isError = true;
+          this.errorMessage = errorMessage;
+          console.log(errorMessage);
+        }
+      )
   }
 
 }
