@@ -70,38 +70,40 @@ describe('LoginComponent', () => {
   it(`should disable the 'Login' button if the 'Email' input field is empty`, () => {
     inputEmail.value = '';
     inputEmail.dispatchEvent(new Event('input'));
-    inputPassword.value = 'test';
+    inputPassword.value = 'test-password';
     inputPassword.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     expect(buttonLogin.disabled).toEqual(true);
   });
 
   it(`should disable the 'Login' button if the 'Password' input field is empty`, () => {
+    inputEmail.value = 'test@test';
+    inputEmail.dispatchEvent(new Event('input'));
     inputPassword.value = '';
-    inputPassword.dispatchEvent(new Event('input'));
-    inputPassword.value = 'test';
     inputPassword.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     expect(buttonLogin.disabled).toEqual(true);
   });
 
-  it(`should enable the 'Login' button if the 'Username' and 'Password' input fields are not empty`, () => {
-    inputEmail.value = 'test-email';
+  it(`should enable the 'Login' button if the 'Email' and 'Password' input fields are not empty`, () => {
+    inputEmail.value = 'test@test';
     inputEmail.dispatchEvent(new Event('input'));
     inputPassword.value = 'test-password';
     inputPassword.dispatchEvent(new Event('input'));
     fixture.detectChanges();
+    console.log(inputEmail.value, inputPassword.value, buttonLogin)
+    console.log(fixture.debugElement.query(By.css('.button-login')))
     expect(buttonLogin.disabled).toEqual(false);
   });
 
   it(`should capture the 'Email' & 'Password' on form submission`, () => {
-    inputEmail.value = 'test-email';
+    inputEmail.value = 'test@test';
     inputEmail.dispatchEvent(new Event('input'));
     inputPassword.value = 'test-password';
     inputPassword.dispatchEvent(new Event('input'));
     buttonLogin.click();
     fixture.detectChanges();
-    expect(component.formLogin.value.email).toEqual('test-email');
+    expect(component.formLogin.value.email).toEqual('test@test');
     expect(component.formLogin.value.password).toEqual('test-password');
   });
   
