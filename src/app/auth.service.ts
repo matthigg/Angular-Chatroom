@@ -21,7 +21,11 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  signUp(email: string, password: string) {
+  login(email: string, password: string) {
+
+  }
+
+  createAccount(email: string, password: string) {
     const webAPIKey = 'AIzaSyAAC4JQbA0KOAL5RVMPyAIpp5XxWdnwRy8';
     return this.http
       .post<AuthResponseData>(
