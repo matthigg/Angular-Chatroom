@@ -61,17 +61,18 @@ export class CreateAccountComponent implements OnInit {
     this.isLoading = true;
     const email = this.formCreateAccount.value.email;
     const password = this.formCreateAccount.value.passwords.password;
-    // this.authService.signUp(email, password).subscribe(
-    //   resData => { 
-    //     this.isLoading = false;
-    //   },
-    //   error => { 
-    //     this.isLoading = false;
-    //     if (error.error.error.message === 'EMAIL_EXISTS') {
-    //       this.alreadyExists = true;
-    //     }
-    //    },
-    // );
+    this.authService.signUp(email, password).subscribe(
+      resData => { 
+        this.isLoading = false;
+        // redirect to home page
+      },
+      error => { 
+        this.isLoading = false;
+        if (error.error.error.message === 'EMAIL_EXISTS') {
+          this.alreadyExists = true;
+        }
+       },
+    );
   }
 
 }

@@ -21,6 +21,7 @@ import {
 
 // Components
 import { CreateAccountComponent } from '../create-account/create-account.component';
+import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
 import { LoginComponent } from '../login/login.component';
 import { SisuComponent } from './sisu.component';
 
@@ -32,6 +33,7 @@ describe('SisuComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ 
         CreateAccountComponent,
+        LoadingSpinnerComponent,
         LoginComponent,
         SisuComponent,
       ],

@@ -18,6 +18,7 @@ import {
 
 // Components
 import { CreateAccountComponent } from './create-account.component';
+import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
 
 // Services
 import { AuthService } from '../auth.service';
@@ -35,7 +36,10 @@ describe('CreateAccountComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateAccountComponent ],
+      declarations: [ 
+        CreateAccountComponent,
+        LoadingSpinnerComponent,
+      ],
       imports: [
         BrowserAnimationsModule, 
         HttpClientTestingModule, 
