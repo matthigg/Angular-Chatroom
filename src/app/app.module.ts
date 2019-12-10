@@ -28,6 +28,7 @@ import { SisuComponent } from './sisu/sisu.component';
 // Services & Pipes
 import { ConsoleLogPipe } from './shared/console-log.pipe';
 import { CreateAccountComponent } from './create-account/create-account.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { CreateAccountComponent } from './create-account/create-account.componen
     NavToolbarComponent,
     SisuComponent,
     CreateAccountComponent,
+    LoadingSpinnerComponent,
   ],
   imports: [
     AppRoutingModule,
