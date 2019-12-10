@@ -34,10 +34,10 @@ class CrossFieldErrorMatcher implements ErrorStateMatcher {
   styleUrls: ['./create-account.component.scss']
 })
 export class CreateAccountComponent implements OnInit {
-  errorEmailExists: boolean = false;
-  errorInvalidEmail: boolean = false;
   errorMatcher = new CrossFieldErrorMatcher();
+  errorMessage: string = '';
   formCreateAccount: FormGroup;
+  isError: boolean = false;
   isLoading: boolean = false;
   passwordIsVisible: boolean = false;
 
@@ -67,13 +67,10 @@ export class CreateAccountComponent implements OnInit {
         this.isLoading = false;
         // TODO: redirect to home page
       },
-      error => { 
+      errorMessage => { 
         this.isLoading = false;
-        this.errorEmailExists = false;
-        this.errorInvalidEmail = false;
-        const errorMessage = error.error.error.message;
-        if (errorMessage === 'EMAIL_EXISTS') this.errorEmailExists = true
-        if (errorMessage === 'INVALID_EMAIL') this.errorInvalidEmail = true
+        this.isError = true;
+        this.errorMessage = errorMessage;
        },
     );
   }
