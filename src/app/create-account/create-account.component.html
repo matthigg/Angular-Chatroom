@@ -3,8 +3,16 @@
     <mat-card-title>Create Account</mat-card-title>
     <mat-card-subtitle>A Basic Chatroom App</mat-card-subtitle>
 
+    <mat-card-content class="loading-spinner-wrapper" *ngIf="isLoading">
+      <app-loading-spinner></app-loading-spinner>
+    </mat-card-content>
+
     <!-- Create Account Input Fields -->
-    <form [formGroup]="formCreateAccount" (ngSubmit)="onSubmit()">
+    <form 
+      [formGroup]="formCreateAccount" 
+      (ngSubmit)="onSubmit()" 
+      *ngIf="!isLoading" 
+    >
       <mat-card-content>
         <mat-form-field>
 

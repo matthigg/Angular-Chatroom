@@ -1,3 +1,8 @@
+.loading-spinner-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
 div.grid-container {
   display: grid;
   grid-auto-rows: minmax(15vh auto);

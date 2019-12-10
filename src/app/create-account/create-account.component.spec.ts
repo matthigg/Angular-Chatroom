@@ -52,6 +52,7 @@ describe('CreateAccountComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateAccountComponent);
+    fixture.detectChanges();
     component = fixture.componentInstance;
     inputUsername = fixture.debugElement.query(By.css('.input-username')).nativeElement;
     inputPassword = fixture.debugElement.query(By.css('.input-password')).nativeElement;
@@ -64,7 +65,6 @@ describe('CreateAccountComponent', () => {
       inputPasswordRetype,
       inputEmail
     ];
-    fixture.detectChanges();
   });
 
   it('should create', () => {

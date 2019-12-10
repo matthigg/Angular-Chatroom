@@ -37,6 +37,7 @@ export class CreateAccountComponent implements OnInit {
   alreadyExists: boolean = false;
   errorMatcher = new CrossFieldErrorMatcher();
   formCreateAccount: FormGroup;
+  isLoading: boolean = false;
   passwordIsVisible: boolean = false;
 
   constructor(
@@ -52,21 +53,25 @@ export class CreateAccountComponent implements OnInit {
         passwordRetype: ['', [Validators.required]],
       }, { validators: passwordsMatch }),
       email: ['', [Validators.required, Validators.email]],
-    })
+    });
   }
 
   onSubmit() {
     if (!this.formCreateAccount.valid) { return }
+    this.isLoading = true;
     const email = this.formCreateAccount.value.email;
     const password = this.formCreateAccount.value.passwords.password;
-    this.authService.signUp(email, password).subscribe(
-      resData => { console.log(resData); },
-      error => { 
-        if (error.error.error.message === 'EMAIL_EXISTS') {
-          this.alreadyExists = true;
-        }
-       },
-    );
+    // this.authService.signUp(email, password).subscribe(
+    //   resData => { 
+    //     this.isLoading = false;
+    //   },
+    //   error => { 
+    //     this.isLoading = false;
+    //     if (error.error.error.message === 'EMAIL_EXISTS') {
+    //       this.alreadyExists = true;
+    //     }
+    //    },
+    // );
   }
 
 }
