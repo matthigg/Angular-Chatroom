@@ -6,6 +6,7 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 // Angular Material Modules
 import {
@@ -49,6 +50,7 @@ describe('CreateAccountComponent', () => {
         MatIconModule, 
         MatInputModule, 
         ReactiveFormsModule, 
+        RouterTestingModule,
       ]
     })
     .compileComponents();
