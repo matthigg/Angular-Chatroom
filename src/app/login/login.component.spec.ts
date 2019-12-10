@@ -1,6 +1,7 @@
 // Testing
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -19,20 +20,24 @@ import {
 // Components
 import { LoginComponent } from './login.component';
 
+// Services
+import { AuthService } from '../auth.service';
+
 describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
-  let inputUsername: HTMLInputElement;
-  let inputPassword: HTMLInputElement;
   let buttonLogin: HTMLButtonElement;
   let buttonVisibility: HTMLButtonElement;
   let checkboxRememberMe: HTMLInputElement;
+  let component: LoginComponent;
+  let fixture: ComponentFixture<LoginComponent>;
+  let inputPassword: HTMLInputElement;
+  let inputUsername: HTMLInputElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ LoginComponent ],
       imports: [ 
         BrowserAnimationsModule,
+        HttpClientTestingModule,
         MatButtonModule,
         MatCardModule,
         MatCheckboxModule,
@@ -40,6 +45,7 @@ describe('LoginComponent', () => {
         MatInputModule,
         ReactiveFormsModule,
       ],
+      providers: [ AuthService ]
     })
     .compileComponents();
   }));

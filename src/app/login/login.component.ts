@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
+// Services
+import { AuthService } from '../auth.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,7 +15,10 @@ export class LoginComponent implements OnInit {
   formLogin: FormGroup;
   passwordIsVisible: boolean = false;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder
+  ) { }
 
   ngOnInit() {
     this.formLogin = this.fb.group({
@@ -24,6 +30,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.checkboxRememberMe = this.formLogin.get('rememberMe').value;
+    this.authService.login(this.formLogin.value.username, this.formLogin.value.password)
   }
 
 }

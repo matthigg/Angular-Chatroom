@@ -11,7 +11,8 @@ interface AuthResponseData {
   email: string,
   refreshToken: string,
   expiresIn: string,
-  localId: string
+  localId: string,
+  registered?: boolean
 }
 
 @Injectable({
@@ -20,10 +21,6 @@ interface AuthResponseData {
 export class AuthService {
 
   constructor(private http: HttpClient) { }
-
-  login(email: string, password: string) {
-
-  }
 
   createAccount(email: string, password: string) {
     const webAPIKey = 'AIzaSyAAC4JQbA0KOAL5RVMPyAIpp5XxWdnwRy8';
@@ -51,5 +48,17 @@ export class AuthService {
         }
         return throwError(errorMessage);
       }));
+    }
+
+  login(email: string, password: string) {
+    const webAPIKey = 'AIzaSyAAC4JQbA0KOAL5RVMPyAIpp5XxWdnwRy8';
+    return this.http.post<AuthResponseData>(
+      'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key' + webAPIKey,
+      {
+        email: email,
+        password: password,
+        returnSecureToken: true
+      }
+    )
   }
 }
