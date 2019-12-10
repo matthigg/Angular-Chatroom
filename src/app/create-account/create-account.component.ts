@@ -7,6 +7,7 @@ import {
   ValidationErrors,
   Validators 
 } from '@angular/forms';
+import { Router } from '@angular/router';
 
 // Angular Material Modules
 import { ErrorStateMatcher } from '@angular/material';
@@ -43,7 +44,8 @@ export class CreateAccountComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -68,7 +70,7 @@ export class CreateAccountComponent implements OnInit {
           this.isLoading = false;
           this.isError = false;
           this.errorMessage = '';
-          // TODO: redirect to home page
+          this.router.navigate(['/home']);
         },
         errorMessage => { 
           this.isLoading = false; 
