@@ -12,21 +12,21 @@
     <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">
       <mat-card-content>
         
-        <!-- Username -->
+        <!-- Email -->
         <mat-form-field>
-          <mat-label>Username</mat-label>
+          <mat-label>Email</mat-label>
           <input 
-            class="input-username"
-            formControlName="username" 
+            class="input-email"
+            formControlName="email" 
             matInput 
             required
-            type="text"
+            type="email"
           >
-          <mat-error *ngIf="formLogin.get('username').value === ''; else username4CharsError">
+          <mat-error *ngIf="formLogin.get('email').value === ''; else email6CharsError">
             *required
           </mat-error>
-          <ng-template #username4CharsError>
-            <mat-error>Username must be at least 6 characters long</mat-error>
+          <ng-template #email6CharsError>
+            <mat-error>Email must be at least 6 characters long</mat-error>
           </ng-template>
         </mat-form-field>
 

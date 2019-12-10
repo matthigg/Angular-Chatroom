@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.formLogin = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(6)]],
+      email: ['', [Validators.required, Validators.minLength(6)]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       rememberMe: this.checkboxRememberMe,
     });
@@ -34,9 +34,9 @@ export class LoginComponent implements OnInit {
     if (!this.formLogin.valid) { return }
     this.checkboxRememberMe = this.formLogin.get('rememberMe').value;
     this.isLoading = true;
-    const username = this.formLogin.value.username;
+    const email = this.formLogin.value.email;
     const password = this.formLogin.value.password;
-    this.authService.login(username, password)
+    this.authService.login(email, password)
       .subscribe(
         response => {
           this.isLoading = false;

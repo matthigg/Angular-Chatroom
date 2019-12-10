@@ -26,10 +26,10 @@
             required
             type="text"
           >
-          <mat-error *ngIf="formCreateAccount.get('username').value === ''; else username4CharsError">
+          <mat-error *ngIf="formCreateAccount.get('username').value === ''; else username6CharsError">
             *required
           </mat-error>
-          <ng-template #username4CharsError>
+          <ng-template #username6CharsError>
             <mat-error>Username must be at least 6 characters long</mat-error>
           </ng-template>
         </mat-form-field>
@@ -56,10 +56,10 @@
             >
               <mat-icon>{{ passwordIsVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
             </button>
-            <mat-error *ngIf="formCreateAccount.get('passwords.password').value === ''; else password4CharError">
+            <mat-error *ngIf="formCreateAccount.get('passwords.password').value === ''; else password6CharError">
               *required
             </mat-error>
-            <ng-template #password4CharError>
+            <ng-template #password6CharError>
               <mat-error>Password must be at least 6 characters long</mat-error>
             </ng-template>
           </mat-form-field>

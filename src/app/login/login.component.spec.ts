@@ -31,7 +31,7 @@ describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let inputPassword: HTMLInputElement;
-  let inputUsername: HTMLInputElement;
+  let inputEmail: HTMLInputElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -58,7 +58,7 @@ describe('LoginComponent', () => {
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
     inputPassword = fixture.debugElement.query(By.css('.input-password')).nativeElement;
-    inputUsername = fixture.debugElement.query(By.css('.input-username')).nativeElement;
+    inputEmail = fixture.debugElement.query(By.css('.input-email')).nativeElement;
     buttonLogin = fixture.debugElement.query(By.css('.button-login')).nativeElement;
     fixture.detectChanges();
   });
@@ -67,9 +67,9 @@ describe('LoginComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should disable the 'Login' button if the 'Username' input field is empty`, () => {
-    inputUsername.value = '';
-    inputUsername.dispatchEvent(new Event('input'));
+  it(`should disable the 'Login' button if the 'Email' input field is empty`, () => {
+    inputEmail.value = '';
+    inputEmail.dispatchEvent(new Event('input'));
     inputPassword.value = 'test';
     inputPassword.dispatchEvent(new Event('input'));
     fixture.detectChanges();
@@ -86,22 +86,22 @@ describe('LoginComponent', () => {
   });
 
   it(`should enable the 'Login' button if the 'Username' and 'Password' input fields are not empty`, () => {
-    inputUsername.value = 'test-user';
-    inputUsername.dispatchEvent(new Event('input'));
+    inputEmail.value = 'test-email';
+    inputEmail.dispatchEvent(new Event('input'));
     inputPassword.value = 'test-password';
     inputPassword.dispatchEvent(new Event('input'));
     fixture.detectChanges();
     expect(buttonLogin.disabled).toEqual(false);
   });
 
-  it(`should capture the 'Username' & 'Password' on form submission`, () => {
-    inputUsername.value = 'test-user';
-    inputUsername.dispatchEvent(new Event('input'));
+  it(`should capture the 'Email' & 'Password' on form submission`, () => {
+    inputEmail.value = 'test-email';
+    inputEmail.dispatchEvent(new Event('input'));
     inputPassword.value = 'test-password';
     inputPassword.dispatchEvent(new Event('input'));
     buttonLogin.click();
     fixture.detectChanges();
-    expect(component.formLogin.value.username).toEqual('test-user');
+    expect(component.formLogin.value.email).toEqual('test-email');
     expect(component.formLogin.value.password).toEqual('test-password');
   });
   

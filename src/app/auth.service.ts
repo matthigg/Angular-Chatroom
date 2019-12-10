@@ -62,6 +62,7 @@ export class AuthService {
         }
       )
       .pipe(catchError(errorResponse => {
+        console.log('--- errorResponse:', errorResponse);
         let errorMessage = 'An unknown error occurred.';
         if (!errorResponse.error || !errorResponse.error.error) {
           return throwError(errorMessage);
@@ -69,6 +70,9 @@ export class AuthService {
         switch (errorResponse.error.error.message) {
           case 'INVALID_EMAIL':
             errorMessage = 'Email is invalid.';
+            break;
+          case 'INVALID_PASSWORD':
+            errorMessage = 'Password is invalid.';
             break;
         }
         return throwError(errorMessage);
