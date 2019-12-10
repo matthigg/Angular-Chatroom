@@ -120,8 +120,10 @@
         >Create Account</button>
       </mat-card-actions>
 
+      <!-- Error Message -->
       <mat-card-footer>
-        <mat-error *ngIf="alreadyExists">Username and/or email is already registered</mat-error>
+        <mat-error *ngIf="errorEmailExists">Username and/or email is already registered</mat-error>
+        <mat-error *ngIf="errorInvalidEmail">Email is invalid</mat-error>
       </mat-card-footer>
 
     </form>
