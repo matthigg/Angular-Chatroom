@@ -68,6 +68,9 @@ export class AuthService {
           return throwError(errorMessage);
         }
         switch (errorResponse.error.error.message) {
+          case 'EMAIL_NOT_FOUND':
+            errorMessage = 'Email not found.';
+            break;
           case 'INVALID_EMAIL':
             errorMessage = 'Email is invalid.';
             break;

@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.formLogin = this.fb.group({
-      email: ['', [Validators.required, Validators.minLength(6)]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       rememberMe: this.checkboxRememberMe,
     });
@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
           this.isLoading = false;
           this.isError = false;
           this.errorMessage = '';
-          console.log(response);
+          // console.log(response);
         },
         errorMessage => {
           this.isLoading = false;
