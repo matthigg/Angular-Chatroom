@@ -1,11 +1,12 @@
 // Testing
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 // Angular Material Modules & HammerJS
 import 'hammerjs';
@@ -48,6 +49,7 @@ describe('LoginComponent', () => {
         MatIconModule,
         MatInputModule,
         ReactiveFormsModule,
+        RouterTestingModule,
       ],
       providers: [ AuthService ]
     })
@@ -91,8 +93,6 @@ describe('LoginComponent', () => {
     inputPassword.value = 'test-password';
     inputPassword.dispatchEvent(new Event('input'));
     fixture.detectChanges();
-    console.log(inputEmail.value, inputPassword.value, buttonLogin)
-    console.log(fixture.debugElement.query(By.css('.button-login')))
     expect(buttonLogin.disabled).toEqual(false);
   });
 
