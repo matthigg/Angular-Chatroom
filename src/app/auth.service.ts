@@ -40,6 +40,9 @@ export class AuthService {
       case 'INVALID_PASSWORD':
         errorMessage = 'Password is invalid.';
         break;
+      case 'USER_DISABLED':
+        errorMessage = 'This account has been disabled by an administrator.'
+        break;
     }
     return throwError(errorMessage);
   }
