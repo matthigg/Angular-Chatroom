@@ -18,6 +18,7 @@ import {
 } from '@angular/material';
 
 // Components
+import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
 import { LoginComponent } from './login.component';
 
 // Services
@@ -34,7 +35,10 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LoginComponent ],
+      declarations: [ 
+        LoadingSpinnerComponent,
+        LoginComponent,
+      ],
       imports: [ 
         BrowserAnimationsModule,
         HttpClientTestingModule,
