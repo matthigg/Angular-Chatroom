@@ -2,8 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 // RxJS
-import { catchError } from 'rxjs/operators';
-import { throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
+import { Subject, throwError } from 'rxjs';
+
+// Models
+import { User } from './shared/user.model';
 
 interface AuthResponseData {
   kind: string,
@@ -19,8 +22,25 @@ interface AuthResponseData {
   providedIn: 'root'
 })
 export class AuthService {
+  user = new Subject<User>();
 
   constructor(private http: HttpClient) { }
+
+  private handleAuthentication(
+    email: string, 
+    userId: string, 
+    token: string, 
+    expiresIn: number
+  ) {
+    const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+    const user = new User(
+      email, 
+      userId,
+      token,
+      expirationDate
+    );
+    this.user.next(user); // this is the key line used to login users
+  }
 
   private handleError(errorResponse) {
     let errorMessage = 'An unknown error occurred.';
@@ -58,8 +78,18 @@ export class AuthService {
           returnSecureToken: true
         }
       )
-      .pipe(catchError(this.handleError));
-    }
+      .pipe(
+        catchError(this.handleError), 
+        tap(response => {
+          this.handleAuthentication(
+            response.email,
+            response.localId,
+            response.idToken,
+            +response.expiresIn,
+          );
+        })
+      );
+  }
 
   login(email: string, password: string) {
     const webAPIKey = 'AIzaSyAAC4JQbA0KOAL5RVMPyAIpp5XxWdnwRy8';
@@ -72,6 +102,16 @@ export class AuthService {
           returnSecureToken: true
         }
       )
-      .pipe(catchError(this.handleError));
+      .pipe(
+        catchError(this.handleError),
+        tap(response => {
+          this.handleAuthentication(
+            response.email,
+            response.localId,
+            response.idToken,
+            +response.expiresIn,
+          );
+        })
+      );
   }
 }
