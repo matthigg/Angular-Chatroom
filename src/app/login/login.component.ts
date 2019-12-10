@@ -1,5 +1,7 @@
+// @Angular
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 // Services
 import { AuthService } from '../auth.service';
@@ -19,7 +21,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -42,6 +45,7 @@ export class LoginComponent implements OnInit {
           this.isLoading = false;
           this.isError = false;
           this.errorMessage = '';
+          this.router.navigate(['/']);
         },
         errorMessage => {
           this.isLoading = false;

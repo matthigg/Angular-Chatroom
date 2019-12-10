@@ -1,3 +1,4 @@
+// @Angular
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -5,9 +6,8 @@ import { Injectable } from '@angular/core';
 import { catchError, tap } from 'rxjs/operators';
 import { Subject, throwError } from 'rxjs';
 
-// Models
+// Models, Interfaces
 import { User } from './shared/user.model';
-
 interface AuthResponseData {
   kind: string,
   idToken: string,
@@ -26,6 +26,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  // Handle user authentication
   private handleAuthentication(
     email: string, 
     userId: string, 
@@ -42,6 +43,7 @@ export class AuthService {
     this.user.next(user); // this is the key line used to login users
   }
 
+  // Handle login and authentication errors
   private handleError(errorResponse) {
     let errorMessage = 'An unknown error occurred.';
     if (!errorResponse.error || !errorResponse.error.error) {
@@ -67,6 +69,7 @@ export class AuthService {
     return throwError(errorMessage);
   }
 
+  // Create a new account
   createAccount(email: string, password: string) {
     const webAPIKey = 'AIzaSyAAC4JQbA0KOAL5RVMPyAIpp5XxWdnwRy8';
     return this.http
@@ -91,6 +94,7 @@ export class AuthService {
       );
   }
 
+  // Log in to an existing account
   login(email: string, password: string) {
     const webAPIKey = 'AIzaSyAAC4JQbA0KOAL5RVMPyAIpp5XxWdnwRy8';
     return this.http
