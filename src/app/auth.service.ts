@@ -30,7 +30,12 @@ export class AuthService {
   ) { }
 
   // Handle user authentication
-  private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
+  private handleAuthentication(
+    email: string, 
+    userId: string, 
+    token: string, 
+    expiresIn: number
+  ) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(
       email, 
@@ -38,7 +43,10 @@ export class AuthService {
       token,
       expirationDate
     );
-    this.user.next(user); // this is the important line used to login users
+
+    // Log in a user & store their information in localStorage
+    this.user.next(user);
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 
   // Handle login and authentication errors
@@ -65,6 +73,31 @@ export class AuthService {
         break;
     }
     return throwError(errorMessage);
+  }
+
+  // Automatically log in user if user data exists in localStorage
+  autoLogin() {
+    const userData: {
+      email: string,
+      id: string,
+      _token: string,
+      _tokenExpirationDate: Date
+    } = JSON.parse(localStorage.getItem('userData'));
+    if (!userData) { return; }
+
+    // Reconstruct the user so that it has access to the token() getter
+    const loadedUser = new User(
+      userData.email, 
+      userData.id, 
+      userData._token, 
+      new Date(userData._tokenExpirationDate
+    ));
+
+    // Check that user token exists and has not expired, and if so then log in
+    // the user
+    if (loadedUser.token) {
+      this.user.next(loadedUser);
+    }
   }
 
   // Create a new account
