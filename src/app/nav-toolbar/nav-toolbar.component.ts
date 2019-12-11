@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 
 // RxJS
 import { Subscription } from 'rxjs';
@@ -16,10 +15,7 @@ export class NavToolbarComponent implements OnDestroy, OnInit {
   private userSubscription: Subscription;
   isAuthenticated: boolean = false;
 
-  constructor(
-    private authService: AuthService,
-    private router: Router
-  ) { }
+  constructor(private authService: AuthService) { }
 
   ngOnDestroy() {
     this.userSubscription.unsubscribe();
@@ -33,8 +29,8 @@ export class NavToolbarComponent implements OnDestroy, OnInit {
       )
   }
 
-  test() {
+  onLogout() {
+    this.authService.logout();
     this.isAuthenticated = false;
-    this.router.navigate(['/']);
   }
 }

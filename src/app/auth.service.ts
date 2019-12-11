@@ -1,6 +1,6 @@
-// @Angular
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 // RxJS
 import { catchError, tap } from 'rxjs/operators';
@@ -24,7 +24,10 @@ interface AuthResponseData {
 export class AuthService {
   user = new BehaviorSubject<User>(null);
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) { }
 
   // Handle user authentication
   private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
@@ -112,5 +115,10 @@ export class AuthService {
           );
         })
       );
+  }
+
+  logout() {
+    this.user.next(null);
+    this.router.navigate(['/']);
   }
 }

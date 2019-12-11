@@ -4,7 +4,6 @@ import { By } from '@angular/platform-browser';
 
 // Modules
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 
 // Angular Material Modules
 import { MatToolbarModule } from '@angular/material';
@@ -21,7 +20,6 @@ describe('NavToolbarComponent', () => {
       declarations: [ NavToolbarComponent ],
       imports: [ 
         HttpClientTestingModule,
-        RouterTestingModule,
         MatToolbarModule,
       ],
     })
