@@ -38,15 +38,15 @@ describe('NavToolbarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should not show the 'Logout' button if user is not authenticated`, () => {
-    component.isAuthenticated = false;
-    fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('.button-logout'))).toBeFalsy();
-  })
+  // it(`should not show the 'Logout' button if user is not authenticated`, () => {
+  //   component.isAuthenticated = false;
+  //   fixture.detectChanges();
+  //   expect(fixture.debugElement.query(By.css('.button-logout'))).toBeFalsy();
+  // })
 
-  it(`should show the 'Logout' button if user is authenticated`, () => {
-    component.isAuthenticated = true;
-    fixture.detectChanges();
-    expect(fixture.debugElement.query(By.css('.button-logout'))).toBeTruthy();
-  })
+  // it(`should show the 'Logout' button if user is authenticated`, () => {
+  //   component.isAuthenticated = true;
+  //   fixture.detectChanges();
+  //   expect(fixture.debugElement.query(By.css('.button-logout'))).toBeTruthy();
+  // })
 });
