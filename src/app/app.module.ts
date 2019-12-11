@@ -20,8 +20,6 @@ import {
   MatToolbarModule,
 } from '@angular/material';
 
-// import { MatSidenavModule } from '@angular/material/sidenav';
-
 // Components
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';

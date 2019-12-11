@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'auth', component: AuthComponent },
   { 
     path: '', 
-    canActivate: [ AuthGuardService ],
+    // canActivate: [ AuthGuardService ],
     component: SideNavComponent 
   },
 ];
