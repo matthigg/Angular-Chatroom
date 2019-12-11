@@ -27,12 +27,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   // Handle user authentication
-  private handleAuthentication(
-    email: string, 
-    userId: string, 
-    token: string, 
-    expiresIn: number
-  ) {
+  private handleAuthentication(email: string, userId: string, token: string, expiresIn: number) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(
       email, 

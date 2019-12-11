@@ -23,14 +23,14 @@ export class NavToolbarComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
     this.userSubscription = this.authService.user
-      .subscribe(
-        user => { 
+      .subscribe(user => { 
           this.isAuthenticated = !!user;
           console.log('auth success:', user);
-        },
-        error => console.log('auth error:', error)
+        }
       )
-    console.log('this.isAuthenticated:', this.isAuthenticated);
   }
 
+  test() {
+    console.log('test')
+  }
 }

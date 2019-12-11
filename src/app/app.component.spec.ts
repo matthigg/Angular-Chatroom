@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
 
 // Angular Material Modules
@@ -30,6 +31,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         BrowserAnimationsModule,
+        HttpClientTestingModule,
         MatButtonModule,
         MatCardModule,
         MatCheckboxModule,

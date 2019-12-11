@@ -1,7 +1,9 @@
 <mat-toolbar>
   <button 
+    class="button-logout"
     mat-button 
     type="button"
+    *ngIf="isAuthenticated" 
     (click)="test()"
   >
     Logout
