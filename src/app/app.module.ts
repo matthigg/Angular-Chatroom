@@ -14,10 +14,13 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
+  MatSidenavModule,
   MatSlideToggleModule,
   MatTabsModule,
   MatToolbarModule,
 } from '@angular/material';
+
+// import { MatSidenavModule } from '@angular/material/sidenav';
 
 // Components
 import { AppComponent } from './app.component';
@@ -53,6 +56,7 @@ import { ConsoleLogPipe } from './shared/console-log.pipe';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatSidenavModule,
     MatSlideToggleModule,
     MatTabsModule,
     MatToolbarModule,

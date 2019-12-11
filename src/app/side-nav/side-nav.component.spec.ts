@@ -1,7 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 // Modules
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+
+// Angular Material Modules
+import { MatSidenavModule } from '@angular/material';
 
 // Components
 import { SideNavComponent } from './side-nav.component';
@@ -16,7 +20,11 @@ describe('SideNavComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ SideNavComponent ],
-      imports: [ HttpClientTestingModule ],
+      imports: [ 
+        BrowserAnimationsModule,
+        HttpClientTestingModule,
+        MatSidenavModule,
+      ],
       providers: [ AuthService ]
     })
     .compileComponents();

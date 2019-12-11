@@ -15,10 +15,13 @@ import {
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
+  MatSidenavModule,
   MatSlideToggleModule,
   MatTabsModule,
   MatToolbarModule 
 } from '@angular/material';
+
+// import {MatSidenavModule} from '@angular/material/sidenav';
 
 // Components
 import { AppComponent } from './app.component';
@@ -36,6 +39,7 @@ describe('AppComponent', () => {
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
+        MatSidenavModule,
         MatSlideToggleModule,
         MatTabsModule,
         MatToolbarModule,
