@@ -1,14 +1,11 @@
 // Testing
 import { TestBed, async } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-
-// RxJs
-import { Subscription } from 'rxjs';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 // Angular Material Modules
 import { 
@@ -26,8 +23,6 @@ import {
 // Components
 import { AppComponent } from './app.component';
 import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
-
-// Services & Pipes
 
 describe('AppComponent', () => {
   beforeEach(async(() => {

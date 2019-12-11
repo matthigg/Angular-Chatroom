@@ -18,7 +18,9 @@ export class NavToolbarComponent implements OnDestroy, OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnDestroy() {
-    this.userSubscription.unsubscribe();
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe();
+    }
   }
 
   ngOnInit() {
