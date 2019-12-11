@@ -40,7 +40,7 @@ export class AuthService {
       token,
       expirationDate
     );
-    this.user.next(user); // this is the key line used to login users
+    this.user.next(user); // this is the important line used to login users
   }
 
   // Handle login and authentication errors

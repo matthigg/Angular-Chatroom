@@ -1,6 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+// Modules
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
+// Components
 import { SideNavComponent } from './side-nav.component';
+
+// Services
+import { AuthService } from '../auth.service';
 
 describe('SideNavComponent', () => {
   let component: SideNavComponent;
@@ -8,7 +15,9 @@ describe('SideNavComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SideNavComponent ]
+      declarations: [ SideNavComponent ],
+      imports: [ HttpClientTestingModule ],
+      providers: [ AuthService ]
     })
     .compileComponents();
   }));
