@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 
 // Modules
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 // Angular Material Modules
 import { MatToolbarModule } from '@angular/material';
@@ -14,13 +15,13 @@ import { NavToolbarComponent } from './nav-toolbar.component';
 describe('NavToolbarComponent', () => {
   let component: NavToolbarComponent;
   let fixture: ComponentFixture<NavToolbarComponent>;
-  let buttonLogout: HTMLButtonElement;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ NavToolbarComponent ],
       imports: [ 
         HttpClientTestingModule,
+        RouterTestingModule,
         MatToolbarModule,
       ],
     })
