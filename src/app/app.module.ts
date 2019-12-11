@@ -31,6 +31,7 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 
 // Pipes
 import { ConsoleLogPipe } from './shared/console-log.pipe';
+import { ChannelsComponent } from './channels/channels.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { ConsoleLogPipe } from './shared/console-log.pipe';
     LoginComponent,
     NavToolbarComponent,
     SideNavComponent,
+    ChannelsComponent,
   ],
   imports: [
     AppRoutingModule,

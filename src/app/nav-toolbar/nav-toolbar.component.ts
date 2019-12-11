@@ -31,7 +31,7 @@ export class NavToolbarComponent implements OnDestroy, OnInit {
       )
   }
 
-  onCreateAChannel() {
+  onCreateChannel() {
     console.log('create')
   }
 
