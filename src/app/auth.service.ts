@@ -161,6 +161,7 @@ export class AuthService {
       );
   }
 
+  // Log out of session
   logout() {
     this.user.next(null);
     localStorage.removeItem('userData');
