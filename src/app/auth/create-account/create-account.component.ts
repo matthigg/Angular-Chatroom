@@ -70,7 +70,7 @@ export class CreateAccountComponent implements OnInit {
           this.isLoading = false;
           this.isError = false;
           this.errorMessage = '';
-          this.router.navigate(['/home']);
+          this.router.navigate(['/']);
         },
         errorMessage => { 
           this.isLoading = false; 

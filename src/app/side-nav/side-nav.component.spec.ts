@@ -7,7 +7,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { SideNavComponent } from './side-nav.component';
 
 // Services
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
 
 describe('SideNavComponent', () => {
   let component: SideNavComponent;

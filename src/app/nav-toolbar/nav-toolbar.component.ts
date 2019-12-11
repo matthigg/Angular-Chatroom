@@ -4,7 +4,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 // Services
-import { AuthService } from '../auth.service';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-nav-toolbar',

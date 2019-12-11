@@ -21,25 +21,25 @@ import {
 
 // Components
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
-import { SisuComponent } from './sisu/sisu.component';
-
-// Services & Pipes
-import { ConsoleLogPipe } from './shared/console-log.pipe';
-import { CreateAccountComponent } from './create-account/create-account.component';
+import { AuthComponent } from './auth/auth.component';
+import { CreateAccountComponent } from './auth/create-account/create-account.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { LoginComponent } from './auth/login/login.component';
+import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
+
+// Pipes
+import { ConsoleLogPipe } from './shared/console-log.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
+    AuthComponent,
     ConsoleLogPipe,
-    LoginComponent,
-    NavToolbarComponent,
-    SisuComponent,
     CreateAccountComponent,
     LoadingSpinnerComponent,
+    LoginComponent,
+    NavToolbarComponent,
     SideNavComponent,
   ],
   imports: [

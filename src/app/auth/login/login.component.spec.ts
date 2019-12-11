@@ -19,7 +19,7 @@ import {
 } from '@angular/material';
 
 // Components
-import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
+import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 import { LoginComponent } from './login.component';
 
 // Services

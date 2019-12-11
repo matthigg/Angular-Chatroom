@@ -7,7 +7,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
 
 // Models, Interfaces
-import { User } from './shared/user.model';
+import { User } from './user.model';
 interface AuthResponseData {
   kind: string,
   idToken: string,
@@ -169,6 +169,6 @@ export class AuthService {
       clearTimeout(this.tokenExpirationTimer);
     }
     this.tokenExpirationTimer = null;
-    this.router.navigate(['/']);
+    this.router.navigate(['/auth']);
   }
 }

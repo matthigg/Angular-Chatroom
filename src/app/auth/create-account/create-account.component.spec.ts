@@ -19,7 +19,7 @@ import {
 
 // Components
 import { CreateAccountComponent } from './create-account.component';
-import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
+import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 
 // Services
 import { AuthService } from '../auth.service';

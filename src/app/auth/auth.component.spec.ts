@@ -13,51 +13,47 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
-  MatFormFieldModule,
   MatIconModule,
   MatInputModule,
-  MatSlideToggleModule,
   MatTabsModule,
 } from '@angular/material';
 
 // Components
-import { CreateAccountComponent } from '../create-account/create-account.component';
+import { AuthComponent } from './auth.component';
+import { CreateAccountComponent } from './create-account/create-account.component';
 import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
-import { LoginComponent } from '../login/login.component';
-import { SisuComponent } from './sisu.component';
+import { LoginComponent } from './login/login.component';
 
-describe('SisuComponent', () => {
-  let component: SisuComponent;
-  let fixture: ComponentFixture<SisuComponent>;
+describe('AuthComponent', () => {
+  let component: AuthComponent;
+  let fixture: ComponentFixture<AuthComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ 
+        AuthComponent,
         CreateAccountComponent,
         LoadingSpinnerComponent,
         LoginComponent,
-        SisuComponent,
       ],
-      imports: [
+      imports: [ 
         BrowserAnimationsModule,
         HttpClientTestingModule,
         MatButtonModule,
         MatCardModule,
         MatCheckboxModule,
-        MatFormFieldModule,
         MatIconModule,
         MatInputModule,
-        MatSlideToggleModule,
         MatTabsModule,
         ReactiveFormsModule,
         RouterTestingModule,
-      ]
+      ],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SisuComponent);
+    fixture = TestBed.createComponent(AuthComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
