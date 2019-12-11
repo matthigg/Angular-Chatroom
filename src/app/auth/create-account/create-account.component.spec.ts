@@ -22,7 +22,7 @@ import { CreateAccountComponent } from './create-account.component';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 
 // Services
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 describe('CreateAccountComponent', () => {
   let component: CreateAccountComponent;

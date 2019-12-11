@@ -7,7 +7,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject, throwError } from 'rxjs';
 
 // Models, Interfaces
-import { User } from './user.model';
+import { User } from '../models/user.model';
 interface AuthResponseData {
   kind: string,
   idToken: string,

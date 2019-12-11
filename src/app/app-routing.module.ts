@@ -6,7 +6,7 @@ import { AuthComponent } from './auth/auth.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 
 // Services
-import { AuthGuardService } from './auth/auth-guard.service';
+import { AuthGuardService } from './auth/services/auth-guard.service';
 
 const routes: Routes = [
   { path: 'auth', component: AuthComponent },

@@ -23,7 +23,7 @@ import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-sp
 import { LoginComponent } from './login.component';
 
 // Services
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 describe('LoginComponent', () => {
   let buttonLogin: HTMLButtonElement;

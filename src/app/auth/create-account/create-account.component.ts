@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { ErrorStateMatcher } from '@angular/material';
 
 // Services
-import { AuthService } from '../auth.service';
+import { AuthService } from '../services/auth.service';
 
 // Password Validator
 function passwordsMatch(formGroup: FormGroup): ValidationErrors | null {
