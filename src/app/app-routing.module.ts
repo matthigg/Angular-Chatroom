@@ -5,9 +5,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { SisuComponent } from './sisu/sisu.component';
 
+// Services
+import { AuthGuardService } from './auth-guard.service';
+
 const routes: Routes = [
   { path: '', component: SisuComponent },
-  { path: 'home', component: SideNavComponent },
+  { 
+    path: 'home', 
+    canActivate: [ AuthGuardService ],
+    component: SideNavComponent 
+  },
 ];
 
 @NgModule({
