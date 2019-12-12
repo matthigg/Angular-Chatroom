@@ -23,6 +23,9 @@ import {
 // Components
 import { AppComponent } from './app.component';
 import { AuthComponent } from './auth/auth.component';
+import { ChannelListComponent } from './channels/channel-list/channel-list.component';
+import { ChannelsComponent } from './channels/channels.component';
+import { ChannelComponent } from './channels/channel/channel.component';
 import { CreateAccountComponent } from './auth/create-account/create-account.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -31,9 +34,6 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 
 // Pipes
 import { ConsoleLogPipe } from './shared/console-log.pipe';
-import { ChannelsComponent } from './channels/channels.component';
-import { ChannelComponent } from './channels/channel/channel.component';
-import { ChannelListComponent } from './channels/channel-list/channel-list.component';
 
 @NgModule({
   declarations: [

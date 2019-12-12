@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 // Angular Material Modules
 import { MatSidenavModule } from '@angular/material';
@@ -24,6 +25,7 @@ describe('SideNavComponent', () => {
         BrowserAnimationsModule,
         HttpClientTestingModule,
         MatSidenavModule,
+        RouterTestingModule,
       ],
       providers: [ AuthService ]
     })
