@@ -6,16 +6,11 @@ import { NgModule } from '@angular/core';
 
 // Angular Material Modules
 import { 
-  MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
-  MatFormFieldModule,
   MatIconModule,
   MatInputModule,
-  MatSidenavModule,
-  MatSlideToggleModule,
   MatTabsModule,
-  MatToolbarModule,
 } from '@angular/material';
 
 // Components
@@ -37,16 +32,11 @@ import { LoginComponent } from './login/login.component';
   imports: [
     BrowserModule,
     LoadingSpinnerModule,
-    MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
-    MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatSidenavModule,
-    MatSlideToggleModule,
     MatTabsModule,
-    MatToolbarModule,
     ReactiveFormsModule,
   ]
 })
