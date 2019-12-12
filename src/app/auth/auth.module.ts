@@ -1,11 +1,12 @@
 // Modules
-import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule } from '@angular/common';
 import { LoadingSpinnerModule } from '../shared/loading-spinner/loading-spinner.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 // Angular Material Modules
 import { 
+  MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
   MatIconModule,
@@ -30,8 +31,9 @@ import { LoginComponent } from './login/login.component';
     LoginComponent,
   ],
   imports: [
-    BrowserModule,
+    CommonModule,
     LoadingSpinnerModule,
+    MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
     MatIconModule,
