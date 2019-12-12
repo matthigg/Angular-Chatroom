@@ -1,7 +1,6 @@
 // Modules
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SideNavRoutingModule } from './side-nav/side-nav-routing.module';
 
 // Components
 import { AuthComponent } from './auth/auth.component';

@@ -9,8 +9,13 @@ import { ChannelComponent } from './channels/channel/channel.component';
 
 const routes: Routes = [
   { path: 'channels', component: ChannelsComponent },
-  { path: 'channel', redirectTo: 'channels' },
-  { path: 'channel/:name', component: ChannelComponent },
+  { 
+    path: 'channel',
+    children: [
+      { path: '', pathMatch: 'full', redirectTo: '/channels' },
+      { path: ':name', component: ChannelComponent },
+    ],
+  },
 ]
 
 @NgModule({
