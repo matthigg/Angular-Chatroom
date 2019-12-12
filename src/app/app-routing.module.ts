@@ -1,10 +1,10 @@
+// Modules
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { SideNavRoutingModule } from './side-nav/side-nav-routing.module';
 
 // Components
 import { AuthComponent } from './auth/auth.component';
-import { ChannelsComponent } from './side-nav/channels/channels.component';
-import { ChannelComponent } from './side-nav/channels/channel/channel.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 
 // Services
@@ -17,13 +17,10 @@ const routes: Routes = [
     component: SideNavComponent 
   },
   { path: 'auth', component: AuthComponent },
-  { path: 'channels', component: ChannelsComponent },
-  { path: 'channel', redirectTo: 'channels' },
-  { path: 'channel/:name', component: ChannelComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ],
 })
 export class AppRoutingModule { }

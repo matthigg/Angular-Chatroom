@@ -1,6 +1,7 @@
 // Modules
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { SideNavRoutingModule } from './side-nav-routing.module';
 
 // Angular Material Modules
 import { 
@@ -26,6 +27,7 @@ import { SideNavComponent } from './side-nav.component';
   imports: [
     MatSidenavModule,
     RouterModule,
+    SideNavRoutingModule,
   ]
 })
 export class SideNavModule { }
