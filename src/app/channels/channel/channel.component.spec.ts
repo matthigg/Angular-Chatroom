@@ -1,5 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+// Modules
+import { ActivatedRoute } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+
+// Components
 import { ChannelComponent } from './channel.component';
 
 describe('ChannelComponent', () => {
@@ -8,7 +13,15 @@ describe('ChannelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChannelComponent ]
+      declarations: [ ChannelComponent ],
+      imports: [ RouterTestingModule ],
+      providers: [ 
+        { 
+          provide: ActivatedRoute,
+          // useValue: { snapshot: { params: { get(): string { return 'test-name' }}}}
+          useValue: { snapshot: { params: 'test-name' }}
+        } 
+      ]
     })
     .compileComponents();
   }));

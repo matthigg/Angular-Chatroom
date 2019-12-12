@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Components
 import { AuthComponent } from './auth/auth.component';
+import { ChannelsComponent } from './channels/channels.component';
 import { ChannelComponent } from './channels/channel/channel.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 
@@ -16,7 +17,9 @@ const routes: Routes = [
     component: SideNavComponent 
   },
   { path: 'auth', component: AuthComponent },
-  { path: 'channel', component: ChannelComponent },
+  { path: 'channels', component: ChannelsComponent },
+  { path: 'channel', redirectTo: 'channels' },
+  { path: 'channel/:name', component: ChannelComponent },
 ];
 
 @NgModule({
