@@ -23,11 +23,8 @@ import {
 
 // Components
 import { AppComponent } from './app.component';
-// import { AuthComponent } from './auth/auth.component';
 import { ChannelsComponent } from './side-nav/channels/channels.component';
 import { ChannelComponent } from './side-nav/channels/channel/channel.component';
-// import { CreateAccountComponent } from './auth/create-account/create-account.component';
-// import { LoginComponent } from './auth/login/login.component';
 import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 
@@ -37,10 +34,7 @@ import { ConsoleLogPipe } from './shared/console-log.pipe';
 @NgModule({
   declarations: [
     AppComponent,
-    // AuthComponent,
     ConsoleLogPipe,
-    // CreateAccountComponent,
-    // LoginComponent,
     NavToolbarComponent,
     SideNavComponent,
     ChannelsComponent,
