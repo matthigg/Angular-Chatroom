@@ -3,8 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Components
 import { AuthComponent } from './auth/auth.component';
-import { ChannelsComponent } from './channels/channels.component';
-import { ChannelComponent } from './channels/channel/channel.component';
+import { ChannelsComponent } from './side-nav/channels/channels.component';
+import { ChannelComponent } from './side-nav/channels/channel/channel.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 
 // Services
