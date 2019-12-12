@@ -32,6 +32,8 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 // Pipes
 import { ConsoleLogPipe } from './shared/console-log.pipe';
 import { ChannelsComponent } from './channels/channels.component';
+import { ChannelComponent } from './channels/channel/channel.component';
+import { ChannelListComponent } from './channels/channel-list/channel-list.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { ChannelsComponent } from './channels/channels.component';
     NavToolbarComponent,
     SideNavComponent,
     ChannelsComponent,
+    ChannelComponent,
+    ChannelListComponent,
   ],
   imports: [
     AppRoutingModule,
