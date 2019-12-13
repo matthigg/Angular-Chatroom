@@ -7,7 +7,10 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 // Angular Material Modules
-import { MatToolbarModule } from '@angular/material';
+import { 
+  MatIconModule,
+  MatToolbarModule 
+} from '@angular/material';
 
 // Components
 import { NavToolbarComponent } from './nav-toolbar.component';
@@ -21,6 +24,7 @@ describe('NavToolbarComponent', () => {
       declarations: [ NavToolbarComponent ],
       imports: [ 
         HttpClientTestingModule,
+        MatIconModule,
         MatToolbarModule,
         RouterTestingModule,
       ],

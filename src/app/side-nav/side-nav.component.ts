@@ -26,8 +26,4 @@ export class SideNavComponent implements OnDestroy, OnInit {
       this.isSideNavOpen = state;
     })
   }
-
-  toggleSideNav() {
-    this.toggleSideNavService.toggleSideNav();
-  }
 }

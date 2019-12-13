@@ -7,13 +7,15 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class ToggleSideNavService {
-  isSideNavOpen: boolean = true;
+  isSideNavOpen: boolean;
   sideNavSubject = new Subject<boolean>();
 
   constructor() { }
 
-  toggleSideNav() {
-    this.isSideNavOpen = !this.isSideNavOpen;
+  handleSideNav(state) {
+    if (state === 'open') this.isSideNavOpen = true;
+    if (state === 'close') this.isSideNavOpen = false;
+    if (state === 'toggle') this.isSideNavOpen = !this.isSideNavOpen;
     this.sideNavSubject.next(this.isSideNavOpen);
   }
 }

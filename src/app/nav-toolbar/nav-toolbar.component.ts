@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 
 // Services
 import { AuthService } from '../auth/services/auth.service';
+import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.service';
 
 @Component({
   selector: 'app-nav-toolbar',
@@ -15,7 +16,10 @@ export class NavToolbarComponent implements OnDestroy, OnInit {
   private userSubscription: Subscription;
   isAuthenticated: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private authService: AuthService,
+    private toggleSideNavService: ToggleSideNavService,
+  ) { }
 
   ngOnDestroy() {
     if (this.userSubscription) {
@@ -38,5 +42,9 @@ export class NavToolbarComponent implements OnDestroy, OnInit {
   onLogout() {
     this.authService.logout();
     this.isAuthenticated = false;
+  }
+
+  onToggleSideNav() {
+    this.toggleSideNavService.handleSideNav('toggle');
   }
 }
