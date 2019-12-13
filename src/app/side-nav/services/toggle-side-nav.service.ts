@@ -1,16 +1,19 @@
-import { EventEmitter, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
+
+// RxJS
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ToggleSideNavService {
   isSideNavOpen: boolean = true;
-  sideNavEmitter = new EventEmitter<boolean>();
+  sideNavSubject = new Subject<boolean>();
 
   constructor() { }
 
   toggleSideNav() {
     this.isSideNavOpen = !this.isSideNavOpen;
-    this.sideNavEmitter.emit(this.isSideNavOpen);
+    this.sideNavSubject.next(this.isSideNavOpen);
   }
 }

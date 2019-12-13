@@ -17,7 +17,7 @@ export class SideNavComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
-    this.toggleSideNavService.sideNavEmitter.subscribe(state => {
+    this.toggleSideNavService.sideNavSubject.subscribe(state => {
       this.isSideNavOpen = state;
     })
   }
