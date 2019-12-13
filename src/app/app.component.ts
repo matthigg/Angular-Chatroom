@@ -15,6 +15,6 @@ export class AppComponent implements OnInit {
   ngOnInit(){
 
     // Automatically log in user if user data is stored in localStorage
-    // this.authService.autoLogin();
+    this.authService.autoLogin();
   }
  }
