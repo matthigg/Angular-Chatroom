@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.service';
+
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
-  constructor() { }
+  constructor(private toggleSideNavService: ToggleSideNavService) { }
 
   ngOnInit() {
+    setTimeout(() => {
+      this.toggleSideNavService.handleSideNav('close');
+    });
   }
-
 }

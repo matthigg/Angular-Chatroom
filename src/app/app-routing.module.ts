@@ -13,7 +13,8 @@ const routes: Routes = [
   { 
     path: '', 
     // canActivate: [ AuthGuardService ],
-    component: ChannelsComponent 
+    pathMatch: 'full',
+    redirectTo: '/channels'
   },
   { path: 'auth', component: AuthComponent },
 ];

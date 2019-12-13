@@ -9,7 +9,7 @@ import { ChannelComponent } from './channel/channel.component';
 const routes: Routes = [
   { path: 'channels', component: ChannelsComponent },
   { 
-    path: 'channel', component: ChannelComponent, 
+    path: 'channel', 
     children: [
       { path: '', pathMatch: 'full', redirectTo: '/channels' },
       { path: ':name', component: ChannelComponent },
