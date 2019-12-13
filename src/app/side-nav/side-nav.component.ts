@@ -1,15 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+
+// Services
+import { ToggleSideNavService } from './services/toggle-side-nav.service';
 
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.scss']
 })
-export class SideNavComponent implements OnInit {
-  sidenavIsOpen: boolean = false;
+export class SideNavComponent implements OnDestroy, OnInit {
+  isSideNavOpen: boolean = this.toggleSideNavService.isSideNavOpen;
 
-  constructor() { }
+  constructor(private toggleSideNavService: ToggleSideNavService) { }
+
+  ngOnDestroy() {
+  }
 
   ngOnInit() {
+    this.toggleSideNavService.sideNavEmitter.subscribe(state => {
+      this.isSideNavOpen = state;
+    })
+  }
+
+  toggleSideNav() {
+    this.toggleSideNavService.toggleSideNav();
   }
 }

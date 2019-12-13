@@ -2,17 +2,18 @@
 
   <!-- Sidenav -->
   <mat-sidenav 
-    [opened]="sidenavIsOpen" 
+    [opened]="isSideNavOpen" 
     mode="side"
   >
     <h1 style="font-size: 1rem">Sidenav</h1>
     <a routerLink="/channels">Channel List</a><br><br>
     <a routerLink="/channel">Channel</a><br><br>
-    <a routerLink="/channel/asdf">Channel 'asdf'</a>
+    <a routerLink="/channel/asdf">Channel 'asdf'</a><br><br>
   </mat-sidenav>
 
   <!-- Content -->
   <mat-sidenav-content>
+    <a (click)="toggleSideNav()">Toggle side-nav</a>
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
