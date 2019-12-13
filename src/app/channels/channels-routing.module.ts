@@ -12,7 +12,6 @@ const routes: Routes = [
     path: 'channel', component: ChannelComponent, 
     children: [
       { path: '', pathMatch: 'full', redirectTo: '/channels' },
-      { path: 'third', component: ChannelComponent, outlet: 'third' },
       { path: ':name', component: ChannelComponent },
     ],
   },
