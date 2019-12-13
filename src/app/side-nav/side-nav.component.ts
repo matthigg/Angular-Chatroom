@@ -18,7 +18,7 @@ export class SideNavComponent implements OnDestroy, OnInit {
   constructor(private toggleSideNavService: ToggleSideNavService) { }
 
   ngOnDestroy() {
-    this.sideNavSubjectSub.unsubscribe();
+    if (this.sideNavSubjectSub) this.sideNavSubjectSub.unsubscribe();
   }
 
   ngOnInit() {
