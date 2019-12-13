@@ -6,7 +6,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { SideNavModule } from './side-nav/side-nav.module';
 
 // Angular Material Modules
 import { 
@@ -23,7 +22,9 @@ import {
 
 // Components
 import { AppComponent } from './app.component';
+import { ChannelsComponent } from './channels/channels.component';
 import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
+import { SideNavComponent } from './side-nav/side-nav.component';
 
 // Pipes
 import { ConsoleLogPipe } from './shared/console-log.pipe';
@@ -31,8 +32,10 @@ import { ConsoleLogPipe } from './shared/console-log.pipe';
 @NgModule({
   declarations: [
     AppComponent,
+    ChannelsComponent,
     ConsoleLogPipe,
     NavToolbarComponent,
+    SideNavComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -50,7 +53,6 @@ import { ConsoleLogPipe } from './shared/console-log.pipe';
     MatTabsModule,
     MatToolbarModule,
     ReactiveFormsModule,
-    SideNavModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

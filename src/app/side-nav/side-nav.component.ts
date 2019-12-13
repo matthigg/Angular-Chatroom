@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-side-nav',
@@ -8,17 +7,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SideNavComponent implements OnInit {
 
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) { }
+  constructor() { }
 
   ngOnInit() {
   }
-
-  onSelectChannel() {
-    // this.router.navigate(['channel'], {relativeTo: this.activatedRoute});
-    this.router.navigate(['/channel']);
-  }
-
 }

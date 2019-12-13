@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Components
 import { AuthComponent } from './auth/auth.component';
-import { SideNavComponent } from './side-nav/side-nav.component';
+import { ChannelsComponent } from './channels/channels.component';
 
 // Services
 import { AuthGuardService } from './auth/services/auth-guard.service';
@@ -13,7 +13,7 @@ const routes: Routes = [
   { 
     path: '', 
     // canActivate: [ AuthGuardService ],
-    component: SideNavComponent 
+    component: ChannelsComponent 
   },
   { path: 'auth', component: AuthComponent },
 ];

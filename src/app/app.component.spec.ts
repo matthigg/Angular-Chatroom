@@ -21,11 +21,10 @@ import {
   MatToolbarModule 
 } from '@angular/material';
 
-// import {MatSidenavModule} from '@angular/material/sidenav';
-
 // Components
 import { AppComponent } from './app.component';
 import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
+import { SideNavComponent} from './side-nav/side-nav.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -48,7 +47,8 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
-        NavToolbarComponent
+        NavToolbarComponent,
+        SideNavComponent,
       ],
     }).compileComponents();
   }));
