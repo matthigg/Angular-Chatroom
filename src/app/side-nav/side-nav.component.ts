@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 
+// RxJS
+import { Subscription } from 'rxjs';
+
 // Services
-import { Subscription, ToggleSideNavService } from './services/toggle-side-nav.service';
+import { ToggleSideNavService } from './services/toggle-side-nav.service';
 
 @Component({
   selector: 'app-side-nav',
@@ -10,16 +13,16 @@ import { Subscription, ToggleSideNavService } from './services/toggle-side-nav.s
 })
 export class SideNavComponent implements OnDestroy, OnInit {
   isSideNavOpen: boolean = this.toggleSideNavService.isSideNavOpen;
-  sideNavSubjectSubscription: Subscription;
+  private sideNavSubjectSub: Subscription;
 
   constructor(private toggleSideNavService: ToggleSideNavService) { }
 
   ngOnDestroy() {
-    this.sideNavSubjectSubscription.unsubscribe();
+    this.sideNavSubjectSub.unsubscribe();
   }
 
   ngOnInit() {
-    this.sideNavSubjectSubscription = this.toggleSideNavService.sideNavSubject.subscribe(state => {
+    this.sideNavSubjectSub = this.toggleSideNavService.sideNavSubject.subscribe(state => {
       this.isSideNavOpen = state;
     })
   }
