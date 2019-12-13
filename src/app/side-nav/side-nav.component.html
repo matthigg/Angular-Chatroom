@@ -5,10 +5,15 @@
     [opened]="isSideNavOpen" 
     mode="side"
   >
-    <h1 style="font-size: 1rem">Sidenav</h1>
-    <a routerLink="/channels">Channel List</a><br><br>
-    <a routerLink="/channel">Channel</a><br><br>
-    <a routerLink="/channel/asdf">Channel 'asdf'</a><br><br>
+    
+    <!-- Sidenav Header -->
+    <!-- <mat-toolbar>Sidenav Menu</mat-toolbar> -->
+
+    <mat-nav-list>
+      <a routerLink="/channels"><mat-list-item>Channels</mat-list-item></a>
+      <a routerLink="/channel"><mat-list-item>Channel</mat-list-item></a>
+      <a routerLink="/channel/asdf"><mat-list-item>Channel 'asdf'</mat-list-item></a>
+    </mat-nav-list>
   </mat-sidenav>
 
   <!-- Content -->
