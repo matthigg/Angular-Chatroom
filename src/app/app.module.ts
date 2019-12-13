@@ -29,6 +29,7 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 
 // Pipes
 import { ConsoleLogPipe } from './shared/console-log.pipe';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { ConsoleLogPipe } from './shared/console-log.pipe';
     ConsoleLogPipe,
     NavToolbarComponent,
     SideNavComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     AppRoutingModule,

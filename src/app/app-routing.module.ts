@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 
 // Components
 import { AuthComponent } from './auth/auth.component';
-import { ChannelsComponent } from './channels/channels.component';
 
 // Services
 import { AuthGuardService } from './auth/services/auth-guard.service';
@@ -12,7 +11,7 @@ import { AuthGuardService } from './auth/services/auth-guard.service';
 const routes: Routes = [
   { 
     path: '', 
-    // canActivate: [ AuthGuardService ],
+    canActivate: [ AuthGuardService ],
     pathMatch: 'full',
     redirectTo: '/channels'
   },
