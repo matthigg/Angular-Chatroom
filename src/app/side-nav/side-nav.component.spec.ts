@@ -6,7 +6,10 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 // Angular Material Modules
-import { MatSidenavModule } from '@angular/material';
+import {
+  MatListModule, 
+  MatSidenavModule
+} from '@angular/material';
 
 // Components
 import { SideNavComponent } from './side-nav.component';
@@ -24,6 +27,7 @@ describe('SideNavComponent', () => {
       imports: [ 
         BrowserAnimationsModule,
         HttpClientTestingModule,
+        MatListModule,
         MatSidenavModule,
         RouterTestingModule,
       ],
