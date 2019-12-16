@@ -27,16 +27,16 @@ import {
 // Components
 import { AppComponent } from './app.component';
 import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 
 // Pipes
-import { ConsoleLogPipe } from './shared/console-log.pipe';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+// import { ConsoleLogPipe } from './shared/console-log.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ConsoleLogPipe,
+    // ConsoleLogPipe,
     NavToolbarComponent,
     SideNavComponent,
     PageNotFoundComponent,

@@ -1,4 +1,4 @@
-<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+<form #f="ngForm" (ngSubmit)="onCreateChannel(f)">
 
   <!-- Input Field -->
   <mat-form-field>
@@ -6,6 +6,7 @@
       matInput
       name="channelName"
       ngModel 
+      required 
       type="text" 
       value
     >
@@ -15,6 +16,7 @@
   <button
     mat-button 
     type="submit" 
+    [disabled]="!f.valid"
   >
     Create Channel
   </button>

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+
+// Services
+import { CreateChannelService } from './services/create-channel.service';
 
 @Component({
   selector: 'app-create-channel',
@@ -8,13 +12,18 @@ import { NgForm } from '@angular/forms';
 })
 export class CreateChannelComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private createChannelService: CreateChannelService,
+    private http: HttpClient,
+  ) { }
 
   ngOnInit() {
   }
 
-  onSubmit(form: NgForm) {
-    console.log('--- submitted:', form)
-    console.log('--- submitted:', form.value.channelName)
+  onCreateChannel(form) {
+    this.createChannelService.onCreateChannel(form)
+      .subscribe(responseData => {
+        console.log(responseData);
+      });
   }
 }
