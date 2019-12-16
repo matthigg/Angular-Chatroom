@@ -1,0 +1,22 @@
+<form #f="ngForm" (ngSubmit)="onSubmit(f)">
+
+  <!-- Input Field -->
+  <mat-form-field>
+    <input 
+      matInput
+      name="channelName"
+      ngModel 
+      type="text" 
+      value
+    >
+  </mat-form-field>
+
+  <!-- Submit Button -->
+  <button
+    mat-button 
+    type="submit" 
+  >
+    Create Channel
+  </button>
+
+</form>

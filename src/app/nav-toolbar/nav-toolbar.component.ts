@@ -34,11 +34,7 @@ export class NavToolbarComponent implements OnDestroy, OnInit {
         }
       )
   }
-
-  onCreateChannel() {
-    console.log('create')
-  }
-
+  
   onLogout() {
     this.authService.logout();
     this.isAuthenticated = false;
