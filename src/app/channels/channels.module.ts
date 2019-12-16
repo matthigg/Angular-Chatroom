@@ -1,4 +1,5 @@
 // Modules
+import { ListChannelsModule } from '../shared/list-channels/list-channels.module';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
@@ -20,6 +21,7 @@ import { ChannelComponent } from './channel/channel.component';
     ChannelComponent,
   ],
   imports: [
+    ListChannelsModule,
     RouterModule,
   ]
 })

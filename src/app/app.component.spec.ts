@@ -3,8 +3,8 @@ import { TestBed, async } from '@angular/core/testing';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 
 // Angular Material Modules
@@ -24,6 +24,7 @@ import {
 
 // Components
 import { AppComponent } from './app.component';
+import { CreateChannelComponent } from './shared/create-channel/create-channel.component';
 import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
 import { SideNavComponent} from './side-nav/side-nav.component';
 
@@ -32,6 +33,7 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         BrowserAnimationsModule,
+        FormsModule,
         HttpClientTestingModule,
         MatButtonModule,
         MatCardModule,
@@ -49,6 +51,7 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
+        CreateChannelComponent,
         NavToolbarComponent,
         SideNavComponent,
       ],

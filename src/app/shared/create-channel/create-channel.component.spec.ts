@@ -1,5 +1,17 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+// Modules
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+
+// Angular Material Modules
+import { 
+  MatFormFieldModule,
+  MatInputModule,
+} from '@angular/material';
+
+// Components
 import { CreateChannelComponent } from './create-channel.component';
 
 describe('CreateChannelComponent', () => {
@@ -8,7 +20,14 @@ describe('CreateChannelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateChannelComponent ]
+      declarations: [ CreateChannelComponent ],
+      imports: [ 
+        BrowserAnimationsModule,
+        FormsModule,
+        HttpClientTestingModule,
+        MatFormFieldModule,
+        MatInputModule,
+      ]
     })
     .compileComponents();
   }));

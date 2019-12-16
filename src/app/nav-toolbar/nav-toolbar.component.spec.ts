@@ -3,16 +3,21 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 // Modules
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 // Angular Material Modules
 import { 
+  MatFormFieldModule,
   MatIconModule,
+  MatInputModule,
   MatToolbarModule 
 } from '@angular/material';
 
 // Components
+import { CreateChannelComponent } from '../shared/create-channel/create-channel.component';
 import { NavToolbarComponent } from './nav-toolbar.component';
 
 describe('NavToolbarComponent', () => {
@@ -21,10 +26,17 @@ describe('NavToolbarComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NavToolbarComponent ],
+      declarations: [ 
+        CreateChannelComponent,
+        NavToolbarComponent 
+      ],
       imports: [ 
+        BrowserAnimationsModule,
+        FormsModule,
         HttpClientTestingModule,
+        MatFormFieldModule,
         MatIconModule,
+        MatInputModule,
         MatToolbarModule,
         RouterTestingModule,
       ],
