@@ -9,14 +9,18 @@ import { ListChannelsService } from './services/list-channels.service';
   styleUrls: ['./list-channels.component.scss']
 })
 export class ListChannelsComponent implements OnInit {
+  allChannels: string[] = ['chan 1', 'chan 2'];
 
   constructor(private listChannelsService: ListChannelsService) { }
 
   ngOnInit() {
-    this.onListAllChannels();
+    // this.onListAllChannels();
   }
 
-  onListAllChannels() {
+  private onListAllChannels() {
     this.listChannelsService.onListAllChannels()
+      .subscribe(channels => {
+        console.log('--- channels:', channels);
+      })
   }
 }

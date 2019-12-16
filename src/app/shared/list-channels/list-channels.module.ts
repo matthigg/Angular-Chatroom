@@ -1,6 +1,11 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
+// Angular Material Modules
+import { MatListModule } from '@angular/material';
+
+// Components
 import { ListChannelsComponent } from './list-channels.component';
 
 @NgModule({
@@ -11,7 +16,9 @@ import { ListChannelsComponent } from './list-channels.component';
     ListChannelsComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatListModule,
+    RouterModule,
   ]
 })
 export class ListChannelsModule { }

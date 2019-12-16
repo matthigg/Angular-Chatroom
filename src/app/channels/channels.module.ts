@@ -21,8 +21,8 @@ import { ChannelComponent } from './channel/channel.component';
     ChannelComponent,
   ],
   imports: [
-    ListChannelsModule,
-    RouterModule,
+    ListChannelsModule, 
+    RouterModule, 
   ]
 })
 export class ChannelsModule { }

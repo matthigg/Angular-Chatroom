@@ -1,1 +1,9 @@
-<p>list-channels works!</p>
+<h1>Channels</h1>
+<mat-nav-list>
+  <a mat-list-item 
+    [routerLink]="['/channel', channel]"
+    *ngFor="let channel of allChannels" 
+  >
+    {{ channel }}
+  </a>
+</mat-nav-list>
