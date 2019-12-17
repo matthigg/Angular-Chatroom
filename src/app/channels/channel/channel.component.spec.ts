@@ -2,7 +2,7 @@ import { ActivatedRoute } from '@angular/router';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 // RxJS
-import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 
 // Modules
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -10,6 +10,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 // Components
 import { ChannelComponent } from './channel.component';
+
+// Classes
+class MockActivatedRoute {
+  params = Observable.create(obs => {
+    obs.next('test-route')
+  })
+}
 
 describe('ChannelComponent', () => {
   let component: ChannelComponent;
@@ -25,11 +32,9 @@ describe('ChannelComponent', () => {
       providers: [ 
         { 
           provide: ActivatedRoute,
-          // useValue: { snapshot: { params: { get(): string { return 'test-name' }}}}
-          useValue: { 
-            snapshot: { params: 'test-name' },
-            // params: 'test-name'
-          }
+          // useValue: { snapshot: { params: { get(): string { return 'test-route' }}}}
+          // useValue: { snapshot: { params: 'test-route' } }
+          useClass: MockActivatedRoute
         } 
       ]
     })
@@ -43,7 +48,6 @@ describe('ChannelComponent', () => {
   });
 
   it('should create', () => {
-    // expect(component).toBeTruthy();
-    console.log('===', component)
+    expect(component).toBeTruthy();
   });
 });
