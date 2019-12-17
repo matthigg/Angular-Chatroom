@@ -9,7 +9,6 @@ export class ListChannelsService {
   constructor(private http: HttpClient) { }
 
   onListAllChannels() {
-    console.log('=== list ALL channels');
     return this.http.get('https://angular-chatroom-78cb6.firebaseio.com/channels.json');
   }
 

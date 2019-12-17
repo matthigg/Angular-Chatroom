@@ -22,7 +22,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
   ) { }
 
   ngOnDestroy() {
-    this.channelNameSub.unsubscribe();
+    // this.channelNameSub.unsubscribe();
   }
 
   ngOnInit() {

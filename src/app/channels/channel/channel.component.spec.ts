@@ -1,7 +1,11 @@
+import { ActivatedRoute } from '@angular/router';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+// RxJS
+import { Subscription } from 'rxjs';
+
 // Modules
-import { ActivatedRoute } from '@angular/router';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 // Components
@@ -14,12 +18,18 @@ describe('ChannelComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ChannelComponent ],
-      imports: [ RouterTestingModule ],
+      imports: [ 
+        HttpClientTestingModule,
+        RouterTestingModule 
+      ],
       providers: [ 
         { 
           provide: ActivatedRoute,
           // useValue: { snapshot: { params: { get(): string { return 'test-name' }}}}
-          useValue: { snapshot: { params: 'test-name' }}
+          useValue: { 
+            snapshot: { params: 'test-name' },
+            // params: 'test-name'
+          }
         } 
       ]
     })
@@ -33,6 +43,7 @@ describe('ChannelComponent', () => {
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    // expect(component).toBeTruthy();
+    console.log('===', component)
   });
 });

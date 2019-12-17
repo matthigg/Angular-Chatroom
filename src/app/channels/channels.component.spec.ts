@@ -1,5 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+
+// Modules
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+
+// Angular Material Modules
+import { MatListModule } from '@angular/material';
 
 // Components
 import { ChannelsComponent } from './channels.component';
@@ -17,6 +23,8 @@ describe('ChannelsComponent', () => {
       ],
       imports: [
         HttpClientTestingModule,
+        MatListModule,
+        RouterTestingModule,
       ]
     })
     .compileComponents();
