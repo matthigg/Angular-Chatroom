@@ -1,0 +1,12 @@
+<form #f="ngForm" (ngSubmit)="onDeleteChannel(f)">
+
+  <!-- Submit Button -->
+  <button
+    mat-button 
+    type="submit" 
+    [disabled]="!f.valid"
+  >
+    Delete Channel
+  </button>
+
+</form>

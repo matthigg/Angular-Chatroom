@@ -34,6 +34,6 @@ export class ListChannelsComponent implements OnInit {
             this.allChannels.push(obj.channelName)
           });
         }
-      })
+      });
   }
 }
