@@ -1,5 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+// Modules
+import { FormsModule } from '@angular/forms';
+
+// Components
 import { DeleteChannelComponent } from './delete-channel.component';
 
 describe('DeleteChannelComponent', () => {
@@ -8,7 +12,10 @@ describe('DeleteChannelComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeleteChannelComponent ]
+      declarations: [ DeleteChannelComponent ],
+      imports: [
+        FormsModule,
+      ]
     })
     .compileComponents();
   }));

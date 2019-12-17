@@ -4,6 +4,7 @@ import { By } from '@angular/platform-browser';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DeleteChannelModule } from '../shared/delete-channel/delete-channel.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -32,6 +33,7 @@ describe('NavToolbarComponent', () => {
       ],
       imports: [ 
         BrowserAnimationsModule,
+        DeleteChannelModule,
         FormsModule,
         HttpClientTestingModule,
         MatFormFieldModule,
