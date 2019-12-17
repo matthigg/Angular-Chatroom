@@ -14,13 +14,18 @@ export class ListChannelsComponent implements OnInit {
   constructor(private listChannelsService: ListChannelsService) { }
 
   ngOnInit() {
-    // this.onListAllChannels();
+    this.onListAllChannels();
   }
 
   private onListAllChannels() {
     this.listChannelsService.onListAllChannels()
       .subscribe(channels => {
-        console.log('--- channels:', channels);
+        const channelList = Object.values(channels);
+        const channelListNames = [];
+        channelList.forEach(obj => {
+          channelListNames.push(obj.channelName)
+        });
+        this.allChannels.push(...channelListNames);
       })
   }
 }
