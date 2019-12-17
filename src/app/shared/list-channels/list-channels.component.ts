@@ -28,10 +28,12 @@ export class ListChannelsComponent implements OnInit {
   private onListAllChannels() {
     this.listAllChannelsSub = this.listChannelsService.onListAllChannels()
       .subscribe(channels => {
-        const channelList = Object.values(channels);
-        channelList.forEach(obj => {
-          this.allChannels.push(obj.channelName)
-        });
+        if (channels) {
+          const channelList = Object.values(channels);
+          channelList.forEach(obj => {
+            this.allChannels.push(obj.channelName)
+          });
+        }
       })
   }
 }
