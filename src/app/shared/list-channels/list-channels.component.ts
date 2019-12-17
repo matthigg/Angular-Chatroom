@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+
+// RxJS
+import { Subscription } from 'rxjs';
 
 // Services
 import { ListChannelsService } from './services/list-channels.service';
@@ -10,22 +13,25 @@ import { ListChannelsService } from './services/list-channels.service';
 })
 export class ListChannelsComponent implements OnInit {
   allChannels: string[] = ['chan 1', 'chan 2'];
+  listAllChannelsSub: Subscription;
 
   constructor(private listChannelsService: ListChannelsService) { }
+
+  ngOnDestroy() {
+    this.listAllChannelsSub.unsubscribe()
+  }
 
   ngOnInit() {
     this.onListAllChannels();
   }
 
   private onListAllChannels() {
-    this.listChannelsService.onListAllChannels()
+    this.listAllChannelsSub = this.listChannelsService.onListAllChannels()
       .subscribe(channels => {
         const channelList = Object.values(channels);
-        const channelListNames = [];
         channelList.forEach(obj => {
-          channelListNames.push(obj.channelName)
+          this.allChannels.push(obj.channelName)
         });
-        this.allChannels.push(...channelListNames);
       })
   }
 }
