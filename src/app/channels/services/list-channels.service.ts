@@ -11,8 +11,4 @@ export class ListChannelsService {
   onListAllChannels() {
     return this.http.get('https://angular-chatroom-78cb6.firebaseio.com/channels.json');
   }
-
-  onListFavoriteChannels() {
-    console.log('=== list FAVORITE channels')
-  }
 }
