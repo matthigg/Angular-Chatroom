@@ -1,3 +1,11 @@
+h1 {
+  margin: calc(1rem + 1vw);
+}
+
+mat-form-field {
+  margin: calc(0.5rem + 0.5vw);
+}
+
 .link-and-delete-button {
   align-items: center;
   display: flex;

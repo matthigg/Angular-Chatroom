@@ -1,4 +1,31 @@
 <h1>Channels</h1>
+
+<form #f="ngForm" (ngSubmit)="onCreateChannel(f)">
+
+  <!-- Input Field -->
+  <mat-form-field>
+    <input 
+      matInput
+      name="channelName"
+      ngModel 
+      required 
+      type="text" 
+      value
+    >
+  </mat-form-field>
+
+  <!-- Submit Button -->
+  <button
+    mat-button 
+    type="submit" 
+    [disabled]="!f.valid"
+  >
+    Create Channel
+  </button>
+
+</form>
+
+<!-- Channel List -->
 <mat-nav-list>
   <div class="link-and-delete-button" *ngFor="let channel of allChannels">
     <a 
