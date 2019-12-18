@@ -4,7 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 // Angular Material Modules
-import { MatButtonModule } from '@angular/material';
+import { 
+  MatButtonModule,
+  MatIconModule
+} from '@angular/material';
 
 // Components
 import { DeleteChannelComponent } from './delete-channel.component';
@@ -20,6 +23,7 @@ import { DeleteChannelComponent } from './delete-channel.component';
     CommonModule,
     FormsModule,
     MatButtonModule,
+    MatIconModule,
   ],
 })
 export class DeleteChannelModule { }

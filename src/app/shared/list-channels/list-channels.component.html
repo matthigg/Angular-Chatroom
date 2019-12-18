@@ -1,9 +1,12 @@
 <h1>Channels</h1>
 <mat-nav-list>
-  <a mat-list-item 
-    [routerLink]="['/channel', channel]"
-    *ngFor="let channel of allChannels" 
-  >
-    {{ channel }}
-  </a>
+  <div class="link-and-delete-button" *ngFor="let channel of allChannels">
+    <a 
+      mat-list-item 
+      [routerLink]="['/channel', channel]"
+    >
+      {{ channel }}
+    </a>
+    <app-delete-channel></app-delete-channel>
+  </div>
 </mat-nav-list>

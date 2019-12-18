@@ -1,4 +1,6 @@
+// Modules
 import { CommonModule } from '@angular/common';
+import { DeleteChannelModule } from '../delete-channel/delete-channel.module';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
@@ -17,6 +19,7 @@ import { ListChannelsComponent } from './list-channels.component';
   ],
   imports: [
     CommonModule,
+    DeleteChannelModule,
     MatListModule,
     RouterModule,
   ]
