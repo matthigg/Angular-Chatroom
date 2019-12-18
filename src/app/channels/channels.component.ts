@@ -1,9 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 // RxJS
 import { Subscription } from 'rxjs';
 
+// Modules
+import { NgForm } from '@angular/forms';
+ 
 // Services
+import { CreateChannelService } from './services/create-channel.service';
 import { ListChannelsService } from './services/list-channels.service';
 import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.service';
 
@@ -14,16 +18,19 @@ import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.servi
 })
 export class ChannelsComponent implements OnInit {
   allChannels: string[] = [];
+  createChannelSub: Subscription;
   isLoading: boolean;
   listAllChannelsSub: Subscription;
 
   constructor(
+    private createChannelService: CreateChannelService,
     private listChannelsService: ListChannelsService,
     private toggleSideNavService: ToggleSideNavService
   ) { }
 
   ngOnDestroy() {
-    this.listAllChannelsSub.unsubscribe()
+    this.createChannelSub.unsubscribe();
+    this.listAllChannelsSub.unsubscribe();
   }
 
   ngOnInit() {
@@ -45,6 +52,11 @@ export class ChannelsComponent implements OnInit {
         }
         this.isLoading = false;
       });
+  }
+
+  onCreateChannel(form: NgForm) {
+    this.createChannelSub = this.createChannelService.onCreateChannel(form)
+      .subscribe()
   }
 
 }
