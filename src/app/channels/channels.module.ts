@@ -1,10 +1,13 @@
 // Modules
-import { ListChannelsModule } from '../shared/list-channels/list-channels.module';
+import { CommonModule } from '@angular/common';
+import { DeleteChannelModule } from '../shared/delete-channel/delete-channel.module';
+import { LoadingSpinnerModule } from '../shared/loading-spinner/loading-spinner.module';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 
 // Angular Material Modules
 import { 
+  MatListModule
 } from '@angular/material';
 
 // Components
@@ -21,7 +24,10 @@ import { ChannelComponent } from './channel/channel.component';
     ChannelComponent,
   ],
   imports: [
-    ListChannelsModule, 
+    CommonModule,
+    DeleteChannelModule,
+    LoadingSpinnerModule,
+    MatListModule,
     RouterModule, 
   ]
 })
