@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 
 // RxJS
 import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 // Modules
 import { NgForm } from '@angular/forms';
@@ -29,8 +30,8 @@ export class ChannelsComponent implements OnInit {
   ) { }
 
   ngOnDestroy() {
-    this.createChannelSub.unsubscribe();
-    this.listAllChannelsSub.unsubscribe();
+    if (this.createChannelSub) this.createChannelSub.unsubscribe();
+    if (this.listAllChannelsSub) this.listAllChannelsSub.unsubscribe();
   }
 
   ngOnInit() {
@@ -56,7 +57,7 @@ export class ChannelsComponent implements OnInit {
 
   onCreateChannel(form: NgForm) {
     this.createChannelSub = this.createChannelService.onCreateChannel(form)
+      .pipe(take(1))
       .subscribe()
   }
-
 }
