@@ -1,8 +1,10 @@
 // Modules
 import { CommonModule } from '@angular/common';
 import { DeleteChannelModule } from '../delete-channel/delete-channel.module';
+import { LoadingSpinnerModule } from '../loading-spinner/loading-spinner.module';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+
 
 // Angular Material Modules
 import { MatListModule } from '@angular/material';
@@ -20,6 +22,7 @@ import { ListChannelsComponent } from './list-channels.component';
   imports: [
     CommonModule,
     DeleteChannelModule,
+    LoadingSpinnerModule,
     MatListModule,
     RouterModule,
   ]

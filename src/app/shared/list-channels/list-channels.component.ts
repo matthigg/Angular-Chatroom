@@ -11,8 +11,9 @@ import { ListChannelsService } from './services/list-channels.service';
   templateUrl: './list-channels.component.html',
   styleUrls: ['./list-channels.component.scss']
 })
-export class ListChannelsComponent implements OnInit {
-  allChannels: string[] = ['chan 1', 'chan 2'];
+export class ListChannelsComponent implements OnDestroy, OnInit {
+  allChannels: string[] = [];
+  isLoading: boolean;
   listAllChannelsSub: Subscription;
 
   constructor(private listChannelsService: ListChannelsService) { }
@@ -26,6 +27,7 @@ export class ListChannelsComponent implements OnInit {
   }
 
   private onListAllChannels() {
+    this.isLoading = true;
     this.listAllChannelsSub = this.listChannelsService.onListAllChannels()
       .subscribe(channels => {
         if (channels) {
@@ -34,6 +36,7 @@ export class ListChannelsComponent implements OnInit {
             this.allChannels.push(obj.channelName)
           });
         }
+        this.isLoading = false;
       });
   }
 }
