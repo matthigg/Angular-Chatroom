@@ -60,7 +60,9 @@ export class ChannelsComponent implements OnDestroy, OnInit {
   onCreateChannel(form: NgForm) {
     this.createChannelSub = this.createChannelService.onCreateChannel(form)
       .pipe(take(1))
-      .subscribe()
-    this.router.navigate(['channel', form.value.channelName])
+      .subscribe(
+        response => this.router.navigate(['channel', form.value.channelName]),
+        error => console.log('There was an error creating the channel:', error)
+      )
   }
 }
