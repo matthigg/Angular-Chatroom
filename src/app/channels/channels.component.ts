@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 // RxJS
 import { Subscription } from 'rxjs';
@@ -17,7 +18,7 @@ import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.servi
   templateUrl: './channels.component.html',
   styleUrls: ['./channels.component.scss']
 })
-export class ChannelsComponent implements OnInit {
+export class ChannelsComponent implements OnDestroy, OnInit {
   allChannels: string[] = [];
   createChannelSub: Subscription;
   isLoading: boolean;
@@ -26,6 +27,7 @@ export class ChannelsComponent implements OnInit {
   constructor(
     private createChannelService: CreateChannelService,
     private listChannelsService: ListChannelsService,
+    private router: Router,
     private toggleSideNavService: ToggleSideNavService
   ) { }
 
@@ -59,5 +61,6 @@ export class ChannelsComponent implements OnInit {
     this.createChannelSub = this.createChannelService.onCreateChannel(form)
       .pipe(take(1))
       .subscribe()
+    this.router.navigate(['channel', form.value.channelName])
   }
 }
