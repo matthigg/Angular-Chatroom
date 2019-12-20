@@ -6,7 +6,11 @@ mat-form-field {
   margin: calc(0.5rem + 0.5vw);
 }
 
-.link-and-delete-button {
+.channel-link-and-delete-button-wrapper {
   align-items: center;
   display: flex;
+  & button {
+    border-radius: 0;
+    height: 48px;
+  }
 }

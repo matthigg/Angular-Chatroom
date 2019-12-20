@@ -1,6 +1,5 @@
 // Modules
 import { CommonModule } from '@angular/common';
-import { DeleteChannelModule } from '../shared/delete-channel/delete-channel.module';
 import { FormsModule } from '@angular/forms';
 import { LoadingSpinnerModule } from '../shared/loading-spinner/loading-spinner.module';
 import { NgModule } from '@angular/core';
@@ -29,7 +28,6 @@ import { ChannelComponent } from './channel/channel.component';
   ],
   imports: [
     CommonModule,
-    DeleteChannelModule,
     FormsModule,
     LoadingSpinnerModule,
     MatButtonModule,

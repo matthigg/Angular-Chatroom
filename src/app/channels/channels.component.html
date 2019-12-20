@@ -28,14 +28,20 @@
 
 <!-- Channel List -->
 <mat-nav-list>
-  <div class="link-and-delete-button" *ngFor="let channel of allChannels">
+  <div class="channel-link-and-delete-button-wrapper" *ngFor="let channel of allChannels">
     <a 
       mat-list-item 
       [routerLink]="['/channel', channel]"
     >
       {{ channel }}
     </a>
-    <app-delete-channel></app-delete-channel>
+    <button
+      mat-button
+      (click)="onDeleteChannel()"
+    >
+      x
+    </button
+    >
   </div>
   <div *ngIf="isLoading"><app-loading-spinner></app-loading-spinner></div>
 </mat-nav-list>

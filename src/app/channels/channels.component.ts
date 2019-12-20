@@ -10,6 +10,7 @@ import { NgForm } from '@angular/forms';
  
 // Services
 import { CreateChannelService } from './services/create-channel.service';
+import { DeleteChannelService } from './services/delete-channel.service';
 import { ListChannelsService } from './services/list-channels.service';
 import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.service';
 
@@ -26,6 +27,7 @@ export class ChannelsComponent implements OnDestroy, OnInit {
 
   constructor(
     private createChannelService: CreateChannelService,
+    private deleteChannelService: DeleteChannelService,
     private listChannelsService: ListChannelsService,
     private router: Router,
     private toggleSideNavService: ToggleSideNavService
@@ -64,5 +66,9 @@ export class ChannelsComponent implements OnDestroy, OnInit {
         response => this.router.navigate(['channel', form.value.channelName]),
         error => console.log('There was an error creating the channel:', error)
       )
+  }
+
+  onDeleteChannel() {
+    this.deleteChannelService.onDeleteChannel();
   }
 }

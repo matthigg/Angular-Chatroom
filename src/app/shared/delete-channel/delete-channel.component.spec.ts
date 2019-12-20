@@ -3,6 +3,9 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 // Modules
 import { FormsModule } from '@angular/forms';
 
+// Angular Material Modules
+import { MatIconModule } from '@angular/material';
+
 // Components
 import { DeleteChannelComponent } from './delete-channel.component';
 
@@ -15,6 +18,7 @@ describe('DeleteChannelComponent', () => {
       declarations: [ DeleteChannelComponent ],
       imports: [
         FormsModule,
+        MatIconModule,
       ]
     })
     .compileComponents();
