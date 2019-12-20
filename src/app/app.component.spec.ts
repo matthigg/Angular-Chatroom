@@ -68,6 +68,12 @@ describe('AppComponent', () => {
     expect(app.authService).toBeTruthy();
   });
 
+  it('calls ngOnInit()', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.debugElement.componentInstance;
+    // app.ngOnInit()
+  })
+
   // it(`should have as title 'angular-chatroom'`, () => {
   //   const fixture = TestBed.createComponent(AppComponent);
   //   const app = fixture.debugElement.componentInstance;
