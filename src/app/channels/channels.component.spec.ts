@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DeleteChannelModule } from '../shared/delete-channel/delete-channel.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LoadingSpinnerModule } from '../shared/loading-spinner/loading-spinner.module';
@@ -32,7 +31,6 @@ describe('ChannelsComponent', () => {
       ],
       imports: [
         BrowserAnimationsModule,
-        DeleteChannelModule,
         FormsModule,
         HttpClientTestingModule,
         LoadingSpinnerModule,

@@ -4,7 +4,6 @@ import { By } from '@angular/platform-browser';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DeleteChannelModule } from '../shared/delete-channel/delete-channel.module';
 import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -18,7 +17,6 @@ import {
 } from '@angular/material';
 
 // Components
-import { CreateChannelComponent } from '../shared/create-channel/create-channel.component';
 import { NavToolbarComponent } from './nav-toolbar.component';
 
 describe('NavToolbarComponent', () => {
@@ -28,12 +26,10 @@ describe('NavToolbarComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ 
-        CreateChannelComponent,
         NavToolbarComponent 
       ],
       imports: [ 
         BrowserAnimationsModule,
-        DeleteChannelModule,
         FormsModule,
         HttpClientTestingModule,
         MatFormFieldModule,

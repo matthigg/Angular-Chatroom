@@ -3,8 +3,6 @@ import { TestBed, async } from '@angular/core/testing';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CreateChannelModule } from './shared/create-channel/create-channel.module';
-import { DeleteChannelModule } from './shared/delete-channel/delete-channel.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -34,8 +32,6 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         BrowserAnimationsModule,
-        CreateChannelModule,
-        DeleteChannelModule,
         FormsModule,
         HttpClientTestingModule,
         MatButtonModule,

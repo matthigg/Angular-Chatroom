@@ -5,7 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { ChannelsModule } from './channels/channels.module';
 import { ChannelsRoutingModule } from './channels/channels-routing.module';
-import { DeleteChannelModule } from './shared/delete-channel/delete-channel.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
@@ -48,7 +47,6 @@ import { SideNavComponent } from './side-nav/side-nav.component';
     BrowserModule,
     ChannelsModule,
     ChannelsRoutingModule,
-    DeleteChannelModule,
     HttpClientModule,
     MatButtonModule,
     MatCardModule,

@@ -7,6 +7,11 @@ import { take } from 'rxjs/operators';
 
 // Modules
 import { NgForm } from '@angular/forms';
+
+// Angular Material Modules
+import {
+  MatListItem
+} from '@angular/material';
  
 // Services
 import { CreateChannelService } from './services/create-channel.service';
@@ -68,7 +73,7 @@ export class ChannelsComponent implements OnDestroy, OnInit {
       )
   }
 
-  onDeleteChannel() {
-    this.deleteChannelService.onDeleteChannel();
+  onDeleteChannel(channelListItem: MatListItem) {
+    this.deleteChannelService.onDeleteChannel(channelListItem);
   }
 }
