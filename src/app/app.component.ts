@@ -10,12 +10,11 @@ import { AuthService } from './auth/services/auth.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit(){
 
-  //   // Automatically log in user if user data is stored in localStorage
-  //   this.authService.autoLogin();
-  //   console.log('z')
+    // Automatically log in user if user data is stored in localStorage
+    this.authService.autoLogin();
   }
  }

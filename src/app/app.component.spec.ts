@@ -1,5 +1,6 @@
 // Testing
-import { TestBed, async } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+// import { DebugElement } from '@angular/core';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -28,6 +29,10 @@ import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
 import { SideNavComponent} from './side-nav/side-nav.component';
 
 describe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let app: AppComponent;
+  let authSpy: any;
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -54,25 +59,19 @@ describe('AppComponent', () => {
         SideNavComponent,
       ],
     }).compileComponents();
+    fixture = TestBed.createComponent(AppComponent);
+    app = fixture.debugElement.componentInstance;
   }));
 
   it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
   });
 
-  it('injects AuthService', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.authService).toBeTruthy();
+  it('should be able to call authService.autoLogin()', () => {
+    authSpy = spyOn(app.authService, 'autoLogin').and.callThrough();
+    authSpy();
+    expect(authSpy).toHaveBeenCalled();
   });
-
-  it('calls ngOnInit()', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    // app.ngOnInit()
-  })
 
   // it(`should have as title 'angular-chatroom'`, () => {
   //   const fixture = TestBed.createComponent(AppComponent);
