@@ -34,6 +34,7 @@ describe('CreateAccountComponent', () => {
   let buttonCreateAccount: HTMLButtonElement;
   let buttonVisibility: HTMLButtonElement;
   let controls: HTMLInputElement[];
+  let createAccountSpy;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -159,6 +160,17 @@ describe('CreateAccountComponent', () => {
     fixture.detectChanges();
     expect(buttonCreateAccount.disabled).toEqual(false);
   });
+
+  it(`should invoke the onSubmit() function if the button is clicked`, () => {
+    createAccountSpy = spyOn(component, 'onSubmit').and.callThrough();
+    controls.forEach(control => {
+      control.value = 'test@test';
+      control.dispatchEvent(new Event('input'))
+    });
+    fixture.detectChanges();
+    buttonCreateAccount.click();
+    expect(createAccountSpy).toHaveBeenCalled();
+  })
 
   it(`should capture all form control values if form is valid and user clicks the 'Create Account' button`, () => {
     controls.forEach(control => {
