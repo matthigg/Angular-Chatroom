@@ -69,7 +69,7 @@ describe('AppComponent', () => {
 
   it('should be able to call authService.autoLogin()', () => {
     authSpy = spyOn(app.authService, 'autoLogin').and.callThrough();
-    authSpy();
+    app.ngOnInit();
     expect(authSpy).toHaveBeenCalled();
   });
 
