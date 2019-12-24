@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.formLogin.valid) { return }
+    if (!this.formLogin.valid) { return null }
     this.checkboxRememberMe = this.formLogin.get('rememberMe').value;
     this.isLoading = true;
     const email = this.formLogin.value.email;
@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
           this.isError = false;
           this.errorMessage = '';
           this.router.navigate(['/']);
+          console.log('dog')
         },
         errorMessage => {
           this.isLoading = false;

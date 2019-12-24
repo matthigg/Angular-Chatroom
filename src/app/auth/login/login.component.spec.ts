@@ -2,6 +2,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+// RxJS
+import { of, throwError } from 'rxjs';
+
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -33,6 +36,7 @@ describe('LoginComponent', () => {
   let fixture: ComponentFixture<LoginComponent>;
   let inputPassword: HTMLInputElement;
   let inputEmail: HTMLInputElement;
+  let controls: HTMLInputElement[];
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -58,11 +62,15 @@ describe('LoginComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    inputPassword = fixture.debugElement.query(By.css('.input-password')).nativeElement;
-    inputEmail = fixture.debugElement.query(By.css('.input-email')).nativeElement;
-    buttonLogin = fixture.debugElement.query(By.css('.button-login')).nativeElement;
     fixture.detectChanges();
+    component = fixture.componentInstance;
+    inputEmail = fixture.debugElement.query(By.css('.input-email')).nativeElement;
+    inputPassword = fixture.debugElement.query(By.css('.input-password')).nativeElement;
+    buttonLogin = fixture.debugElement.query(By.css('.button-login')).nativeElement;
+    controls = [
+      inputEmail,
+      inputPassword,
+    ]
   });
 
   it('should create', () => {
@@ -96,6 +104,11 @@ describe('LoginComponent', () => {
     expect(buttonLogin.disabled).toEqual(false);
   });
 
+  it(`should have the onSubmit() function return 'null' if the account creation form is invalid`, () => {
+    const onSubmitResult = component.onSubmit();
+    expect(onSubmitResult).toEqual(null);
+  });
+
   it(`should capture the 'Email' & 'Password' on form submission`, () => {
     inputEmail.value = 'test@test';
     inputEmail.dispatchEvent(new Event('input'));
@@ -124,4 +137,50 @@ describe('LoginComponent', () => {
     expect(inputPassword.type).toEqual('password');
   });
 
+  it(`should not show an error message if a successful response is received from authService.login()`, () => {
+    spyOn(component['authService'], 'login').and.returnValue(of(
+      {
+        kind: '',
+        idToken: '',
+        email: '',
+        refreshToken: '',
+        expiresIn: '',
+        localId: '',
+      }
+    ))()
+      .subscribe(
+        response => expect(response).toBeTruthy(),
+        error => expect(error).toBeFalsy(),
+      );
+
+    controls.forEach(control => {
+      control.value = 'test@test';
+      control.dispatchEvent(new Event('input'))
+    });
+    fixture.detectChanges();
+    buttonLogin.click();
+
+    expect(component.isError).toEqual(false);
+    expect(component.errorMessage).toBeFalsy();
+  });
+
+  it(`should show an error message if an error is thrown from authService.login()`, () => {
+    spyOn(component['authService'], 'login').and.returnValue(
+      throwError(new Error('fake error'))
+    )()
+      .subscribe(
+        response => expect(response).toBeFalsy(),
+        error => expect(error).toBeTruthy(),
+      );
+
+    controls.forEach(control => {
+      control.value = 'test@test';
+      control.dispatchEvent(new Event('input'))
+    });
+    fixture.detectChanges();
+    buttonLogin.click();
+
+    expect(component.isError).toEqual(true);
+    expect(component.errorMessage).toBeTruthy();
+  });
 });

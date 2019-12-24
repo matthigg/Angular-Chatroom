@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 // RxJS
-import { Observable, of, throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,25 +24,6 @@ import {
 import { CreateAccountComponent } from './create-account.component';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 
-// Services
-import { AuthService } from '../services/auth.service';
-
-// Classes, Models, Interfaces
-import { AuthResponseData } from '../models/auth-response-data';
-// class MockAuthService {
-//   createAccount() {
-//     return of(
-//     {
-//       kind: '',
-//       idToken: '',
-//       email: '',
-//       refreshToken: '',
-//       expiresIn: '',
-//       localId: '',
-//     });
-//   }
-// }
-
 describe('CreateAccountComponent', () => {
   let component: CreateAccountComponent;
   let fixture: ComponentFixture<CreateAccountComponent>;
@@ -53,7 +34,6 @@ describe('CreateAccountComponent', () => {
   let buttonCreateAccount: HTMLButtonElement;
   let buttonVisibility: HTMLButtonElement;
   let controls: HTMLInputElement[];
-  let createAccountSpy;
   let onSubmitSpy;
 
   beforeEach(async(() => {
@@ -72,9 +52,6 @@ describe('CreateAccountComponent', () => {
         MatInputModule, 
         ReactiveFormsModule, 
         RouterTestingModule,
-      ],
-      providers: [
-        // { provide: AuthService, useClass: MockAuthService },
       ],
     })
     .compileComponents();
@@ -227,7 +204,7 @@ describe('CreateAccountComponent', () => {
     expect(inputPasswordRetype.type).toEqual('password');
   });
 
-  it(`does not show an error message if a successful response is received from authService.createAccount()`, () => {
+  it(`should not show an error message if a successful response is received from authService.createAccount()`, () => {
     spyOn(component['authService'], 'createAccount').and.returnValue(of(
       {
         kind: '',
@@ -240,7 +217,7 @@ describe('CreateAccountComponent', () => {
     ))()
       .subscribe(
         response => expect(response).toBeTruthy(),
-        errorMessage => expect(errorMessage).toBeFalsy()
+        error => expect(error).toBeFalsy()
       );
 
     controls.forEach(control => {
@@ -254,13 +231,13 @@ describe('CreateAccountComponent', () => {
     expect(component.errorMessage).toEqual('');
   });
 
-  it(`does show an error message if an error is thrown from authService.createAccount()`, () => {
+  it(`should show an error message if an error is thrown from authService.createAccount()`, () => {
     spyOn(component['authService'], 'createAccount').and.returnValue(
       throwError({ status: 404 })
     )()
       .subscribe(
         response => expect(response).toBeFalsy(),
-        errorMessage => expect(errorMessage).toEqual({ status: 404 })
+        error => expect(error).toEqual({ status: 404 })
       );
 
     controls.forEach(control => {
