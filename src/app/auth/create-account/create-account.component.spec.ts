@@ -250,12 +250,11 @@ describe('CreateAccountComponent', () => {
     fixture.detectChanges();
     buttonCreateAccount.click();
 
-    // expect(component.isError).toEqual(false);
-    // expect(component.errorMessage).toEqual('');
+    expect(component.isError).toEqual(false);
+    expect(component.errorMessage).toEqual('');
   });
 
   it(`does show an error message if an error is thrown from authService.createAccount()`, () => {
-    
     spyOn(component['authService'], 'createAccount').and.returnValue(
       throwError({ status: 404 })
     )()
@@ -270,6 +269,8 @@ describe('CreateAccountComponent', () => {
     });
     fixture.detectChanges();
     buttonCreateAccount.click();
-  });
 
+    expect(component.isError).toEqual(true);
+    expect(component.errorMessage).toBeTruthy();
+  });
 });
