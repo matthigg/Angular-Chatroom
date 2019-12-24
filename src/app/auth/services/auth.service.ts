@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
 // RxJS
@@ -19,6 +19,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
+    private ngZone: NgZone,
     private router: Router,
   ) { }
 
@@ -161,6 +162,6 @@ export class AuthService {
       clearTimeout(this.tokenExpirationTimer);
     }
     this.tokenExpirationTimer = null;
-    this.router.navigate(['/auth']);
+    this.ngZone.run(() => this.router.navigate(['/auth']));
   }
 }
