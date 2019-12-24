@@ -45,7 +45,6 @@ export class LoginComponent implements OnInit {
           this.isError = false;
           this.errorMessage = '';
           this.router.navigate(['/']);
-          console.log('dog')
         },
         errorMessage => {
           this.isLoading = false;
