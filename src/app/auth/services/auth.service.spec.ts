@@ -33,8 +33,17 @@ describe('AuthService', () => {
     expect(localStorage.getItem('userData')).toBeTruthy();
   });
 
-  it(`should handle error responses 'null' and 'undefined'`, () => {
+  it(`should handle error response 'null'`, () => {
     errorResponse = null;
+    service['handleError'](errorResponse)
+      .subscribe(
+        response => expect(response).toBeFalsy(),
+        error => expect(error).toEqual('An unknown error occurred.'),
+      );
+  });
+
+  it(`should handle error response 'undefined'`, () => {
+    errorResponse = undefined;
     service['handleError'](errorResponse)
       .subscribe(
         response => expect(response).toBeFalsy(),
@@ -86,5 +95,40 @@ describe('AuthService', () => {
         error => expect(error).toEqual('This account has been disabled by an administrator.')
       );
   });
+
+  it(`should have autoLogin() return 'null' if 'userData' does not exist in localStorage`, () => {
+    localStorage.removeItem('userData');
+    expect(service.autoLogin()).toEqual(null);
+  })
+
+  it(`should have autoLogin() store any localStorage 'userData' into the 'user' BehaviorSubject object`, () => {
+    localStorage.setItem('userData', JSON.stringify(new User('test email', 'test id', 'test token', new Date(new Date().getTime() + 1000000))));
+    service.autoLogin();
+    service.user
+      .subscribe(
+        response => {
+          expect(response.email).toEqual('test email');
+          expect(response.id).toEqual('test id');
+          expect(response['_token']).toEqual('test token');
+          expect(response['_tokenExpirationDate']).toBeTruthy();
+        },
+        error => expect(error).toBeFalsy(),
+      );
+    localStorage.removeItem('userData');
+  });
+
+  it(`should logout the user if token is 'null' when running the autoLogin() method`, () => {
+    localStorage.setItem('userData', JSON.stringify(new User('test email', 'test id', null, new Date(new Date().getTime() + 1000000))));
+    spyOn(service, 'logout');
+    service.autoLogin();
+    expect(service.logout).toHaveBeenCalled();
+  });
+
+  it(`should logout the user if token is 'undefined' when running the autoLogin() method`, () => {
+    localStorage.setItem('userData', JSON.stringify(new User('test email', 'test id', undefined, new Date(new Date().getTime() + 1000000))));
+    spyOn(service, 'logout');
+    service.autoLogin();
+    expect(service.logout).toHaveBeenCalled();
+  })
 
 });

@@ -81,9 +81,10 @@ export class AuthService {
       _token: string,
       _tokenExpirationDate: Date
     } = JSON.parse(localStorage.getItem('userData'));
-    if (!userData) { return; }
+    if (!userData) return null;
 
-    // Reconstruct the user so that it has access to the token() getter
+    // Reconstruct the user from being strigified & stored in localStorage so 
+    // that it regains the functionality of the token() getter
     const loadedUser = new User(
       userData.email, 
       userData.id, 
@@ -97,10 +98,12 @@ export class AuthService {
       this.user.next(loadedUser);
       const expirationDuration = new Date(userData._tokenExpirationDate).getTime() - new Date().getTime()
       this.autoLogout(expirationDuration);
+    } else {
+      this.logout();
     }
   }
 
-  // Automatically log user out after tokenExpirationDate passes
+  // Automatically logout user after tokenExpirationDate passes
   autoLogout(expirationDuration: number) {
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
