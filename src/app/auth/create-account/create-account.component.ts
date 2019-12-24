@@ -71,7 +71,6 @@ export class CreateAccountComponent implements OnInit {
           this.isError = false;
           this.errorMessage = '';
           this.router.navigate(['/']);
-          console.log('horse')
         },
         errorMessage => { 
           this.isLoading = false; 

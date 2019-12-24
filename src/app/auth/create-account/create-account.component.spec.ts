@@ -227,39 +227,32 @@ describe('CreateAccountComponent', () => {
     expect(inputPasswordRetype.type).toEqual('password');
   });
 
-  // it(`does not show an error message if a successful response is received from authService.createAccount()`, () => {
-  //   const createAccountSpy = spyOn(component['authService'], 'createAccount').and.returnValue(of(
-  //     {
-  //       kind: '',
-  //       idToken: '',
-  //       email: '',
-  //       refreshToken: '',
-  //       expiresIn: '',
-  //       localId: '',
-  //     }
-  //   ))
-  //   createAccountSpy()
-  //     .subscribe(
-  //       response => {
-  //         // console.log('--- response', response)
-  //         expect(response).toBeTruthy();
-  //       }
-  //     );
+  it(`does not show an error message if a successful response is received from authService.createAccount()`, () => {
+    spyOn(component['authService'], 'createAccount').and.returnValue(of(
+      {
+        kind: '',
+        idToken: '',
+        email: '',
+        refreshToken: '',
+        expiresIn: '',
+        localId: '',
+      }
+    ))()
+      .subscribe(
+        response => expect(response).toBeTruthy(),
+        errorMessage => expect(errorMessage).toBeFalsy()
+      );
 
-  //   // console.log('--- createAccountSpy:', createAccountSpy)
+    controls.forEach(control => {
+      control.value = 'test@test';
+      control.dispatchEvent(new Event('input'))
+    });
+    fixture.detectChanges();
+    buttonCreateAccount.click();
 
-  //   expect(createAccountSpy).toHaveBeenCalled();
-
-  //   // controls.forEach(control => {
-  //   //   control.value = 'test@test';
-  //   //   control.dispatchEvent(new Event('input'));
-  //   // });
-  //   // buttonCreateAccount.click();
-  //   // fixture.detectChanges();
-
-  //   // expect(component.isError).toEqual(false);
-  //   // expect(component.errorMessage).toEqual('');
-  // });
+    // expect(component.isError).toEqual(false);
+    // expect(component.errorMessage).toEqual('');
+  });
 
   it(`does show an error message if an error is thrown from authService.createAccount()`, () => {
     
@@ -267,15 +260,8 @@ describe('CreateAccountComponent', () => {
       throwError({ status: 404 })
     )()
       .subscribe(
-        response => {
-          console.log('--- response (should not execute)', response)
-          expect(response).toBeFalsy();
-        },
-        errorMessage => {
-          console.log('--- errorMessage', errorMessage)
-          expect(errorMessage).toBeTruthy();
-          expect(errorMessage).toEqual({ status: 404 });
-        }
+        response => expect(response).toBeFalsy(),
+        errorMessage => expect(errorMessage).toEqual({ status: 404 })
       );
 
     controls.forEach(control => {
