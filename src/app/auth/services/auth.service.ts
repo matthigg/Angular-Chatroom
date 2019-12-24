@@ -47,9 +47,12 @@ export class AuthService {
   // Handle login and authentication errors
   private handleError(errorResponse) {
     let errorMessage = 'An unknown error occurred.';
-    if (!errorResponse.error || !errorResponse.error.error) {
-      return throwError(errorMessage);
-    }
+    if (
+      !errorResponse || 
+      !errorResponse.error || 
+      !errorResponse.error.error ||
+      !errorResponse.error.error.message
+    ) { return throwError(errorMessage) }
     switch (errorResponse.error.error.message) {
       case 'EMAIL_EXISTS':
         errorMessage = 'This email has already been registered.';
