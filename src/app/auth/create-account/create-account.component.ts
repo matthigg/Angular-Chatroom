@@ -60,7 +60,7 @@ export class CreateAccountComponent implements OnInit {
   }
 
   onSubmit() {
-    if (!this.formCreateAccount.valid) { return }
+    if (!this.formCreateAccount.valid) { return null }
     this.isLoading = true;
     const email = this.formCreateAccount.value.email;
     const password = this.formCreateAccount.value.passwords.password;
@@ -71,6 +71,7 @@ export class CreateAccountComponent implements OnInit {
           this.isError = false;
           this.errorMessage = '';
           this.router.navigate(['/']);
+          console.log('horse')
         },
         errorMessage => { 
           this.isLoading = false; 
@@ -79,5 +80,4 @@ export class CreateAccountComponent implements OnInit {
         },
       );
   }
-
 }

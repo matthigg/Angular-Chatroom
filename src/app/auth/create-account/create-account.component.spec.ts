@@ -2,6 +2,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
+// RxJS
+import { Observable, of, throwError } from 'rxjs';
+
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -24,6 +27,22 @@ import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-sp
 // Services
 import { AuthService } from '../services/auth.service';
 
+// Classes, Models, Interfaces
+import { AuthResponseData } from '../models/auth-response-data';
+// class MockAuthService {
+//   createAccount() {
+//     return of(
+//     {
+//       kind: '',
+//       idToken: '',
+//       email: '',
+//       refreshToken: '',
+//       expiresIn: '',
+//       localId: '',
+//     });
+//   }
+// }
+
 describe('CreateAccountComponent', () => {
   let component: CreateAccountComponent;
   let fixture: ComponentFixture<CreateAccountComponent>;
@@ -35,6 +54,7 @@ describe('CreateAccountComponent', () => {
   let buttonVisibility: HTMLButtonElement;
   let controls: HTMLInputElement[];
   let createAccountSpy;
+  let onSubmitSpy;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -52,7 +72,10 @@ describe('CreateAccountComponent', () => {
         MatInputModule, 
         ReactiveFormsModule, 
         RouterTestingModule,
-      ]
+      ],
+      providers: [
+        // { provide: AuthService, useClass: MockAuthService },
+      ],
     })
     .compileComponents();
   }));
@@ -162,14 +185,19 @@ describe('CreateAccountComponent', () => {
   });
 
   it(`should invoke the onSubmit() function if the button is clicked`, () => {
-    createAccountSpy = spyOn(component, 'onSubmit').and.callThrough();
+    onSubmitSpy = spyOn(component, 'onSubmit').and.callThrough();
     controls.forEach(control => {
       control.value = 'test@test';
       control.dispatchEvent(new Event('input'))
     });
     fixture.detectChanges();
     buttonCreateAccount.click();
-    expect(createAccountSpy).toHaveBeenCalled();
+    expect(onSubmitSpy).toHaveBeenCalled();
+  });
+
+  it(`should have the onSubmit() function return 'null' if the account creation form is invalid`, () => {
+    const onSubmitResult = component.onSubmit();
+    expect(onSubmitResult).toEqual(null);
   })
 
   it(`should capture all form control values if form is valid and user clicks the 'Create Account' button`, () => {
@@ -197,6 +225,65 @@ describe('CreateAccountComponent', () => {
     fixture.detectChanges();
     expect(inputPassword.type).toEqual('password');
     expect(inputPasswordRetype.type).toEqual('password');
+  });
+
+  // it(`does not show an error message if a successful response is received from authService.createAccount()`, () => {
+  //   const createAccountSpy = spyOn(component['authService'], 'createAccount').and.returnValue(of(
+  //     {
+  //       kind: '',
+  //       idToken: '',
+  //       email: '',
+  //       refreshToken: '',
+  //       expiresIn: '',
+  //       localId: '',
+  //     }
+  //   ))
+  //   createAccountSpy()
+  //     .subscribe(
+  //       response => {
+  //         // console.log('--- response', response)
+  //         expect(response).toBeTruthy();
+  //       }
+  //     );
+
+  //   // console.log('--- createAccountSpy:', createAccountSpy)
+
+  //   expect(createAccountSpy).toHaveBeenCalled();
+
+  //   // controls.forEach(control => {
+  //   //   control.value = 'test@test';
+  //   //   control.dispatchEvent(new Event('input'));
+  //   // });
+  //   // buttonCreateAccount.click();
+  //   // fixture.detectChanges();
+
+  //   // expect(component.isError).toEqual(false);
+  //   // expect(component.errorMessage).toEqual('');
+  // });
+
+  it(`does show an error message if an error is thrown from authService.createAccount()`, () => {
+    
+    spyOn(component['authService'], 'createAccount').and.returnValue(
+      throwError({ status: 404 })
+    )()
+      .subscribe(
+        response => {
+          console.log('--- response (should not execute)', response)
+          expect(response).toBeFalsy();
+        },
+        errorMessage => {
+          console.log('--- errorMessage', errorMessage)
+          expect(errorMessage).toBeTruthy();
+          expect(errorMessage).toEqual({ status: 404 });
+        }
+      );
+
+    controls.forEach(control => {
+      control.value = 'test@test';
+      control.dispatchEvent(new Event('input'))
+    });
+    fixture.detectChanges();
+    buttonCreateAccount.click();
   });
 
 });

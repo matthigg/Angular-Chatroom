@@ -8,15 +8,7 @@ import { BehaviorSubject, throwError } from 'rxjs';
 
 // Models, Interfaces
 import { User } from '../models/user.model';
-interface AuthResponseData {
-  kind: string,
-  idToken: string,
-  email: string,
-  refreshToken: string,
-  expiresIn: string,
-  localId: string,
-  registered?: boolean
-}
+import { AuthResponseData } from '../models/auth-response-data';
 
 @Injectable({
   providedIn: 'root'
