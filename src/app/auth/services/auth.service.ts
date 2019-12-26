@@ -119,7 +119,7 @@ export class AuthService {
         {
           email: email,
           password: password,
-          returnSecureToken: true
+          returnSecureToken: true, 
         }
       )
       .pipe(
@@ -131,7 +131,7 @@ export class AuthService {
             response.idToken,
             +response.expiresIn,
           );
-        })
+        }),
       );
   }
 

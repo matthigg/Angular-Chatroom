@@ -3,6 +3,10 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
+// RxJS
+import { of } from 'rxjs'
+import { catchError, tap } from 'rxjs/operators'
+
 // Services
 import { AuthService } from './auth.service';
 
@@ -130,5 +134,37 @@ describe('AuthService', () => {
     service.autoLogin();
     expect(service.logout).toHaveBeenCalled();
   })
+
+  it(`should call handleAuthentication() if accout creation via createAccount() is successful`, () => {
+    const handleAuthenticationSpy: any = spyOn<any>(service, 'handleAuthentication');
+    spyOn(service, 'createAccount').and.returnValue(of(
+      {
+        kind: '',
+        idToken: '',
+        email: '',
+        refreshToken: '',
+        expiresIn: '',
+        localId: '',
+      }
+    ))()
+      .pipe(
+        catchError(service['handleError']),
+        tap(() => {
+          service['handleAuthentication'](
+            'test email',
+            'test localId',
+            'test idToken',
+            0,
+          )
+        }),
+      )
+      .subscribe(
+        response => expect(response).toBeTruthy(),
+        error => expect(error).toBeFalsy(),
+      );
+
+    service.createAccount('test email', 'test password');
+    expect(handleAuthenticationSpy).toHaveBeenCalled();
+  });
 
 });
