@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 // RxJS
 import { catchError, tap } from 'rxjs/operators';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 
 // Models, Interfaces
 import { User } from '../models/user.model';
@@ -50,7 +50,7 @@ export class AuthService {
     if (
       !errorResponse || 
       !errorResponse.error || 
-      !errorResponse.error.error ||
+      !errorResponse.error.error || 
       !errorResponse.error.error.message
     ) { return throwError(errorMessage) }
     switch (errorResponse.error.error.message) {
@@ -123,7 +123,6 @@ export class AuthService {
         }
       )
       .pipe(
-        catchError(this.handleError), 
         tap(response => {
           this.handleAuthentication(
             response.email,
@@ -131,7 +130,10 @@ export class AuthService {
             response.idToken,
             +response.expiresIn,
           );
+          console.log('=== createAccount().pipe(tap())')
+          console.log('=== asdf')
         }),
+        catchError(this.handleError), 
       );
   }
 

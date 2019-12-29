@@ -1,20 +1,24 @@
 // @Angular
-import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { inject, TestBed } from '@angular/core/testing';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 // RxJS
-import { of } from 'rxjs'
+import { Observable, of } from 'rxjs'
 import { catchError, tap } from 'rxjs/operators'
 
 // Services
 import { AuthService } from './auth.service';
 
 // Models
+import { AuthResponseData } from '../models/auth-response-data';
 import { User } from '../models/user.model';
 
 describe('AuthService', () => {
   let errorResponse: { error: { error: { message: string } } } | null | undefined;
+  // let httpClient: HttpClient;
+  let httpMock: HttpTestingController;
   let service: AuthService;
 
   beforeEach(() => {
@@ -25,7 +29,13 @@ describe('AuthService', () => {
       ]
     });
     errorResponse = null;
+    // httpClient = TestBed.get(HttpClient);
+    httpMock = TestBed.get(HttpTestingController);
     service = TestBed.get(AuthService);
+  });
+
+  afterEach(() => {
+    httpMock.verify();
   });
 
   it('should be created', () => {
@@ -135,35 +145,18 @@ describe('AuthService', () => {
     expect(service.logout).toHaveBeenCalled();
   })
 
-  it(`should call handleAuthentication() if accout creation via createAccount() is successful`, () => {
+  it(`should call handleAuthentication() if account creation via createAccount() is successful`, () => {
     const handleAuthenticationSpy: any = spyOn<any>(service, 'handleAuthentication');
-    spyOn(service, 'createAccount').and.returnValue(of(
-      {
-        kind: '',
-        idToken: '',
-        email: '',
-        refreshToken: '',
-        expiresIn: '',
-        localId: '',
-      }
-    ))()
-      .pipe(
-        catchError(service['handleError']),
-        tap(() => {
-          service['handleAuthentication'](
-            'test email',
-            'test localId',
-            'test idToken',
-            0,
-          )
-        }),
-      )
-      .subscribe(
-        response => expect(response).toBeTruthy(),
-        error => expect(error).toBeFalsy(),
-      );
-
-    service.createAccount('test email', 'test password');
+    const webAPIKey = 'AIzaSyAAC4JQbA0KOAL5RVMPyAIpp5XxWdnwRy8';
+    const req = httpMock.expectOne('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + webAPIKey);
+    service.createAccount('test email', 'test password')
+      .subscribe(response => {
+        expect(response).toBeTruthy();
+      });
+    expect(req.request.method).toBe('POST');
+    req.flush({
+      response: 'test response'
+    });
     expect(handleAuthenticationSpy).toHaveBeenCalled();
   });
 
