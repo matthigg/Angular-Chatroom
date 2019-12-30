@@ -27,8 +27,11 @@
 </form>
 
 <!-- Channel List -->
-<div *ngIf="!channelsExist">
-  <mat-error>There are no channels.</mat-error>
+<div *ngIf="!channelsExist && !isLoading">
+  <mat-error class="error-no-channels">There are no channels.</mat-error>
+</div>
+<div *ngIf="errorChannelCreation">
+  <mat-error class="error-channel-creation">{{ errorChannelCreation }}</mat-error>
 </div>
 <div *ngIf="channelsExist">
   <mat-nav-list>

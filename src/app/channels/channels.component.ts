@@ -29,6 +29,7 @@ export class ChannelsComponent implements OnDestroy, OnInit {
   private listAllChannelsSub: Subscription;
   allChannels: string[] = [];
   channelsExist: boolean;
+  errorChannelCreation: string = '';
   isLoading: boolean;
 
   constructor(
@@ -56,13 +57,13 @@ export class ChannelsComponent implements OnDestroy, OnInit {
     this.listAllChannelsSub = this.listChannelsService.onListAllChannels()
       .subscribe(channels => {
         if (channels) {
-          // this.channelsExist = true;
+          this.channelsExist = true;
           const channelList = Object.values(channels);
           channelList.forEach(obj => {
             this.allChannels.push(obj.channelName)
           });
         } else {
-          this.allChannels
+          this.channelsExist = false;
         }
         this.isLoading = false;
       });
@@ -73,7 +74,7 @@ export class ChannelsComponent implements OnDestroy, OnInit {
       .pipe(take(1))
       .subscribe(
         response => this.router.navigate(['channel', form.value.channelName]),
-        error => console.log('There was an error creating the channel:', error)
+        error => this.errorChannelCreation = 'Error: could not create channel.'
       )
   }
 
