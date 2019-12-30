@@ -1,23 +1,16 @@
 // @Angular
-import { inject, TestBed } from '@angular/core/testing';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-
-// RxJS
-import { Observable, of } from 'rxjs'
-import { catchError, tap } from 'rxjs/operators'
 
 // Services
 import { AuthService } from './auth.service';
 
 // Models
-import { AuthResponseData } from '../models/auth-response-data';
 import { User } from '../models/user.model';
 
 describe('AuthService', () => {
   let errorResponse: { error: { error: { message: string } } } | null | undefined;
-  // let httpClient: HttpClient;
   let httpMock: HttpTestingController;
   let service: AuthService;
 
@@ -29,7 +22,6 @@ describe('AuthService', () => {
       ]
     });
     errorResponse = null;
-    // httpClient = TestBed.get(HttpClient);
     httpMock = TestBed.get(HttpTestingController);
     service = TestBed.get(AuthService);
   });
