@@ -27,22 +27,27 @@
 </form>
 
 <!-- Channel List -->
-<mat-nav-list>
-  <div class="channel-link-and-delete-button-wrapper" *ngFor="let channel of allChannels">
-    <a 
-      mat-list-item 
-      #channelListItem
-      [routerLink]="['/channel', channel]"
-    >
-      {{ channel }}
-    </a>
-    <button
-      mat-button
-      (click)="onDeleteChannel(channelListItem)"
-    >
-      x
-    </button
-    >
-  </div>
-  <div *ngIf="isLoading"><app-loading-spinner></app-loading-spinner></div>
-</mat-nav-list>
+<div *ngIf="!channelsExist">
+  <mat-error>There are no channels.</mat-error>
+</div>
+<div *ngIf="channelsExist">
+  <mat-nav-list>
+    <div class="channel-link-and-delete-button-wrapper" *ngFor="let channel of allChannels">
+      <a 
+        mat-list-item 
+        #channelListItem
+        [routerLink]="['/channel', channel]"
+      >
+        {{ channel }}
+      </a>
+      <button
+        mat-button
+        (click)="onDeleteChannel(channelListItem)"
+      >
+        x
+      </button
+      >
+    </div>
+    <div *ngIf="isLoading"><app-loading-spinner></app-loading-spinner></div>
+  </mat-nav-list>
+</div>

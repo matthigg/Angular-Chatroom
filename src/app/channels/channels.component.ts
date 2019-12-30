@@ -25,10 +25,11 @@ import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.servi
   styleUrls: ['./channels.component.scss']
 })
 export class ChannelsComponent implements OnDestroy, OnInit {
+  private createChannelSub: Subscription;
+  private listAllChannelsSub: Subscription;
   allChannels: string[] = [];
-  createChannelSub: Subscription;
+  channelsExist: boolean;
   isLoading: boolean;
-  listAllChannelsSub: Subscription;
 
   constructor(
     private createChannelService: CreateChannelService,
@@ -55,10 +56,13 @@ export class ChannelsComponent implements OnDestroy, OnInit {
     this.listAllChannelsSub = this.listChannelsService.onListAllChannels()
       .subscribe(channels => {
         if (channels) {
+          // this.channelsExist = true;
           const channelList = Object.values(channels);
           channelList.forEach(obj => {
             this.allChannels.push(obj.channelName)
           });
+        } else {
+          this.allChannels
         }
         this.isLoading = false;
       });
