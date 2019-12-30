@@ -130,8 +130,6 @@ export class AuthService {
             response.idToken,
             +response.expiresIn,
           );
-          console.log('=== createAccount().pipe(tap())')
-          console.log('=== asdf')
         }),
         catchError(this.handleError), 
       );

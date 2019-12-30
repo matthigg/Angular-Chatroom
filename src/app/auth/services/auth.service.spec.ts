@@ -145,14 +145,31 @@ describe('AuthService', () => {
     expect(service.logout).toHaveBeenCalled();
   })
 
-  it(`should call handleAuthentication() if account creation via createAccount() is successful`, () => {
+  it(`should login the user if account creation is successful`, () => {
     const handleAuthenticationSpy: any = spyOn<any>(service, 'handleAuthentication');
-    const webAPIKey = 'AIzaSyAAC4JQbA0KOAL5RVMPyAIpp5XxWdnwRy8';
-    const req = httpMock.expectOne('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + webAPIKey);
     service.createAccount('test email', 'test password')
       .subscribe(response => {
         expect(response).toBeTruthy();
       });
+
+    // Order is important -- these lines must occur after the initial subscription
+    const webAPIKey = 'AIzaSyAAC4JQbA0KOAL5RVMPyAIpp5XxWdnwRy8';
+    const req = httpMock.expectOne('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + webAPIKey);
+    expect(req.request.method).toBe('POST');
+    req.flush({
+      response: 'test response'
+    });
+    expect(handleAuthenticationSpy).toHaveBeenCalled();
+  });
+
+  it(`should login the user if username/email & password are correct`, () => {
+    const handleAuthenticationSpy: any = spyOn<any>(service, 'handleAuthentication');
+    service.login('test email', 'test password')
+      .subscribe(response => {
+        expect(response).toBeTruthy();
+      });
+    const webAPIKey = 'AIzaSyAAC4JQbA0KOAL5RVMPyAIpp5XxWdnwRy8';
+    const req = httpMock.expectOne('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + webAPIKey);
     expect(req.request.method).toBe('POST');
     req.flush({
       response: 'test response'
