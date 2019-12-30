@@ -10,7 +10,8 @@ import {
   MatButtonModule,
   MatFormFieldModule,
   MatInputModule,
-  MatListModule
+  MatListModule,
+  MatToolbarModule,
 } from '@angular/material';
 
 // Components
@@ -34,6 +35,7 @@ import { ChannelComponent } from './channel/channel.component';
     MatFormFieldModule,
     MatInputModule,
     MatListModule,
+    MatToolbarModule,
     RouterModule, 
   ]
 })

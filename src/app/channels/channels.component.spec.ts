@@ -16,7 +16,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { 
   MatFormFieldModule,
   MatInputModule,
-  MatListModule 
+  MatListModule,
+  MatToolbarModule,
 } from '@angular/material';
 
 // Components
@@ -40,6 +41,7 @@ describe('ChannelsComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         MatListModule,
+        MatToolbarModule,
         RouterTestingModule,
       ]
     })
@@ -108,12 +110,18 @@ describe('ChannelsComponent', () => {
     const routerNavigateSpy = spyOn(component['router'], 'navigate');
     spyOn(component['createChannelService'], 'onCreateChannel').and.returnValue(
       throwError('TEST ERROR: could not create channel.')
-      );
+    );
     const testNgForm = <NgForm>{ 'value': 'testChannelName' };
     component.onCreateChannel(testNgForm);
     fixture.detectChanges();
     const errorElement = fixture.debugElement.query(By.css('.error-channel-creation')).nativeElement;
     expect(errorElement.innerHTML).toBeTruthy();
     expect(routerNavigateSpy).not.toHaveBeenCalled();
+  });
+
+  it(`should allow users to delete a channel via onDeleteChannel()`, () => {
+    spyOn(component['deleteChannelService'], 'onDeleteChannel').and.returnValue(
+
+    );
   });
 });

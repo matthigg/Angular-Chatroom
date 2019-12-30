@@ -28,10 +28,10 @@
 
 <!-- Channel List -->
 <div *ngIf="!channelsExist && !isLoading">
-  <mat-error class="error-no-channels">There are no channels.</mat-error>
+  <mat-toolbar class="error-no-channels">There are no channels.</mat-toolbar>
 </div>
 <div *ngIf="errorChannelCreation">
-  <mat-error class="error-channel-creation">{{ errorChannelCreation }}</mat-error>
+  <mat-toolbar class="error-channel-creation">{{ errorChannelCreation }}</mat-toolbar>
 </div>
 <div *ngIf="channelsExist">
   <mat-nav-list>
