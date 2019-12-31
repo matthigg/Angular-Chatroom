@@ -13,9 +13,9 @@ export class DeleteChannelService {
 
   constructor(private http: HttpClient) { }
 
-  onDeleteChannel(channel: MatListItem) {
+  onDeleteChannel(channelId: string) {
     return this.http.delete(
-      `https://angular-chatroom-78cb6.firebaseio.com/channels/${channel}.json`,
+      `https://angular-chatroom-78cb6.firebaseio.com/channels/${channelId}.json`,
     );
   }
 }

@@ -79,8 +79,8 @@ export class ChannelsComponent implements OnDestroy, OnInit {
       )
   }
 
-  onDeleteChannel(channelListItem: MatListItem) {
-    this.deleteChannelSub = this.deleteChannelService.onDeleteChannel(channelListItem)
+  onDeleteChannel(channelId: string) {
+    this.deleteChannelSub = this.deleteChannelService.onDeleteChannel(channelId)
       .subscribe();
   }
 }

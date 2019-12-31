@@ -61,11 +61,14 @@ describe('ChannelsComponent', () => {
 
   it(`should unsubscribe from all subscriptions during the ngOnDestroy() lifecycle hook`, () => {
     component['createChannelSub'] = new Subscription();
+    component['deleteChannelSub'] = new Subscription();
     component['listAllChannelsSub'] = new Subscription();
     spyOn(component['createChannelSub'], 'unsubscribe');
+    spyOn(component['deleteChannelSub'], 'unsubscribe');
     spyOn(component['listAllChannelsSub'], 'unsubscribe');
     component.ngOnDestroy();
     expect(component['createChannelSub'].unsubscribe).toHaveBeenCalled();
+    expect(component['deleteChannelSub'].unsubscribe).toHaveBeenCalled();
     expect(component['listAllChannelsSub'].unsubscribe).toHaveBeenCalled();
   });
 
@@ -119,9 +122,9 @@ describe('ChannelsComponent', () => {
     expect(routerNavigateSpy).not.toHaveBeenCalled();
   });
 
-  it(`should allow users to delete a channel via onDeleteChannel()`, () => {
-    spyOn(component['deleteChannelService'], 'onDeleteChannel').and.returnValue(
+  // it(`should allow users to delete a channel via onDeleteChannel()`, () => {
+  //   spyOn(component['deleteChannelService'], 'onDeleteChannel').and.returnValue(
 
-    );
-  });
+  //   );
+  // });
 });
