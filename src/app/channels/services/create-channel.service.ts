@@ -10,7 +10,6 @@ export class CreateChannelService {
   constructor(private http: HttpClient) { }
 
   onCreateChannel(form: NgForm) {
-    console.log(form)
     return this.http.post(
       'https://angular-chatroom-78cb6.firebaseio.com/channels.json',
       form.value

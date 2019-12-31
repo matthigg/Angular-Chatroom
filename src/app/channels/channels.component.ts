@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 // RxJS
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 // Modules
@@ -26,8 +26,9 @@ import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.servi
 })
 export class ChannelsComponent implements OnDestroy, OnInit {
   private createChannelSub: Subscription;
+  private deleteChannelSub: Subscription;
   private listAllChannelsSub: Subscription;
-  allChannels: string[] = [];
+  allChannels: any[] = [];
   channelsExist: boolean;
   errorChannelCreation: string = '';
   isLoading: boolean;
@@ -42,6 +43,7 @@ export class ChannelsComponent implements OnDestroy, OnInit {
 
   ngOnDestroy() {
     if (this.createChannelSub) this.createChannelSub.unsubscribe();
+    if (this.deleteChannelSub) this.deleteChannelSub.unsubscribe();
     if (this.listAllChannelsSub) this.listAllChannelsSub.unsubscribe();
   }
 
@@ -58,10 +60,7 @@ export class ChannelsComponent implements OnDestroy, OnInit {
       .subscribe(channels => {
         if (channels) {
           this.channelsExist = true;
-          const channelList = Object.values(channels);
-          channelList.forEach(obj => {
-            this.allChannels.push(obj.channelName)
-          });
+          this.allChannels = Object.entries(channels);
         } else {
           this.channelsExist = false;
         }
@@ -73,12 +72,15 @@ export class ChannelsComponent implements OnDestroy, OnInit {
     this.createChannelSub = this.createChannelService.onCreateChannel(form)
       .pipe(take(1))
       .subscribe(
-        response => this.router.navigate(['channel', form.value.channelName]),
+        (response: { name: string }) => {
+          this.router.navigate(['channel', form.value.channelName]);
+        },
         error => this.errorChannelCreation = 'Error: could not create channel.'
       )
   }
 
   onDeleteChannel(channelListItem: MatListItem) {
-    this.deleteChannelService.onDeleteChannel(channelListItem);
+    this.deleteChannelSub = this.deleteChannelService.onDeleteChannel(channelListItem)
+      .subscribe();
   }
 }

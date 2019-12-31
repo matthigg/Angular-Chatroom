@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 // Angular Material Modules
@@ -10,9 +11,11 @@ import {
 })
 export class DeleteChannelService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   onDeleteChannel(channel: MatListItem) {
-    console.log('delete:', channel)
+    return this.http.delete(
+      `https://angular-chatroom-78cb6.firebaseio.com/channels/${channel}.json`,
+    );
   }
 }
