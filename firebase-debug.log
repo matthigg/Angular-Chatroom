@@ -1,0 +1,75 @@
+[debug] [2019-12-31T12:47:56.065Z] ----------------------------------------------------------------------
+[debug] [2019-12-31T12:47:56.068Z] Command:       /home/frealis/.nvm/versions/node/v12.11.1/bin/node /home/frealis/.nvm/versions/node/v12.11.1/bin/firebase deploy --debug
+[debug] [2019-12-31T12:47:56.068Z] CLI Version:   7.11.0
+[debug] [2019-12-31T12:47:56.069Z] Platform:      linux
+[debug] [2019-12-31T12:47:56.069Z] Node Version:  v12.11.1
+[debug] [2019-12-31T12:47:56.070Z] Time:          Tue Dec 31 2019 07:47:56 GMT-0500 (Eastern Standard Time)
+[debug] [2019-12-31T12:47:56.070Z] ----------------------------------------------------------------------
+[debug] [2019-12-31T12:47:56.070Z] 
+[debug] [2019-12-31T12:47:56.078Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-12-31T12:47:56.079Z] > authorizing via signed-in user
+[debug] [2019-12-31T12:47:56.079Z] [iam] checking project angular-chatroom-78cb6 for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-12-31T12:47:56.082Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/angular-chatroom-78cb6:testIamPermissions  
+
+[debug] [2019-12-31T12:47:56.277Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-31T12:47:56.285Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/angular-chatroom-78cb6  
+ 
+[debug] [2019-12-31T12:47:56.609Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'angular-chatroom-78cb6'...
+[info] 
+[info] i  deploying hosting
+[debug] [2019-12-31T12:47:56.620Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/angular-chatroom-78cb6/versions  
+
+[debug] [2019-12-31T12:47:57.490Z] <<< HTTP RESPONSE 200
+[info] i  hosting[angular-chatroom-78cb6]: beginning deploy...
+[info] i  hosting[angular-chatroom-78cb6]: found 183 files in dist
+[debug] [2019-12-31T12:47:57.594Z] [hosting] hash cache [ZGlzdA] stored for 183 files
+[debug] [2019-12-31T12:47:57.594Z] [hosting][hash queue][FINAL]
+[debug] [2019-12-31T12:47:57.594Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/angular-chatroom-78cb6/versions/af4435408654f0cd:populateFiles  
+ <request body omitted>
+[info] i  hosting: adding files to version [0/183] (0%)
+[debug] [2019-12-31T12:47:59.631Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-31T12:47:59.632Z] [hosting][populate queue][FINAL]
+[debug] [2019-12-31T12:47:59.633Z] [hosting] uploads queued: 0
+[debug] [2019-12-31T12:47:59.633Z] [hosting][upload queue][FINAL]
+[info] ✔  hosting[angular-chatroom-78cb6]: file upload complete
+[debug] [2019-12-31T12:47:59.634Z] [hosting] deploy completed after 2141ms
+[debug] [2019-12-31T12:47:59.790Z] [
+  {
+    "config": {
+      "public": "dist",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "angular-chatroom-78cb6"
+    },
+    "site": "angular-chatroom-78cb6",
+    "version": "sites/angular-chatroom-78cb6/versions/af4435408654f0cd"
+  }
+]
+[info] i  hosting[angular-chatroom-78cb6]: finalizing version...
+[debug] [2019-12-31T12:47:59.790Z] >>> HTTP REQUEST PATCH https://firebasehosting.googleapis.com/v1beta1/sites/angular-chatroom-78cb6/versions/af4435408654f0cd?updateMask=status  
+
+[debug] [2019-12-31T12:48:00.204Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-31T12:48:00.205Z] [hosting] finalized version for angular-chatroom-78cb6:
+[info] ✔  hosting[angular-chatroom-78cb6]: version finalized
+[info] i  hosting[angular-chatroom-78cb6]: releasing new version...
+[debug] [2019-12-31T12:48:00.208Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/angular-chatroom-78cb6/releases?version_name=sites/angular-chatroom-78cb6/versions/af4435408654f0cd  
+
+[debug] [2019-12-31T12:48:00.597Z] <<< HTTP RESPONSE 200
+[debug] [2019-12-31T12:48:00.598Z] [hosting] release:
+[info] ✔  hosting[angular-chatroom-78cb6]: release complete
+[info] 
+[info] ✔  Deploy complete!
+[info] 
+[info] Project Console: https://console.firebase.google.com/project/angular-chatroom-78cb6/overview
+[info] Hosting URL: https://angular-chatroom-78cb6.firebaseapp.com

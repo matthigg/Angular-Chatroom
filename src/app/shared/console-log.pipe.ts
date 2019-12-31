@@ -1,13 +1,13 @@
-import { Pipe, PipeTransform } from '@angular/core';
+// import { Pipe, PipeTransform } from '@angular/core';
 
-@Pipe({
-  name: 'consoleLog'
-})
-export class ConsoleLogPipe implements PipeTransform {
+// @Pipe({
+//   name: 'consoleLog'
+// })
+// export class ConsoleLogPipe implements PipeTransform {
 
-  transform(value: any, ...args: any[]): any {
-    console.log('=== ConsoleLogPipe:', value);
-    return null;
-  }
+//   transform(value: any, ...args: any[]): any {
+//     console.log('=== ConsoleLogPipe:', value);
+//     return null;
+//   }
 
-}
+// }
