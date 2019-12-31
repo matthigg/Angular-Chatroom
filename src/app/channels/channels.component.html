@@ -33,6 +33,9 @@
 <div *ngIf="errorChannelCreation">
   <mat-toolbar class="error-channel-creation">{{ errorChannelCreation }}</mat-toolbar>
 </div>
+<div *ngIf="errorChannelDeletion">
+  <mat-toolbar class="error-channel-deletion">{{ errorChannelDeletion }}</mat-toolbar>
+</div>
 <div *ngIf="channelsExist">
   <mat-nav-list>
     <div class="channel-link-and-delete-button-wrapper" *ngFor="let channel of allChannels">

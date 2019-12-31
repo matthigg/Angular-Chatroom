@@ -29,6 +29,7 @@ export class ChannelsComponent implements OnDestroy, OnInit {
   allChannels: any[] = [];
   channelsExist: boolean;
   errorChannelCreation: string = '';
+  errorChannelDeletion: string = '';
   isLoading: boolean;
 
   constructor(
@@ -79,13 +80,22 @@ export class ChannelsComponent implements OnDestroy, OnInit {
   onDeleteChannel(channelId: string, channelName: string) {
     this.deleteChannelSub = this.deleteChannelService.onDeleteChannel(channelId)
       .pipe(take(1))
-      .subscribe();
-    this._snackBar.open(channelName + ' was deleted', 'x', 
-      { 
-        duration: 3000,
-        horizontalPosition: 'center',
-        panelClass: ['delete-channel-snackbar'],
-      }
-    );
+      .subscribe(
+        response => {
+          this.onListAllChannels();
+          this._snackBar.open(
+            channelName + ' was deleted', 'x',
+            { 
+              duration: 3000,
+              horizontalPosition: 'center',
+              panelClass: ['delete-channel-snackbar'],
+            },
+          );
+        },
+
+        // Deleting a file that doesn't exist does -not- throw an error.
+        // https://stackoverflow.com/questions/53251138/firebase-firestore-returning-true-on-failed-document-delete
+        error => this.errorChannelDeletion = 'Error: could not delete channel.'
+      );
   }
 }

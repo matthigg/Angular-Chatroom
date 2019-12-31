@@ -17,6 +17,7 @@ import {
   MatFormFieldModule,
   MatInputModule,
   MatListModule,
+  MatSnackBarModule,
   MatToolbarModule,
 } from '@angular/material';
 
@@ -41,6 +42,7 @@ describe('ChannelsComponent', () => {
         MatFormFieldModule,
         MatInputModule,
         MatListModule,
+        MatSnackBarModule,
         MatToolbarModule,
         RouterTestingModule,
       ]
@@ -123,10 +125,10 @@ describe('ChannelsComponent', () => {
   });
 
   it(`should allow users to delete a channel via onDeleteChannel()`, () => {
-    spyOn(component['deleteChannelService'], 'onDeleteChannel').and.returnValue(
-      of({})
+    const deleteChannelServiceSpy = spyOn(component['deleteChannelService'], 'onDeleteChannel').and.returnValue(
+      of({ 'test': 'unused test data'})
     );
-
     component.onDeleteChannel('testChannelId', 'testChannelName');
+    expect(deleteChannelServiceSpy).toHaveBeenCalled();
   });
 });
