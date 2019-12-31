@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
 
 // RxJS
-import { of, Subscription, throwError } from 'rxjs';
+import { Observable, of, Subscription, throwError } from 'rxjs';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -122,9 +122,11 @@ describe('ChannelsComponent', () => {
     expect(routerNavigateSpy).not.toHaveBeenCalled();
   });
 
-  // it(`should allow users to delete a channel via onDeleteChannel()`, () => {
-  //   spyOn(component['deleteChannelService'], 'onDeleteChannel').and.returnValue(
+  it(`should allow users to delete a channel via onDeleteChannel()`, () => {
+    spyOn(component['deleteChannelService'], 'onDeleteChannel').and.returnValue(
+      of({})
+    );
 
-  //   );
-  // });
+    component.onDeleteChannel('testChannelId', 'testChannelName');
+  });
 });

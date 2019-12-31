@@ -7,3 +7,10 @@ body {
   font-family: Roboto, "Helvetica Neue", sans-serif; 
   overflow: hidden;
 }
+
+.delete-channel-snackbar {
+  background-color: #333;
+  & .mat-simple-snackbar {
+    color: white;
+  }
+}

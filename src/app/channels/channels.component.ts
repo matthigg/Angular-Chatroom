@@ -2,16 +2,14 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 // RxJS
-import { Observable, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 // Modules
 import { NgForm } from '@angular/forms';
 
 // Angular Material Modules
-import {
-  MatListItem
-} from '@angular/material';
+import { MatSnackBar } from '@angular/material';
  
 // Services
 import { CreateChannelService } from './services/create-channel.service';
@@ -38,7 +36,8 @@ export class ChannelsComponent implements OnDestroy, OnInit {
     private deleteChannelService: DeleteChannelService,
     private listChannelsService: ListChannelsService,
     private router: Router,
-    private toggleSideNavService: ToggleSideNavService
+    private toggleSideNavService: ToggleSideNavService,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnDestroy() {
@@ -72,15 +71,21 @@ export class ChannelsComponent implements OnDestroy, OnInit {
     this.createChannelSub = this.createChannelService.onCreateChannel(form)
       .pipe(take(1))
       .subscribe(
-        (response: { name: string }) => {
-          this.router.navigate(['channel', form.value.channelName]);
-        },
+        response => this.router.navigate(['channel', form.value.channelName]),
         error => this.errorChannelCreation = 'Error: could not create channel.'
-      )
+      );
   }
 
-  onDeleteChannel(channelId: string) {
+  onDeleteChannel(channelId: string, channelName: string) {
     this.deleteChannelSub = this.deleteChannelService.onDeleteChannel(channelId)
+      .pipe(take(1))
       .subscribe();
+    this._snackBar.open(channelName + ' was deleted', 'x', 
+      { 
+        duration: 3000,
+        horizontalPosition: 'center',
+        panelClass: ['delete-channel-snackbar'],
+      }
+    );
   }
 }
