@@ -26,7 +26,7 @@
 
 </form>
 
-<!-- Channel List -->
+<!-- Channel List Errors -->
 <div *ngIf="!channelsExist && !isLoading">
   <mat-toolbar class="error-no-channels">There are no channels.</mat-toolbar>
 </div>
@@ -36,6 +36,8 @@
 <div *ngIf="errorChannelDeletion">
   <mat-toolbar class="error-channel-deletion">{{ errorChannelDeletion }}</mat-toolbar>
 </div>
+
+<!-- Channel List -->
 <div *ngIf="channelsExist">
   <mat-nav-list>
     <div class="channel-link-and-delete-button-wrapper" *ngFor="let channel of allChannels">
