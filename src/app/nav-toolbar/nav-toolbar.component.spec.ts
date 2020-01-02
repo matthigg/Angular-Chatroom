@@ -19,9 +19,15 @@ import {
 // Components
 import { NavToolbarComponent } from './nav-toolbar.component';
 
+// Services
+import { AuthService } from '../auth/services/auth.service';
+import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.service';
+
 describe('NavToolbarComponent', () => {
+  let authService: AuthService;
   let component: NavToolbarComponent;
   let fixture: ComponentFixture<NavToolbarComponent>;
+  let toggleSideNavService: ToggleSideNavService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -43,8 +49,10 @@ describe('NavToolbarComponent', () => {
   }));
 
   beforeEach(() => {
+    authService = TestBed.get(AuthService);
     fixture = TestBed.createComponent(NavToolbarComponent);
     component = fixture.componentInstance;
+    toggleSideNavService = TestBed.get(ToggleSideNavService);
     fixture.detectChanges();
   });
 
@@ -63,4 +71,27 @@ describe('NavToolbarComponent', () => {
   //   fixture.detectChanges();
   //   expect(fixture.debugElement.query(By.css('.button-logout'))).toBeTruthy();
   // })
+
+  it(`should call authService.logout() when the 'logout' button is clicked`, () => {
+    component.isAuthenticated = true;
+    fixture.detectChanges();
+    const authServiceLogoutSpy = spyOn(authService, 'logout');
+    fixture.debugElement.query(By.css('.button-logout')).nativeElement.click();
+    expect(authServiceLogoutSpy).toHaveBeenCalled();
+  });
+
+  it(`should log the user out after the 'logout' button is clicked`, () => {
+    component.isAuthenticated = true;
+    fixture.detectChanges();
+    fixture.debugElement.query(By.css('.button-logout')).nativeElement.click();
+    expect(component.isAuthenticated).toEqual(false);
+  });
+
+  it(`should call toggleSideNavService.handleSideNav() when the 'hamburger' icon is clicked`, () => {
+    component.isAuthenticated = true;
+    fixture.detectChanges();
+    const sideNavServiceSpy = spyOn(toggleSideNavService, 'handleSideNav');
+    fixture.debugElement.query(By.css('.button-hamburger')).nativeElement.click();
+    expect(sideNavServiceSpy).toHaveBeenCalled();
+  });
 });

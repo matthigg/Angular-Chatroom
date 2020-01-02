@@ -44,6 +44,8 @@ export class ChannelsComponent implements OnDestroy, OnInit {
   ngOnDestroy() {
     if (this.createChannelSub) this.createChannelSub.unsubscribe();
     if (this.deleteChannelSub) this.deleteChannelSub.unsubscribe();
+    /* istanbul ignore else*/
+    // https://stackoverflow.com/questions/31883320/how-to-ignore-branch-coverage-for-missing-else
     if (this.listAllChannelsSub) this.listAllChannelsSub.unsubscribe();
   }
 
@@ -93,7 +95,7 @@ export class ChannelsComponent implements OnDestroy, OnInit {
           );
         },
 
-        // Deleting a file that doesn't exist does -not- throw an error.
+        // Trying to delete a file that doesn't exist does -not- throw an error.
         // https://stackoverflow.com/questions/53251138/firebase-firestore-returning-true-on-failed-document-delete
         error => this.errorChannelDeletion = 'Error: could not delete channel.'
       );

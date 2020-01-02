@@ -116,8 +116,7 @@ describe('ChannelsComponent', () => {
     spyOn(component['createChannelService'], 'onCreateChannel').and.returnValue(
       throwError('TEST ERROR: could not create channel.')
     );
-    const testNgForm = <NgForm>{ 'value': 'testChannelName' };
-    component.onCreateChannel(testNgForm);
+    component.onCreateChannel(<NgForm>{ 'value': 'testChannelName' });
     fixture.detectChanges();
     const errorElement = fixture.debugElement.query(By.css('.error-channel-creation')).nativeElement;
     expect(errorElement.innerHTML).toBeTruthy();
@@ -130,5 +129,17 @@ describe('ChannelsComponent', () => {
     );
     component.onDeleteChannel('testChannelId', 'testChannelName');
     expect(deleteChannelServiceSpy).toHaveBeenCalled();
+  });
+
+  // Trying to delete a file that doesn't exist does -not- throw an error.
+  // https://stackoverflow.com/questions/53251138/firebase-firestore-returning-true-on-failed-document-delete
+  it(`displays an error message to the user if there was a problem deleting a channel`, () => {
+    spyOn(component['deleteChannelService'], 'onDeleteChannel').and.returnValue(
+      throwError('TEST ERROR: could not delete channel.')
+    );
+    component.onDeleteChannel('test channelId', 'test channelName');
+    fixture.detectChanges();
+    const errorElement = fixture.debugElement.query(By.css('.error-channel-deletion')).nativeElement;
+    expect(errorElement.innerHTML).toBeTruthy();
   });
 });

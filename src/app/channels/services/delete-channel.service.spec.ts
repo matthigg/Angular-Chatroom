@@ -5,12 +5,22 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { DeleteChannelService } from './delete-channel.service';
 
 describe('DeleteChannelService', () => {
-  beforeEach(() => TestBed.configureTestingModule({
-    imports: [ HttpClientTestingModule ]
-  }));
+  let service: DeleteChannelService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ]
+    }),
+    service = TestBed.get(DeleteChannelService);
+  });
 
   it('should be created', () => {
-    const service: DeleteChannelService = TestBed.get(DeleteChannelService);
     expect(service).toBeTruthy();
+  });
+
+  it(`should have an onDeleteChannel() method`, () => {
+    spyOn(service, 'onDeleteChannel').and.callThrough();
+    service.onDeleteChannel('testChannelId');
+    expect(service.onDeleteChannel).toHaveBeenCalled();
   });
 });

@@ -22,9 +22,7 @@ export class NavToolbarComponent implements OnDestroy, OnInit {
   ) { }
 
   ngOnDestroy() {
-    if (this.userSubscription) {
-      this.userSubscription.unsubscribe();
-    }
+    if (this.userSubscription) this.userSubscription.unsubscribe();
   }
 
   ngOnInit() {

@@ -13,7 +13,7 @@ export class DeleteChannelService {
 
   onDeleteChannel(channelId: string): Observable<Object> {
     return this.http.delete(
-      `https://angular-chatroom-78cb6.firebaseio.com/channelsz/${channelId}.json`,
+      `https://angular-chatroom-78cb6.firebaseio.com/channels/${channelId}.json`,
     );
   }
 }
