@@ -1,1 +1,9 @@
-<p>You are in channel {{ channelName }}</p>
+<mat-toolbar>Channel {{ channelName }}</mat-toolbar>
+<mat-list>
+  <mat-list-item
+    class="message"
+    *ngFor="let message of messages"
+  >
+    {{ message }}
+  </mat-list-item>
+</mat-list>

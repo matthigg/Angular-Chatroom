@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 // Services
+import { ChannelMessagesService } from './services/channel-messages.service';
 import { ToggleSideNavService } from '../../side-nav/services/toggle-side-nav.service';
 
 @Component({
@@ -14,11 +15,13 @@ import { ToggleSideNavService } from '../../side-nav/services/toggle-side-nav.se
 })
 export class ChannelComponent implements OnDestroy, OnInit {
   channelName: string;
-  channelNameSub: Subscription
+  channelNameSub: Subscription;
+  messages: string[];
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private toggleSideNavService: ToggleSideNavService
+    private channelMessagesService: ChannelMessagesService,
+    private toggleSideNavService: ToggleSideNavService,
   ) { }
 
   ngOnDestroy() {
@@ -26,12 +29,22 @@ export class ChannelComponent implements OnDestroy, OnInit {
   }
 
   ngOnInit() {
+
     this.channelNameSub = this.activatedRoute.params
       .subscribe(value => {
+
+        // Grab the channel name from the URL
         this.channelName = value.name;
-      })
+
+        // Retrieve channel messages from the ChannelMessagesService
+        this.channelMessagesService.retrieveMessages(this.channelName);
+      });
+
+    // Open the side nav
     setTimeout(() => {
-      this.toggleSideNavService.handleSideNav('open')
-    });
+      this.toggleSideNavService.handleSideNav('open');
+    }, 0);
+
+
   }
 }

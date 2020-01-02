@@ -8,6 +8,12 @@ import { Observable } from 'rxjs';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
+// Angular Material Modules
+import { 
+  MatListModule,
+  MatToolbarModule, 
+} from '@angular/material';
+
 // Components
 import { ChannelComponent } from './channel.component';
 
@@ -15,7 +21,7 @@ import { ChannelComponent } from './channel.component';
 class MockActivatedRoute {
   params = Observable.create(obs => {
     obs.next('test-route')
-  })
+  });
 }
 
 describe('ChannelComponent', () => {
@@ -27,14 +33,16 @@ describe('ChannelComponent', () => {
       declarations: [ ChannelComponent ],
       imports: [ 
         HttpClientTestingModule,
-        RouterTestingModule 
+        MatListModule,
+        MatToolbarModule,
+        RouterTestingModule,
       ],
       providers: [ 
         { 
           provide: ActivatedRoute,
+          useClass: MockActivatedRoute
           // useValue: { snapshot: { params: { get(): string { return 'test-route' }}}}
           // useValue: { snapshot: { params: 'test-route' } }
-          useClass: MockActivatedRoute
         } 
       ]
     })
