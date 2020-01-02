@@ -15,11 +15,12 @@ import {
 import { SideNavComponent } from './side-nav.component';
 
 // Services
-import { AuthService } from '../auth/services/auth.service';
+import { ToggleSideNavService } from './services/toggle-side-nav.service';
 
 describe('SideNavComponent', () => {
   let component: SideNavComponent;
   let fixture: ComponentFixture<SideNavComponent>;
+  let toggleSideNavService: ToggleSideNavService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -31,7 +32,6 @@ describe('SideNavComponent', () => {
         MatSidenavModule,
         RouterTestingModule,
       ],
-      providers: [ AuthService ]
     })
     .compileComponents();
   }));
@@ -39,10 +39,24 @@ describe('SideNavComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SideNavComponent);
     component = fixture.componentInstance;
+    toggleSideNavService = TestBed.get(ToggleSideNavService);
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it(`should create a subscription to toggleSideNavService.sideNavSubject during ngOnInit()`, () => {
+    component.ngOnInit();
+    toggleSideNavService.sideNavSubject.next(true);
+    fixture.detectChanges();
+    expect(component.isSideNavOpen).toEqual(true);
+    toggleSideNavService.sideNavSubject.next(false);
+    fixture.detectChanges();
+    expect(component.isSideNavOpen).toEqual(false);
+    // console.log('--- component.isSIdeNavOpen', component.isSideNavOpen)
+    // console.log('--- component[sideNavSubjectSub]:', component['sideNavSubjectSub'])
+    // console.log('--- component[isSideNavOpen]:', component['isSideNavOpen'])
   });
 });
