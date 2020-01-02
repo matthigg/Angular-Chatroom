@@ -1,12 +1,12 @@
 <mat-toolbar>
-  <!-- <div *ngIf="isAuthenticated"> -->
+  <div class="nav-toolbar-wrapper" *ngIf="isAuthenticated">
 
     <!-- Hamburger Side Nav Toggle -->
     <button
-    class="button-hamburger"
-    mat-button
-    type="button"
-    (click)="onToggleSideNav()"
+      class="button-hamburger"
+      mat-button
+      type="button"
+      (click)="onToggleSideNav()"
     >
       <mat-icon>menu</mat-icon>
     </button>
@@ -21,6 +21,6 @@
       Logout
     </button>
     
-  <!-- </div> -->
+  </div>
 </mat-toolbar>
 

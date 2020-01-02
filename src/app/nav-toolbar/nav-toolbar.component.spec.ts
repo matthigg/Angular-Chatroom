@@ -60,22 +60,22 @@ describe('NavToolbarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it(`should not show the 'Logout' button if user is not authenticated`, () => {
-  //   component.isAuthenticated = false;
-  //   fixture.detectChanges();
-  //   expect(fixture.debugElement.query(By.css('.button-logout'))).toBeFalsy();
-  // })
+  it(`should not show the 'Logout' button if user is not authenticated`, () => {
+    component.isAuthenticated = false;
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('.button-logout'))).toBeFalsy();
+  })
 
-  // it(`should show the 'Logout' button if user is authenticated`, () => {
-  //   component.isAuthenticated = true;
-  //   fixture.detectChanges();
-  //   expect(fixture.debugElement.query(By.css('.button-logout'))).toBeTruthy();
-  // })
+  it(`should show the 'Logout' button if user is authenticated`, () => {
+    component.isAuthenticated = true;
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('.button-logout'))).toBeTruthy();
+  })
 
   it(`should call authService.logout() when the 'logout' button is clicked`, () => {
     component.isAuthenticated = true;
     fixture.detectChanges();
-    const authServiceLogoutSpy = spyOn(authService, 'logout');
+    const authServiceLogoutSpy = spyOn(authService, 'logout').and.returnValue(null);
     fixture.debugElement.query(By.css('.button-logout')).nativeElement.click();
     expect(authServiceLogoutSpy).toHaveBeenCalled();
   });
@@ -83,6 +83,7 @@ describe('NavToolbarComponent', () => {
   it(`should log the user out after the 'logout' button is clicked`, () => {
     component.isAuthenticated = true;
     fixture.detectChanges();
+    spyOn(authService, 'logout').and.returnValue(null);
     fixture.debugElement.query(By.css('.button-logout')).nativeElement.click();
     expect(component.isAuthenticated).toEqual(false);
   });

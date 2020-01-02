@@ -67,8 +67,8 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should be able to call authService.autoLogin()', () => {
-    authSpy = spyOn(app.authService, 'autoLogin').and.callThrough();
+  it('should call authService.autoLogin() during the ngOnInit() lifecycle hook', () => {
+    authSpy = spyOn(app.authService, 'autoLogin').and.returnValue(null);
     app.ngOnInit();
     expect(authSpy).toHaveBeenCalled();
   });

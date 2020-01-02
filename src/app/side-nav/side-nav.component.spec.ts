@@ -55,8 +55,5 @@ describe('SideNavComponent', () => {
     toggleSideNavService.sideNavSubject.next(false);
     fixture.detectChanges();
     expect(component.isSideNavOpen).toEqual(false);
-    // console.log('--- component.isSIdeNavOpen', component.isSideNavOpen)
-    // console.log('--- component[sideNavSubjectSub]:', component['sideNavSubjectSub'])
-    // console.log('--- component[isSideNavOpen]:', component['isSideNavOpen'])
   });
 });

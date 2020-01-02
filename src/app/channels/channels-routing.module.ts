@@ -13,12 +13,12 @@ import { AuthGuardService } from '../auth/services/auth-guard.service';
 const routes: Routes = [
   { 
     path: 'channels', 
-    // canActivate: [ AuthGuardService ],
+    canActivate: [ AuthGuardService ],
     component: ChannelsComponent 
   },
   { 
     path: 'channel', 
-    // canActivate: [ AuthGuardService ],
+    canActivate: [ AuthGuardService ],
     children: [
       { path: '', pathMatch: 'full', redirectTo: '/channels' },
       { path: ':name', component: ChannelComponent },
