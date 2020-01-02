@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 // RxJS
 import { BehaviorSubject, of } from 'rxjs';
@@ -19,16 +19,28 @@ let mockChannelMessages = {
 @Injectable({
   providedIn: 'root'
 })
-export class ChannelMessagesService implements OnInit {
-  private _allChannelMessages: BehaviorSubject<Object>;
+export class ChannelMessagesService {
+  private allChannelMessagesSub = new BehaviorSubject(null);
+  private allChannelMessages: {};
 
   constructor() { }
 
-  ngOnInit() {
+  retrieveMessages(channel) {
+    console.log('--- BEFORE allChannelMessages:', this.allChannelMessages);
+    this.allChannelMessagesSub
+      .subscribe(
+        response => {
+          this.allChannelMessages = response;
+          console.log('--- AFTER allChannelMessages:', this.allChannelMessages);
+        },
+        error => console.log(error, 'Error: Could not retrieve messages'),
+      )
 
+    // Retrieve messages from API endpoint
+    this.allChannelMessagesSub.next(mockChannelMessages);
   }
 
-  retrieveMessages(channel) {
-    return this._allChannelMessages[channel];
+  updateMessages(message) {
+
   }
 }
