@@ -32,6 +32,11 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 // Pipes
 // import { ConsoleLogPipe } from './shared/console-log.pipe';
 
+// Firebase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +46,8 @@ import { SideNavComponent } from './side-nav/side-nav.component';
     PageNotFoundComponent,
   ],
   imports: [
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule,
     AppRoutingModule,
     AuthModule,
     BrowserAnimationsModule,

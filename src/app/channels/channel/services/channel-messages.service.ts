@@ -26,12 +26,10 @@ export class ChannelMessagesService {
   constructor() { }
 
   retrieveMessages(channel) {
-    console.log('--- BEFORE allChannelMessages:', this.allChannelMessages);
     this.allChannelMessagesSub
       .subscribe(
         response => {
           this.allChannelMessages = response;
-          console.log('--- AFTER allChannelMessages:', this.allChannelMessages);
         },
         error => console.log(error, 'Error: Could not retrieve messages'),
       )

@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+// Firestore
+import { AngularFirestore } from '@angular/fire/firestore';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ListChannelsService {
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private firestore: AngularFirestore,
+    private http: HttpClient
+  ) { }
 
   onListAllChannels() {
-    return this.http.get('https://angular-chatroom-78cb6.firebaseio.com/channels.json');
+    return this.firestore.collection('channels').snapshotChanges();
   }
 }

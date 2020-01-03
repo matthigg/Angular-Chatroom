@@ -43,9 +43,9 @@
     <div class="channel-link-and-delete-button-wrapper" *ngFor="let channel of allChannels">
       <a 
         mat-list-item 
-        [routerLink]="['/channel', channel[1].channelName]"
+        [routerLink]="['/channel', channel]"
       >
-        {{ channel[1].channelName }}
+        {{ channel }}
       </a>
       <button
         mat-button
