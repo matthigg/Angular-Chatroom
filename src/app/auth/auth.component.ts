@@ -14,6 +14,6 @@ export class AuthComponent implements OnInit {
   ngOnInit() {
     setTimeout(() => {
       this.toggleSideNavService.handleSideNav('close');
-    });
+    }, 0);
   }
 }
