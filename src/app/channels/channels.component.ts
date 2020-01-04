@@ -26,7 +26,6 @@ import { ChannelData } from './models/channel-data';
   styleUrls: ['./channels.component.scss']
 })
 export class ChannelsComponent implements OnDestroy, OnInit {
-  private deleteChannelSub: Subscription;
   private listAllChannelsSub: Subscription;
   allChannels: any[] = [];
   channelsExist: boolean;
@@ -45,7 +44,6 @@ export class ChannelsComponent implements OnDestroy, OnInit {
   ) { }
 
   ngOnDestroy() {
-    if (this.deleteChannelSub) this.deleteChannelSub.unsubscribe();
     /* istanbul ignore else*/
     // https://stackoverflow.com/questions/31883320/how-to-ignore-branch-coverage-for-missing-else
     if (this.listAllChannelsSub) this.listAllChannelsSub.unsubscribe();
@@ -67,7 +65,6 @@ export class ChannelsComponent implements OnDestroy, OnInit {
             this.channelsExist = true;
             this.allChannels = [];
             channels.forEach(channel => {
-              console.log('--- channel:', channel.payload.doc.id)
               this.allChannels.push(
                 {
                   channelName: (channel.payload.doc.data() as ChannelData).name,
@@ -91,9 +88,8 @@ export class ChannelsComponent implements OnDestroy, OnInit {
   }
 
   onDeleteChannel(channelId: string, channelName: string) {
-    this.deleteChannelSub = this.deleteChannelService.onDeleteChannel(channelId)
-      .pipe(take(1))
-      .subscribe(
+    this.deleteChannelService.onDeleteChannel(channelId)
+      .then(
         response => {
           this.onListAllChannels();
           this._snackBar.open(
@@ -105,10 +101,7 @@ export class ChannelsComponent implements OnDestroy, OnInit {
             },
           );
         },
-
-        // Trying to delete a file that doesn't exist does -not- throw an error.
-        // https://stackoverflow.com/questions/53251138/firebase-firestore-returning-true-on-failed-document-delete
-        error => this.errorChannelDeletion = 'Error: could not delete channel.'
-      );
+      )
+      .catch(error => this.errorChannelDeletion = 'Error: could not delete channel.')
   }
 }
