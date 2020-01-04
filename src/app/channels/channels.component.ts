@@ -26,13 +26,13 @@ import { ChannelData } from './models/channel-data';
   styleUrls: ['./channels.component.scss']
 })
 export class ChannelsComponent implements OnDestroy, OnInit {
-  // private createChannelSub: Subscription;
   private deleteChannelSub: Subscription;
   private listAllChannelsSub: Subscription;
   allChannels: any[] = [];
   channelsExist: boolean;
   errorChannelCreation: string = '';
   errorChannelDeletion: string = '';
+  errorFetchChannels: string = '';
   isLoading: boolean;
 
   constructor(
@@ -45,7 +45,6 @@ export class ChannelsComponent implements OnDestroy, OnInit {
   ) { }
 
   ngOnDestroy() {
-    // if (this.createChannelSub) this.createChannelSub.unsubscribe();
     if (this.deleteChannelSub) this.deleteChannelSub.unsubscribe();
     /* istanbul ignore else*/
     // https://stackoverflow.com/questions/31883320/how-to-ignore-branch-coverage-for-missing-else
@@ -62,32 +61,27 @@ export class ChannelsComponent implements OnDestroy, OnInit {
   private onListAllChannels() {
     this.isLoading = true;
     this.listAllChannelsSub = this.listChannelsService.onListAllChannels()
-      .subscribe(channels => {
-        // console.log('=== channels:', channels);
-        if (channels.length > 0) {
-          this.channelsExist = true;
-          this.allChannels = [];
-          channels.forEach(channel => {
-            // console.log('=== channel:', channel.payload.doc.data());
-            this.allChannels.push((channel.payload.doc.data() as ChannelData).name);
-          });
-          // console.log('=== this.allChannels:', this.allChannels);
-        } else {
-          this.channelsExist = false;
-        }
-        this.isLoading = false;
-      });
+      .subscribe(
+        channels => {
+          if (channels.length > 0) {
+            this.channelsExist = true;
+            this.allChannels = [];
+            channels.forEach(channel => {
+              this.allChannels.push((channel.payload.doc.data() as ChannelData).name);
+            });
+          } else {
+            this.channelsExist = false;
+          }
+          this.isLoading = false;
+        },
+        error => this.errorFetchChannels = 'Error: could not get list of channels.'
+      );
   }
 
-  onCreateChannel(form: NgForm) {
-    // this.createChannelSub = this.createChannelService.onCreateChannel(form)
-      // .pipe(take(1))
-      // .subscribe(
-      //   response => this.router.navigate(['channel', form.value.channelName]),
-      //   error => this.errorChannelCreation = 'Error: could not create channel.'
-      // );
-
-    this.createChannelService.onCreateChannel(form);
+   onCreateChannel(form: NgForm) {
+    this.createChannelService.onCreateChannel(form)
+      .then(response => this.router.navigate(['channel', form.value.channelName]))
+      .catch(error => this.errorChannelCreation = 'Error: could not create channel.');
   }
 
   onDeleteChannel(channelId: string, channelName: string) {

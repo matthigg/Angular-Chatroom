@@ -36,6 +36,9 @@
 <div *ngIf="errorChannelDeletion">
   <mat-toolbar class="error-channel-deletion">{{ errorChannelDeletion }}</mat-toolbar>
 </div>
+<div *ngIf="errorFetchChannels">
+  <mat-toolbar class="error-fetch-channels">{{ errorFetchChannels }}</mat-toolbar>
+</div>
 
 <!-- Channel List -->
 <div *ngIf="channelsExist">

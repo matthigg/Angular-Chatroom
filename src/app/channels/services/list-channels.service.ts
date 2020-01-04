@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 // Firestore
 import { AngularFirestore } from '@angular/fire/firestore';
@@ -11,9 +10,10 @@ export class ListChannelsService {
 
   constructor(
     private firestore: AngularFirestore,
-    private http: HttpClient
   ) { }
 
+  // Return an observable that emits an event from the Firestore database to the 
+  // client whenever the database is updated
   onListAllChannels() {
     return this.firestore.collection('channels').snapshotChanges();
   }
