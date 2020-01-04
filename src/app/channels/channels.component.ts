@@ -67,7 +67,13 @@ export class ChannelsComponent implements OnDestroy, OnInit {
             this.channelsExist = true;
             this.allChannels = [];
             channels.forEach(channel => {
-              this.allChannels.push((channel.payload.doc.data() as ChannelData).name);
+              console.log('--- channel:', channel.payload.doc.id)
+              this.allChannels.push(
+                {
+                  channelName: (channel.payload.doc.data() as ChannelData).name,
+                  channelId: channel.payload.doc.id,
+                }
+              );
             });
           } else {
             this.channelsExist = false;
@@ -78,7 +84,7 @@ export class ChannelsComponent implements OnDestroy, OnInit {
       );
   }
 
-   onCreateChannel(form: NgForm) {
+  onCreateChannel(form: NgForm) {
     this.createChannelService.onCreateChannel(form)
       .then(response => this.router.navigate(['channel', form.value.channelName]))
       .catch(error => this.errorChannelCreation = 'Error: could not create channel.');
