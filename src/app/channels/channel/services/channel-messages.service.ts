@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 // RxJS
 import { BehaviorSubject, of } from 'rxjs';
 
+// Firestore
+import { AngularFirestore } from '@angular/fire/firestore';
+
 let mockChannelMessages = {
   channel1: [
     { 'user1': 'message 1'},
@@ -20,25 +23,12 @@ let mockChannelMessages = {
   providedIn: 'root'
 })
 export class ChannelMessagesService {
-  private allChannelMessagesSub = new BehaviorSubject(null);
-  private allChannelMessages: {};
 
-  constructor() { }
+  constructor(private firestore: AngularFirestore) { }
 
   retrieveMessages(channel) {
-    this.allChannelMessagesSub
-      .subscribe(
-        response => {
-          this.allChannelMessages = response;
-        },
-        error => console.log(error, 'Error: Could not retrieve messages'),
-      )
-
-    // Retrieve messages from API endpoint
-    this.allChannelMessagesSub.next(mockChannelMessages);
+    
   }
 
-  updateMessages(message) {
-
-  }
+  // return this.firestore.collection('channels').snapshotChanges();
 }

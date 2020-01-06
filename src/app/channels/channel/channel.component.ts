@@ -30,14 +30,11 @@ export class ChannelComponent implements OnDestroy, OnInit {
 
   ngOnInit() {
 
+    // Get the channel name from the URL & retrieve channel messages
     this.channelNameSub = this.activatedRoute.params
       .subscribe(value => {
-
-        // Grab the channel name from the URL
         this.channelName = value.name;
-
-        // Retrieve channel messages from the ChannelMessagesService
-        this.channelMessagesService.retrieveMessages(this.channelName);
+        this.retrieveMessages(this.channelName);
       });
 
     // Open the side nav
@@ -45,6 +42,9 @@ export class ChannelComponent implements OnDestroy, OnInit {
       this.toggleSideNavService.handleSideNav('open');
     }, 0);
 
+  }
 
+  retrieveMessages(channelName) {
+    this.channelMessagesService.retrieveMessages(channelName);
   }
 }
