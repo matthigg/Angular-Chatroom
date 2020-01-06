@@ -17,6 +17,12 @@ import {
 // Components
 import { ChannelComponent } from './channel.component';
 
+// Firestore
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
+
 // Classes
 class MockActivatedRoute {
   params = Observable.create(obs => {
@@ -26,12 +32,15 @@ class MockActivatedRoute {
 
 describe('ChannelComponent', () => {
   let component: ChannelComponent;
+  let firestore: AngularFirestore;
   let fixture: ComponentFixture<ChannelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ChannelComponent ],
       imports: [ 
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFirestoreModule,
         HttpClientTestingModule,
         MatListModule,
         MatToolbarModule,
@@ -47,6 +56,7 @@ describe('ChannelComponent', () => {
       ]
     })
     .compileComponents();
+    firestore = TestBed.get(AngularFirestore);
   }));
 
   beforeEach(() => {

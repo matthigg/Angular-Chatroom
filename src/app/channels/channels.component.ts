@@ -17,6 +17,9 @@ import { DeleteChannelService } from './services/delete-channel.service';
 import { ListChannelsService } from './services/list-channels.service';
 import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.service';
 
+// Firestore
+// import { DocumentReference } from '@angular/fire/firestore';
+
 // Interfaces
 import { ChannelData } from './models/channel-data';
 
@@ -81,14 +84,14 @@ export class ChannelsComponent implements OnDestroy, OnInit {
       );
   }
 
-  onCreateChannel(form: NgForm) {
-    this.createChannelService.onCreateChannel(form)
-      .then(response => this.router.navigate(['channel', form.value.channelName]))
-      .catch(error => this.errorChannelCreation = 'Error: could not create channel.');
+  onCreateChannel(form: NgForm): Promise<any> {
+    return this.createChannelService.onCreateChannel(form)
+      .then(response => { this.router.navigate(['channel', form.value.channelName]) })
+      .catch(error => { this.errorChannelCreation = 'Error: could not create channel.' });
   }
 
-  onDeleteChannel(channelId: string, channelName: string) {
-    this.deleteChannelService.onDeleteChannel(channelId)
+  onDeleteChannel(channelId: string, channelName: string): Promise<any> {
+    return this.deleteChannelService.onDeleteChannel(channelId)
       .then(
         response => {
           this.onListAllChannels();

@@ -4,13 +4,25 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 // Services
 import { DeleteChannelService } from './delete-channel.service';
 
+// Firestore
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
+
 describe('DeleteChannelService', () => {
+  let firestore: AngularFirestore;
   let service: DeleteChannelService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ HttpClientTestingModule ]
+      imports: [ 
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFirestoreModule,
+        HttpClientTestingModule,
+      ]
     }),
+    firestore = TestBed.get(AngularFirestore);
     service = TestBed.get(DeleteChannelService);
   });
 

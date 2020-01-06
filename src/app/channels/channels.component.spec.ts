@@ -24,8 +24,40 @@ import {
 // Components
 import { ChannelsComponent } from './channels.component';
 
+// Services
+import { ListChannelsService } from './services/list-channels.service';
+
+// Firestore
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule, DocumentChangeAction } from '@angular/fire/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { environment } from 'src/environments/environment';
+
+// Mock
+const mockChannelsArray = [
+  { payload: { doc: { 
+    data: () => { return { name: 'test channel 1' } },
+    id: 'test id 1'
+  }}},
+  { payload: { doc: { 
+    data: () => { return { name: 'test channel 2' } },
+    id: 'test id 2'
+  }}},
+  { payload: { doc: { 
+    data: () => { return { name: 'test channel 3' } },
+    id: 'test id 3'
+  }}},
+]
+
+class mockListChannelsService {
+  onListAllChannels() {
+    return of(mockChannelsArray);
+  }
+}
+
 describe('ChannelsComponent', () => {
   let component: ChannelsComponent;
+  let firestore: AngularFirestore;
   let fixture: ComponentFixture<ChannelsComponent>;
   let httpMock: HttpTestingController;
 
@@ -35,6 +67,8 @@ describe('ChannelsComponent', () => {
         ChannelsComponent,
       ],
       imports: [
+        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFirestoreModule,
         BrowserAnimationsModule,
         FormsModule,
         HttpClientTestingModule,
@@ -45,9 +79,13 @@ describe('ChannelsComponent', () => {
         MatSnackBarModule,
         MatToolbarModule,
         RouterTestingModule,
+      ],
+      providers: [
+        { provide: ListChannelsService, useClass: mockListChannelsService },
       ]
     })
     .compileComponents();
+    firestore = TestBed.get(AngularFirestore);
     httpMock = TestBed.get(HttpTestingController);
   }));
 
@@ -61,39 +99,26 @@ describe('ChannelsComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it(`should unsubscribe from all subscriptions during the ngOnDestroy() lifecycle hook`, () => {
-    component['createChannelSub'] = new Subscription();
-    component['deleteChannelSub'] = new Subscription();
+  it(`should unsubscribe from listAllChannelsSub subscription during the ngOnDestroy() lifecycle hook`, () => {
     component['listAllChannelsSub'] = new Subscription();
-    spyOn(component['createChannelSub'], 'unsubscribe');
-    spyOn(component['deleteChannelSub'], 'unsubscribe');
     spyOn(component['listAllChannelsSub'], 'unsubscribe');
     component.ngOnDestroy();
-    expect(component['createChannelSub'].unsubscribe).toHaveBeenCalled();
-    expect(component['deleteChannelSub'].unsubscribe).toHaveBeenCalled();
     expect(component['listAllChannelsSub'].unsubscribe).toHaveBeenCalled();
   });
 
   it(`should retrieve a list of channels using the ListChannelsService`, () => {
-    spyOn(component['listChannelsService'], 'onListAllChannels').and.returnValue(
-      of({
-        'test key 1': { channelName: 'test channel 1'},
-        'test key 2': { channelName: 'test channel 2'},
-        'test key 3': { channelName: 'test channel 3'},
-        'test key 4': { channelName: 'test channel 4'},
-        'test key 5': { channelName: 'test channel 5'},
-      }),
-    );
     component['onListAllChannels']();
-    expect(component.allChannels.length).toEqual(5);
+    expect(component.allChannels.length).toEqual(3);
   });
 
   it(`should display an error message to the user if there are no channels`, () => {
+    component.channelsExist = false;
     component.isLoading = false;
+    component.allChannels = [];
     fixture.detectChanges();
     const errorElement = fixture.debugElement.query(By.css('.error-no-channels')).nativeElement;
     spyOn(component['listChannelsService'], 'onListAllChannels').and.returnValue(
-      of(null)
+      of([])
     );
     component['onListAllChannels']();
     fixture.detectChanges();
@@ -101,43 +126,52 @@ describe('ChannelsComponent', () => {
     expect(errorElement.innerHTML).toBeTruthy();
   });
 
-  it(`should create a new channel via onCreateChannel()`, () => {
+  it(`should display an error message to the user if channels could not be fetched from Firestore`, () => {
+    spyOn(component['listChannelsService'], 'onListAllChannels').and.returnValue(
+      throwError('TEST ERROR: could not fetch channels.')
+      );
+      component['onListAllChannels']();
+      fixture.detectChanges();
+    const errorElement = fixture.debugElement.query(By.css('.error-fetch-channels')).nativeElement;
+    expect(errorElement.innerHTML).toBeTruthy();
+  });
+
+  it(`should create a new channel via onCreateChannel()`, async () => {
     const routerNavigateSpy = spyOn(component['router'], 'navigate');
     spyOn(component['createChannelService'], 'onCreateChannel').and.returnValue(
-      of({ 'response': 'test unused response' }),
+      new Promise((resolve, reject) => resolve('test RESOLVE message'))
     );
-    const testNgForm = <NgForm>{ 'value': 'testChannelName' };
-    component.onCreateChannel(testNgForm);
+    await component.onCreateChannel(<NgForm>{ 'value': 'testChannelName' });
     expect(routerNavigateSpy).toHaveBeenCalled();
   });
 
-  it(`displays an error message to the user if there was a problem creating a new channel`, () => {
+  it(`displays an error message to the user if there was a problem creating a new channel`, async () => {
     const routerNavigateSpy = spyOn(component['router'], 'navigate');
     spyOn(component['createChannelService'], 'onCreateChannel').and.returnValue(
-      throwError('TEST ERROR: could not create channel.')
+      new Promise((resolve, reject) => reject('test REJECT message'))
     );
-    component.onCreateChannel(<NgForm>{ 'value': 'testChannelName' });
+    await component.onCreateChannel(<NgForm>{ 'value': 'testChannelName' });
     fixture.detectChanges();
     const errorElement = fixture.debugElement.query(By.css('.error-channel-creation')).nativeElement;
     expect(errorElement.innerHTML).toBeTruthy();
     expect(routerNavigateSpy).not.toHaveBeenCalled();
   });
 
-  it(`should allow users to delete a channel via onDeleteChannel()`, () => {
+  it(`should allow users to delete a channel via onDeleteChannel()`, async () => {
     const deleteChannelServiceSpy = spyOn(component['deleteChannelService'], 'onDeleteChannel').and.returnValue(
-      of({ 'test': 'unused test data'})
+      new Promise((resolve, reject) => resolve('test RESOLVE message'))
     );
-    component.onDeleteChannel('testChannelId', 'testChannelName');
+    await component.onDeleteChannel('testChannelId', 'testChannelName');
     expect(deleteChannelServiceSpy).toHaveBeenCalled();
   });
 
   // Trying to delete a file that doesn't exist does -not- throw an error.
   // https://stackoverflow.com/questions/53251138/firebase-firestore-returning-true-on-failed-document-delete
-  it(`displays an error message to the user if there was a problem deleting a channel`, () => {
+  it(`displays an error message to the user if there was a problem deleting a channel`, async () => {
     spyOn(component['deleteChannelService'], 'onDeleteChannel').and.returnValue(
-      throwError('TEST ERROR: could not delete channel.')
+      new Promise((resolve, reject) => reject('test REJECT message'))
     );
-    component.onDeleteChannel('test channelId', 'test channelName');
+    await component.onDeleteChannel('test channelId', 'test channelName');
     fixture.detectChanges();
     const errorElement = fixture.debugElement.query(By.css('.error-channel-deletion')).nativeElement;
     expect(errorElement.innerHTML).toBeTruthy();
