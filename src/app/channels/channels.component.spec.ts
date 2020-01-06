@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
 
 // RxJS
-import { Observable, of, Subscription, throwError } from 'rxjs';
+import { of, Subscription, throwError } from 'rxjs';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -29,7 +29,7 @@ import { ListChannelsService } from './services/list-channels.service';
 
 // Firestore
 import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule, DocumentChangeAction } from '@angular/fire/firestore';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 
