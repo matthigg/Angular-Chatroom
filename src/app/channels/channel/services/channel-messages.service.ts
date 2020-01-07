@@ -14,9 +14,13 @@ export class ChannelMessagesService {
   addANewMessage(userName: string, channelName: string, message: string) {
     return this.firestore.firestore.collection('channels').doc(channelName).set(
       {
-        user: userName,
-        time: new Date(),
-        message: message,
+        messages: [
+          {
+            user: userName,
+            time: new Date(),
+            message: message,
+          }
+        ]
       }
     )
   }

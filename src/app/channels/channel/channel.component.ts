@@ -63,15 +63,12 @@ export class ChannelComponent implements OnDestroy, OnInit {
       user ? this.userName = user.email : this.userName = null;
     });
     this.channelMessagesService.addANewMessage(this.userName, this.channelName, this.message)
-      .then(response => {
-        console.log('=== MESSAGE SENT, response:', response);
-      })
       .catch(error => console.log('=== error:', error));
   }
 
   retrieveMessages(channelName): void {
     this.channelMessagesService.retrieveMessages(channelName).onSnapshot(
-      doc => this.messages.push(doc.data())
+      doc => this.messages = doc.data().messages
     )
   }
 }
