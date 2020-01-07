@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 
 // RxJS
 import { catchError, tap } from 'rxjs/operators';
-import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
+import { BehaviorSubject, throwError } from 'rxjs';
 
-// Models, Interfaces
-import { User } from '../models/user.model';
+// Models, Interfaces, Environment Variables
 import { AuthResponseData } from '../models/auth-response-data';
+import { environment } from '../../../environments/environment';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -112,7 +113,7 @@ export class AuthService {
 
   // Create a new account
   createAccount(email: string, password: string) {
-    const webAPIKey = 'AIzaSyAAC4JQbA0KOAL5RVMPyAIpp5XxWdnwRy8';
+    const webAPIKey = environment.firebaseConfig.apiKey;
     return this.http
       .post<AuthResponseData>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + webAPIKey,
@@ -137,7 +138,7 @@ export class AuthService {
 
   // Log in to an existing account
   login(email: string, password: string) {
-    const webAPIKey = 'AIzaSyAAC4JQbA0KOAL5RVMPyAIpp5XxWdnwRy8';
+    const webAPIKey = environment.firebaseConfig.apiKey;
     return this.http
       .post<AuthResponseData>(
         'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + webAPIKey,
