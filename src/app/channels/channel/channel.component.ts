@@ -57,7 +57,9 @@ export class ChannelComponent implements OnDestroy, OnInit {
     })
   }
 
-  onSubmit(): void {
+  onSubmit(event): void {
+    console.log('=== event:', event.value);
+    event.value = ''
     this.message = this.formInput.value.input;
     this.userNameSub = this.authService.user.subscribe(user => {
       user ? this.userName = user.email : this.userName = null;
@@ -68,7 +70,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
 
   retrieveMessages(channelName): void {
     this.channelMessagesService.retrieveMessages(channelName).onSnapshot(
-      doc => this.messages = doc.data().messages
+      doc => doc.data()? this.messages = doc.data().messages : this.messages = null
     )
   }
 }

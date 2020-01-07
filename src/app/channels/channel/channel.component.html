@@ -16,7 +16,7 @@
 </mat-list>
 
 <!-- Message Input Toolbar -->
-<form [formGroup]="formInput" (ngSubmit)="onSubmit($event)">
+<form [formGroup]="formInput" (ngSubmit)="onSubmit(inputField)">
   <mat-toolbar class="toolbar-message">
 
     <!-- Message Input Field -->
@@ -27,6 +27,7 @@
         matInput
         required
         type="text"
+        #inputField
       >
     </mat-form-field>
 
