@@ -19,14 +19,8 @@ export class CreateChannelService {
       .doc(channelName)
       .set(
         {
-          messages: [
-            { 
-              'user': 'test user 1',
-              'message': 'test message 1',
-              'time': new Date(),
-            },
-          ],
-          users: ['test user 1', 'test user 2', 'test user 3'],
+          messages: [`Channel ${channelName} has been created.`],
+          users: ['System'],
         }
       );
   }

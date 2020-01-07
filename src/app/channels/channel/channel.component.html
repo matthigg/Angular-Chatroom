@@ -2,17 +2,14 @@
 <mat-toolbar>Channel {{ channelName }}</mat-toolbar>
 
 <!-- Messages -->
-<ng-template *ngIf="messages.length !== 0">
-  <mat-list>
-    Messages: {{ messages | json }}
-    <mat-list-item
-      class="message"
-      *ngFor="let message of messages"
-    >
-      ({{ message.time.seconds * 1000 | date:'hh:mm:ss' }}) {{ message.user }}: {{ message.message }}
-    </mat-list-item>
-  </mat-list>
-</ng-template>
+<mat-list>
+  <mat-list-item
+    class="message"
+    *ngFor="let message of messages"
+  >
+      {{ message?.time?.seconds | date:'hh:mm:ss' }} {{ message?.user }} {{ message?.message }}
+  </mat-list-item>
+</mat-list>
 
 <!-- Message Input Toolbar -->
 <form [formGroup]="formInput" (ngSubmit)="onSubmit($event)">
