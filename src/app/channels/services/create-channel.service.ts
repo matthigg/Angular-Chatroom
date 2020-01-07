@@ -12,11 +12,10 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class CreateChannelService {
 
-  constructor(
-    private firestore: AngularFirestore,
-  ) { }
+  constructor(private firestore: AngularFirestore) { }
 
   onCreateChannel(form: NgForm): Promise<any> {
+    console.log('=== form:', form);
     const newChannel: ChannelData = {
       messages: {},
       name: form.value.channelName,

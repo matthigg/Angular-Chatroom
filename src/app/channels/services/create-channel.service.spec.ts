@@ -15,8 +15,18 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 
+// Mocks
+class MockAngularFirestore {
+  collection(mockDocument) {
+    return {
+      add(mockNewChannel) {
+        return new Promise((resolve, reject) => { resolve('test PROMISE response') });
+      }
+    }
+  }
+}
+
 describe('CreateChannelService', () => {
-  let firestore: AngularFirestore;
   let service: CreateChannelService;
 
   beforeEach(() => {
@@ -26,19 +36,21 @@ describe('CreateChannelService', () => {
         AngularFirestoreModule,
         HttpClientTestingModule,
       ],
+      providers: [
+        { provide: AngularFirestore, useClass: MockAngularFirestore}
+      ]
     });
-    firestore = TestBed.get(AngularFirestore);
     service = TestBed.get(CreateChannelService);
   });
-  
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  it(`should have an onCreateChannel() method`, () => {
-    spyOn(service, 'onCreateChannel');
-    service.onCreateChannel(<NgForm>{ 'value': 'testChannelName' });
-    expect(service.onCreateChannel).toHaveBeenCalled();
+  it(`should have an onCreateChannel() method`, async () => {
+    spyOn(service, 'onCreateChannel').and.callThrough();
+    await service.onCreateChannel(<NgForm>{ 'value': 'testChannelName' })
+      .then(response => expect(response).toEqual('test PROMISE response'))
+      .then(response => expect(service.onCreateChannel).toHaveBeenCalled())
   });
 });
