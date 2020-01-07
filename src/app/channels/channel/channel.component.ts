@@ -33,8 +33,8 @@ export class ChannelComponent implements OnDestroy, OnInit {
   ) { }
 
   ngOnDestroy() {
-    this.channelNameSub.unsubscribe();
-    this.userNameSub.unsubscribe();
+    if (this.channelNameSub) this.channelNameSub.unsubscribe();
+    if (this.userNameSub) this.userNameSub.unsubscribe();
   }
 
   ngOnInit() {
@@ -57,7 +57,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
     })
   }
 
-  onSubmit(event): void {
+  onSubmit(): void {
     this.message = this.formInput.value.input;
     this.userNameSub = this.authService.user.subscribe(user => {
       user ? this.userName = user.email : this.userName = null;
@@ -71,7 +71,11 @@ export class ChannelComponent implements OnDestroy, OnInit {
 
   retrieveMessages(channelName): void {
     this.channelMessagesService.retrieveMessages(channelName).onSnapshot(
-      doc => this.messages.push(doc.data())
+      doc => {
+        this.messages.push(doc.data())
+        console.log('=== this.messages:', this.messages)
+        console.log('=== doc.data():', doc.data())
+      }
     )
   }
 }
