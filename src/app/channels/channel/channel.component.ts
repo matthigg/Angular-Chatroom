@@ -71,11 +71,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
 
   retrieveMessages(channelName): void {
     this.channelMessagesService.retrieveMessages(channelName).onSnapshot(
-      doc => {
-        this.messages.push(doc.data())
-        console.log('=== this.messages:', this.messages)
-        console.log('=== doc.data():', doc.data())
-      }
+      doc => this.messages.push(doc.data())
     )
   }
 }
