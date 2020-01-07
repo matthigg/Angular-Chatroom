@@ -1,6 +1,6 @@
 // Modules
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingSpinnerModule } from '../shared/loading-spinner/loading-spinner.module';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -38,6 +38,7 @@ import { ChannelComponent } from './channel/channel.component';
     MatListModule,
     MatSnackBarModule,
     MatToolbarModule,
+    ReactiveFormsModule,
     RouterModule, 
   ]
 })

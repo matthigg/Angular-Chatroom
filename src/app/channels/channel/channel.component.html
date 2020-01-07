@@ -1,4 +1,7 @@
+<!-- Channel Title -->
 <mat-toolbar>Channel {{ channelName }}</mat-toolbar>
+
+<!-- Messages -->
 <mat-list>
   <mat-list-item
     class="message"
@@ -7,3 +10,32 @@
     ({{ message.time.seconds * 1000 | date:'hh:mm:ss' }}) {{ message.user }}: {{ message.message }}
   </mat-list-item>
 </mat-list>
+
+<!-- Message Input Toolbar -->
+<form [formGroup]="formInput" (ngOnSubmit)="onSubmit($event)">
+  <mat-toolbar class="toolbar-message">
+
+    <!-- Message Input Field -->
+    <mat-form-field>
+      <input 
+        class="input-message"
+        formControlName="input"
+        matInput
+        required
+        type="text"
+      >
+    </mat-form-field>
+
+    <!-- Message Submit Button -->
+    <button
+      class="button-message"
+      mat-raised-button
+      type="submit"
+      [disabled]="!formInput.valid"
+    >
+      Send
+    </button
+    >
+    
+  </mat-toolbar>
+</form>
