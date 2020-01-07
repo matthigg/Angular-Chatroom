@@ -59,7 +59,9 @@ export class ChannelComponent implements OnDestroy, OnInit {
 
   onSubmit(event): void {
     this.message = this.formInput.value.input;
-    this.userNameSub = this.authService.user.subscribe(user => this.userName = user.email);
+    this.userNameSub = this.authService.user.subscribe(user => {
+      user ? this.userName = user.email : this.userName = null;
+    });
     this.channelMessagesService.addANewMessage(this.userName, this.channelName, this.message)
       .then(response => {
         console.log('=== MESSAGE SENT, response:', response);
