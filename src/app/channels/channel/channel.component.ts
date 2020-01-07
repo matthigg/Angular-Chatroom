@@ -5,8 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 // RxJS
 import { Subscription } from 'rxjs';
 
-
 // Services
+import { AuthService } from '../../auth/services/auth.service';
 import { ChannelMessagesService } from './services/channel-messages.service';
 import { ToggleSideNavService } from '../../side-nav/services/toggle-side-nav.service';
 
@@ -19,11 +19,14 @@ export class ChannelComponent implements OnDestroy, OnInit {
   channelName: string;
   channelNameSub: Subscription;
   formInput: FormGroup;
-  messages: {}[];
+  messages: {}[] = [];
+  message: string;
   userName: string;
+  userNameSub: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
     private channelMessagesService: ChannelMessagesService,
     private fb: FormBuilder,
     private toggleSideNavService: ToggleSideNavService,
@@ -31,6 +34,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
 
   ngOnDestroy() {
     this.channelNameSub.unsubscribe();
+    this.userNameSub.unsubscribe();
   }
 
   ngOnInit() {
@@ -53,13 +57,19 @@ export class ChannelComponent implements OnDestroy, OnInit {
     })
   }
 
-  addANewMessage(userName: string, message: string): void {
-    this.channelMessagesService.addANewMessage(userName, message);
+  onSubmit(event): void {
+    this.message = this.formInput.value.input;
+    this.userNameSub = this.authService.user.subscribe(user => this.userName = user.email);
+    this.channelMessagesService.addANewMessage(this.userName, this.channelName, this.message)
+      .then(response => {
+        console.log('=== MESSAGE SENT, response:', response);
+      })
+      .catch(error => console.log('=== error:', error));
   }
 
   retrieveMessages(channelName): void {
-    this.channelMessagesService.retrieveMessages(channelName)
-      .then(querySnapshot => this.messages = querySnapshot.data().messages)
-      .catch(error => console.log('=== error:', error));
+    this.channelMessagesService.retrieveMessages(channelName).onSnapshot(
+      doc => this.messages.push(doc.data())
+    )
   }
 }

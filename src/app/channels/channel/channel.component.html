@@ -12,7 +12,7 @@
 </mat-list>
 
 <!-- Message Input Toolbar -->
-<form [formGroup]="formInput" (ngOnSubmit)="onSubmit($event)">
+<form [formGroup]="formInput" (ngSubmit)="onSubmit($event)">
   <mat-toolbar class="toolbar-message">
 
     <!-- Message Input Field -->
@@ -34,8 +34,7 @@
       [disabled]="!formInput.valid"
     >
       Send
-    </button
-    >
+    </button>
     
   </mat-toolbar>
 </form>

@@ -10,11 +10,19 @@ export class ChannelMessagesService {
 
   constructor(private firestore: AngularFirestore) { }
 
-  addANewMessage(userName: string, message: string) {
-    // POST request to Firestore
+  // POST chatroom messages to Firestore
+  addANewMessage(userName: string, channelName: string, message: string) {
+    return this.firestore.firestore.collection('channels').doc(channelName).set(
+      {
+        user: userName,
+        time: new Date(),
+        message: message,
+      }
+    )
   }
 
-  retrieveMessages(channelName: string): Promise<any> {
-    return this.firestore.firestore.collection('channels').doc(channelName).get()
+  // GET chatroom messages from Firestore
+  retrieveMessages(channelName: string) {
+    return this.firestore.firestore.collection('channels').doc(channelName)
   }
 }
