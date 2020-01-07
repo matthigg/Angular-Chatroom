@@ -4,6 +4,6 @@
     class="message"
     *ngFor="let message of messages"
   >
-    {{ message }}
+    ({{ message.time.seconds * 1000 | date:'hh:mm:ss' }}) {{ message.user }}: {{ message.message }}
   </mat-list-item>
 </mat-list>

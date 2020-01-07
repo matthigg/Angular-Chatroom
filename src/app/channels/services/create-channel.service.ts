@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-// Interfaces
-import { ChannelData } from '../models/channel-data';
-
 // Firestore
 import { AngularFirestore } from '@angular/fire/firestore';
 
@@ -15,15 +12,22 @@ export class CreateChannelService {
   constructor(private firestore: AngularFirestore) { }
 
   onCreateChannel(form: NgForm): Promise<any> {
-    console.log('=== form:', form);
-    const newChannel: ChannelData = {
-      messages: {},
-      name: form.value.channelName,
-      users: [],
-    }
+    const channelName = form.value.channelName;
 
     return this.firestore
       .collection('channels')
-      .add(newChannel);
+      .doc(channelName)
+      .set(
+        {
+          messages: [
+            { 
+              'user': 'test user 1',
+              'message': 'test message 1',
+              'time': new Date(),
+            },
+          ],
+          users: ['test user 1', 'test user 2', 'test user 3'],
+        }
+      );
   }
 }

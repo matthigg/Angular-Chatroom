@@ -16,7 +16,9 @@ import { ToggleSideNavService } from '../../side-nav/services/toggle-side-nav.se
 export class ChannelComponent implements OnDestroy, OnInit {
   channelName: string;
   channelNameSub: Subscription;
-  messages: string[];
+  messages: {}[];
+  objectKeys = Object.keys;
+  objectValues = Object.values;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -41,10 +43,11 @@ export class ChannelComponent implements OnDestroy, OnInit {
     setTimeout(() => {
       this.toggleSideNavService.handleSideNav('open');
     }, 0);
-
   }
 
-  retrieveMessages(channelName) {
-    this.channelMessagesService.retrieveMessages(channelName);
+  retrieveMessages(channelName): void {
+    this.channelMessagesService.retrieveMessages(channelName)
+      .then(querySnapshot => this.messages = querySnapshot.data().messages)
+      .catch(error => console.log('=== error:', error));
   }
 }

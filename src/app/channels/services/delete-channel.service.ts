@@ -10,10 +10,10 @@ export class DeleteChannelService {
 
   constructor(private firestore: AngularFirestore) { }
 
-  onDeleteChannel(channelId: string): Promise<any> {
+  onDeleteChannel(channelName: string): Promise<any> {
     return this.firestore
       .collection('channels')
-      .doc(channelId)
+      .doc(channelName)
       .delete();
   }
 }

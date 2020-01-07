@@ -20,9 +20,6 @@ import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.servi
 // Firestore
 // import { DocumentReference } from '@angular/fire/firestore';
 
-// Interfaces
-import { ChannelData } from './models/channel-data';
-
 @Component({
   selector: 'app-channels',
   templateUrl: './channels.component.html',
@@ -30,7 +27,7 @@ import { ChannelData } from './models/channel-data';
 })
 export class ChannelsComponent implements OnDestroy, OnInit {
   private listAllChannelsSub: Subscription;
-  allChannels: any[] = [];
+  allChannels: string[] = [];
   channelsExist: boolean;
   errorChannelCreation: string = '';
   errorChannelDeletion: string = '';
@@ -68,12 +65,7 @@ export class ChannelsComponent implements OnDestroy, OnInit {
             this.channelsExist = true;
             this.allChannels = [];
             channels.forEach(channel => {
-              this.allChannels.push(
-                {
-                  channelName: (channel.payload.doc.data() as ChannelData).name,
-                  channelId: channel.payload.doc.id,
-                }
-              );
+              this.allChannels.push(channel.payload.doc.id);
             });
           } else {
             this.channelsExist = false;
@@ -90,8 +82,8 @@ export class ChannelsComponent implements OnDestroy, OnInit {
       .catch(error => { this.errorChannelCreation = 'Error: could not create channel.' });
   }
 
-  onDeleteChannel(channelId: string, channelName: string): Promise<any> {
-    return this.deleteChannelService.onDeleteChannel(channelId)
+  onDeleteChannel(channelName: string): Promise<any> {
+    return this.deleteChannelService.onDeleteChannel(channelName)
       .then(
         response => {
           this.onListAllChannels();

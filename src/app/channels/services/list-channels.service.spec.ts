@@ -1,5 +1,8 @@
 import { TestBed } from '@angular/core/testing';
 
+// RxJS
+import { Observable, of } from 'rxjs';
+
 // Modules
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
@@ -12,8 +15,19 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 
+// Mocks
+class MockAngularFirestore {
+  collection(mockDocument) {
+    return {
+      snapshotChanges() {
+        return of('test OBSERVABLE')
+      }
+    }
+  }
+}
+
 describe('ListChannelsService', () => {
-  let firestore: AngularFirestore;
+  let service: ListChannelsService;
 
   beforeEach(() => { 
     TestBed.configureTestingModule({
@@ -21,13 +35,21 @@ describe('ListChannelsService', () => {
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFirestoreModule,
         HttpClientTestingModule
+      ],
+      providers: [
+        { provide: AngularFirestore, useClass: MockAngularFirestore }
       ]
     }),
-    firestore = TestBed.get(AngularFirestore);
+    service = TestBed.get(ListChannelsService);
   });
 
   it('should be created', () => {
-    const service: ListChannelsService = TestBed.get(ListChannelsService);
     expect(service).toBeTruthy();
+  });
+
+  it(`should have an onListAllChannels() method`, () => {
+    spyOn(service, 'onListAllChannels').and.callThrough();
+    service.onListAllChannels();
+    expect(service.onListAllChannels).toHaveBeenCalled();
   });
 });
