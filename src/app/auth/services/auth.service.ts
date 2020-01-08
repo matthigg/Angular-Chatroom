@@ -11,6 +11,11 @@ import { AuthResponseData } from '../models/auth-response-data';
 import { environment } from '../../../environments/environment';
 import { User } from '../models/user.model';
 
+// Firestore
+import { AngularFirestore } from '@angular/fire/firestore';
+import firebase from '@firebase/app';
+import '@firebase/firestore';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,6 +24,7 @@ export class AuthService {
   private tokenExpirationTimer: any;
 
   constructor(
+    private firestore: AngularFirestore,
     private http: HttpClient,
     private ngZone: NgZone,
     private router: Router,
@@ -112,7 +118,7 @@ export class AuthService {
   }
 
   // Create a new account
-  createAccount(email: string, password: string) {
+  createAccount(userName: string, email: string, password: string) {
     const webAPIKey = environment.firebaseConfig.apiKey;
     return this.http
       .post<AuthResponseData>(
@@ -124,6 +130,18 @@ export class AuthService {
         }
       )
       .pipe(
+
+        // Add username & email to Firestore 'users' collection
+        tap(response => {
+          this.firestore.firestore.collection('users').doc(userName).set(
+            {
+              name: userName,
+              email: email
+            }
+          );
+        }),
+        
+        // Authenticate newly created user
         tap(response => {
           this.handleAuthentication(
             response.email,

@@ -62,9 +62,11 @@ export class CreateAccountComponent implements OnInit {
   onSubmit() {
     if (!this.formCreateAccount.valid) { return null }
     this.isLoading = true;
+    const userName = this.formCreateAccount.value.username;
     const email = this.formCreateAccount.value.email;
     const password = this.formCreateAccount.value.passwords.password;
-    this.authService.createAccount(email, password)
+    // this.authService.checkIfUsernameOrEmailExists(userName, email)
+    this.authService.createAccount(userName, email, password)
       .subscribe(
         response => { 
           this.isLoading = false;

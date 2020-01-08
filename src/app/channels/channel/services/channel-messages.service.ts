@@ -5,7 +5,6 @@ import { BehaviorSubject } from 'rxjs';
 
 // Firestore
 import { AngularFirestore } from '@angular/fire/firestore';
-// import * as firebase from 'firebase/firestore';
 import firebase from '@firebase/app';
 import '@firebase/firestore';
 
