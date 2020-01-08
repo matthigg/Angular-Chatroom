@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+// RxJS
+import { BehaviorSubject } from 'rxjs';
+
 // Firestore
 import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase';
@@ -8,6 +11,7 @@ import * as firebase from 'firebase';
   providedIn: 'root'
 })
 export class ChannelMessagesService {
+  activeChannel = new BehaviorSubject(null);
 
   constructor(private firestore: AngularFirestore) { }
 

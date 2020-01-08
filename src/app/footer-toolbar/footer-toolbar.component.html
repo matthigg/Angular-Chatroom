@@ -1,0 +1,29 @@
+<mat-toolbar>
+  <form [formGroup]="formInput" (ngSubmit)="onSubmit(inputField)">
+    <mat-toolbar class="toolbar-message">
+
+      <!-- Message Input Field -->
+      <mat-form-field>
+        <input 
+          class="input-message"
+          formControlName="input"
+          matInput
+          required
+          type="text"
+          #inputField
+        >
+      </mat-form-field>
+
+      <!-- Message Submit Button -->
+      <button
+        class="button-message"
+        mat-raised-button
+        type="submit"
+        [disabled]="!formInput.valid"
+      >
+        Send
+      </button>
+      
+    </mat-toolbar>
+  </form>
+</mat-toolbar>

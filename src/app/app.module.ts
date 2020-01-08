@@ -36,6 +36,7 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
+import { FooterToolbarComponent } from './footer-toolbar/footer-toolbar.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { environment } from 'src/environments/environment';
     NavToolbarComponent,
     SideNavComponent,
     PageNotFoundComponent,
+    FooterToolbarComponent,
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),

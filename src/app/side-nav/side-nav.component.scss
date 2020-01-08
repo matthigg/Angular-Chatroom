@@ -3,5 +3,5 @@ mat-sidenav {
 }
 
 mat-sidenav-content {
-  height: 100vh;
+  height: calc(100vh - 128px);
 }
