@@ -5,8 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { ChannelsModule } from './channels/channels.module';
 import { ChannelsRoutingModule } from './channels/channels-routing.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 // Angular Material Modules
@@ -14,6 +14,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
+  MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
@@ -56,10 +57,12 @@ import { FooterToolbarComponent } from './footer-toolbar/footer-toolbar.componen
     BrowserModule,
     ChannelsModule,
     ChannelsRoutingModule,
+    FormsModule,
     HttpClientModule,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
+    MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,

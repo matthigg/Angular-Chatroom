@@ -1,20 +1,53 @@
 <mat-sidenav-container>
 
   <!-- Sidenav -->
-  <mat-sidenav 
-    [opened]="isSideNavOpen" 
-    mode="side"
-  >
-    
-    <!-- Sidenav Header -->
-    <!-- <mat-toolbar>Sidenav Menu</mat-toolbar> -->
+  <mat-sidenav [opened]="isSideNavOpen" mode="side">
 
+    <!-- Channel List -->
     <mat-nav-list>
-      <a mat-list-item routerLink="/channels">Channels</a>
+      <a mat-list-item routerLink="/channels">Channel List</a>
     </mat-nav-list>
+
+    <!-- Create Channel Form -->
+    <mat-accordion>
+      <mat-expansion-panel #matExpansionPanel>
+        <mat-expansion-panel-header>New Channel</mat-expansion-panel-header>
+        <form #f="ngForm" (ngSubmit)="onCreateChannel(f)">
+
+          <!-- Input Field -->
+          <mat-form-field>
+            <input 
+              matInput
+              name="channelName"
+              ngModel 
+              placeholder="Name"
+              type="text" 
+              value
+              #inputField
+            >
+          </mat-form-field>
+
+          <!-- Submit Button -->
+          <button
+            mat-button 
+            type="submit" 
+            [disabled]="inputField.value == ''" 
+            (click)="matExpansionPanel.toggle()"
+          >
+            Create
+          </button>
+        </form>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <!-- Channel Creation Errors -->
+    <div *ngIf="errorChannelCreation">
+      <mat-toolbar class="error-channel-creation">{{ errorChannelCreation }}</mat-toolbar>
+    </div>
+
   </mat-sidenav>
 
-  <!-- Content -->
+  <!-- Main Content -->
   <mat-sidenav-content>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

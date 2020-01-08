@@ -1,37 +1,8 @@
 <h1>Channels</h1>
 
-<!-- Create Channel Form -->
-<form #f="ngForm" (ngSubmit)="onCreateChannel(f)">
-
-  <!-- Input Field -->
-  <mat-form-field>
-    <input 
-      matInput
-      name="channelName"
-      ngModel 
-      required 
-      type="text" 
-      value
-    >
-  </mat-form-field>
-
-  <!-- Submit Button -->
-  <button
-    mat-button 
-    type="submit" 
-    [disabled]="!f.valid"
-  >
-    Create Channel
-  </button>
-
-</form>
-
 <!-- Channel List Errors -->
 <div *ngIf="!channelsExist && !isLoading">
   <mat-toolbar class="error-no-channels">There are no channels.</mat-toolbar>
-</div>
-<div *ngIf="errorChannelCreation">
-  <mat-toolbar class="error-channel-creation">{{ errorChannelCreation }}</mat-toolbar>
 </div>
 <div *ngIf="errorChannelDeletion">
   <mat-toolbar class="error-channel-deletion">{{ errorChannelDeletion }}</mat-toolbar>

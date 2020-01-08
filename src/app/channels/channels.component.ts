@@ -1,12 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 // RxJS
 import { Subscription } from 'rxjs';
-import { take } from 'rxjs/operators';
-
-// Modules
-import { NgForm } from '@angular/forms';
 
 // Angular Material Modules
 import { MatSnackBar } from '@angular/material';
