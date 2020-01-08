@@ -14,6 +14,7 @@ import { ToggleSideNavService } from '../../side-nav/services/toggle-side-nav.se
   styleUrls: ['./channel.component.scss']
 })
 export class ChannelComponent implements OnDestroy, OnInit {
+  channelName: string;
   channelNameSub: Subscription;
   messages: {}[] = [];
 
@@ -33,6 +34,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
     // Get the channel name from the URL & retrieve channel messages
     this.channelNameSub = this.activatedRoute.params
       .subscribe(value => {
+        this.channelName = value.name;
         this.channelMessagesService.activeChannel.next(value.name);
         this.retrieveMessages(value.name);
       });
