@@ -1,12 +1,8 @@
-  <form 
-    [formGroup]="formInput" 
-    (ngSubmit)="onSubmit()"
-    *ngIf="activeChannel"
-  >
+  <form [formGroup]="formInput" (ngSubmit)="onSubmit()">
     <mat-toolbar class="toolbar-message">
 
       <!-- Message Input Field -->
-      <mat-form-field>
+      <mat-form-field *ngIf="activeChannel">
         <input 
           class="input-message"
           formControlName="input"
@@ -21,6 +17,7 @@
         class="button-message"
         mat-raised-button
         type="submit"
+        *ngIf="activeChannel"
         [disabled]="!formInput.valid"
       >
         Send
