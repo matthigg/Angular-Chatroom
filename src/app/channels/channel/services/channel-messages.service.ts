@@ -18,6 +18,7 @@ export class ChannelMessagesService {
 
   // POST chatroom messages to Firestore
   addANewMessage(userName: string, channelName: string, message: string) {
+    console.log('=== new Date()', new Date())
     return this.firestore.firestore.collection('channels').doc(channelName).update(
       {
         messages: firebase.firestore.FieldValue.arrayUnion(

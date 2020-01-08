@@ -13,7 +13,7 @@
     *ngFor="let message of messages"
   >
     <mat-chip-list>
-      {{ message?.time?.seconds | date:'hh:mm:ss' }}
+      {{ message?.time?.seconds * 1000 | date:'hh:mm:ss' }}
       <mat-chip>{{ message?.user }}</mat-chip>
       {{ message?.message }}
     </mat-chip-list>
