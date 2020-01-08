@@ -40,14 +40,14 @@ export class FooterToolbarComponent implements OnInit {
       .subscribe(channel => this.activeChannel = channel);
   }
 
-  onSubmit(inputField): void {
-    inputField.value = '';
+  onSubmit(): void {
     this.message = this.formInput.value.input;
     this.userNameSub = this.authService.user.subscribe(user => {
       user ? this.userName = user.email : this.userName = null;
     });
     this.channelMessagesService.addANewMessage(this.userName, this.activeChannel, this.message)
       .catch(error => console.log('=== error:', error));
+    this.formInput.reset();
   }
 
 }

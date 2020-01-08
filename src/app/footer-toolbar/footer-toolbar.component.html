@@ -1,6 +1,6 @@
   <form 
     [formGroup]="formInput" 
-    (ngSubmit)="onSubmit(inputField)"
+    (ngSubmit)="onSubmit()"
     *ngIf="activeChannel"
   >
     <mat-toolbar class="toolbar-message">
@@ -13,7 +13,6 @@
           matInput
           required
           type="text"
-          #inputField
         >
       </mat-form-field>
 
