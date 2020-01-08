@@ -121,7 +121,6 @@ export class AuthService {
   async checkIfUsernameOrEmailExists(userName: string, email: string): Promise<any> {
     let userNamesAndEmails: string[] = [];
     let usersSnapshot = firebase.firestore().collection('users').get();
-    // console.log(usersSnapshot.then(response => console.log('=== response:', response.docs.map(doc => Object.values(doc.data())))))
     await usersSnapshot.then(response => {
       response.docs.map(doc => {
         Object.values(doc.data()).forEach(usernameOrEmail => userNamesAndEmails.push(usernameOrEmail))
@@ -133,11 +132,6 @@ export class AuthService {
         reject('Username and/or email already exists.');
       })
     }
-    // console.log('=== userName:', userName);
-    // console.log('=== email:', email);
-    // console.log('=== userName in userNamesAndEmails:', userName in userNamesAndEmails)
-    // console.log('=== email in userNamesAndEmails:', email in userNamesAndEmails)
-    // console.log('=== userNamesAndEmails:', userNamesAndEmails);
   }
 
   // Create a new account
