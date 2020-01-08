@@ -16,6 +16,7 @@ import { ToggleSideNavService } from '../../side-nav/services/toggle-side-nav.se
 export class ChannelComponent implements OnDestroy, OnInit {
   channelName: string;
   channelNameSub: Subscription;
+  isLoading: boolean = false;
   messages: {}[] = [];
 
   constructor(
@@ -46,8 +47,12 @@ export class ChannelComponent implements OnDestroy, OnInit {
   }
 
   retrieveMessages(channelName): void {
+    this.isLoading = true;
     this.channelMessagesService.retrieveMessages(channelName).onSnapshot(
-      doc => doc.data() ? this.messages = doc.data().messages : this.messages = null
+      doc => {
+        doc.data() ? this.messages = doc.data().messages : this.messages = null;
+        this.isLoading = false;
+      }
     )
   }
 

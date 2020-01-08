@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 // Angular Material Modules
 import { 
   MatButtonModule,
+  MatCardModule,
   MatChipsModule,
   MatFormFieldModule,
   MatInputModule,
@@ -34,6 +35,7 @@ import { ChannelComponent } from './channel/channel.component';
     FormsModule,
     LoadingSpinnerModule,
     MatButtonModule,
+    MatCardModule,
     MatChipsModule,
     MatFormFieldModule,
     MatInputModule,

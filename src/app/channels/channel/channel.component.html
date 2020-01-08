@@ -1,6 +1,11 @@
 <!-- Channel Title -->
 <mat-toolbar>Channel {{ channelName }}</mat-toolbar>
 
+<!-- Loading Spinner -->
+<mat-card-content class="loading-spinner-wrapper" *ngIf="isLoading">
+  <app-loading-spinner></app-loading-spinner>
+</mat-card-content>
+
 <!-- Messages -->
 <mat-list>
   <mat-list-item
