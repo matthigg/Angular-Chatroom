@@ -81,7 +81,7 @@ export class AuthService {
   }
 
   // Automatically log in user if user data exists in localStorage
-  autoLogin() {
+  autoLogin(): void {
     const userData: {
       email: string,
       id: string,
@@ -111,14 +111,14 @@ export class AuthService {
   }
 
   // Automatically logout user after tokenExpirationDate passes
-  autoLogout(expirationDuration: number) {
+  autoLogout(expirationDuration: number): void {
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
     }, expirationDuration);
   }
 
   // Check if username and/or email already exists in Firestore
-  async checkIfUsernameOrEmailExists(userName: string, email: string) {
+  async checkIfUsernameOrEmailExists(userName: string, email: string): Promise<any> {
     let userNamesAndEmails: string[] = [];
     let usersSnapshot = firebase.firestore().collection('users').get();
     // console.log(usersSnapshot.then(response => console.log('=== response:', response.docs.map(doc => Object.values(doc.data())))))
@@ -141,7 +141,7 @@ export class AuthService {
   }
 
   // Create a new account
-  createAccount(userName: string, email: string, password: string) {
+  createAccount(userName: string, email: string, password: string): Observable<AuthResponseData> {
     const webAPIKey = environment.firebaseConfig.apiKey;
     return this.http
       .post<AuthResponseData>(
@@ -178,7 +178,7 @@ export class AuthService {
   }
 
   // Log in to an existing account
-  login(email: string, password: string) {
+  login(email: string, password: string): Observable<AuthResponseData> {
     const webAPIKey = environment.firebaseConfig.apiKey;
     return this.http
       .post<AuthResponseData>(
@@ -203,7 +203,7 @@ export class AuthService {
   }
 
   // Log out of session
-  logout() {
+  logout(): void {
     this.user.next(null);
     localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
