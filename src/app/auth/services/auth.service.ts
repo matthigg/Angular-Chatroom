@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 // RxJS
 import { catchError, tap } from 'rxjs/operators';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 
 // Models, Interfaces, Environment Variables
 import { AuthResponseData } from '../models/auth-response-data';
@@ -115,6 +115,29 @@ export class AuthService {
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
     }, expirationDuration);
+  }
+
+  // Check if username and/or email already exists in Firestore
+  async checkIfUsernameOrEmailExists(userName: string, email: string) {
+    let userNamesAndEmails: string[] = [];
+    let usersSnapshot = firebase.firestore().collection('users').get();
+    // console.log(usersSnapshot.then(response => console.log('=== response:', response.docs.map(doc => Object.values(doc.data())))))
+    await usersSnapshot.then(response => {
+      response.docs.map(doc => {
+        Object.values(doc.data()).forEach(usernameOrEmail => userNamesAndEmails.push(usernameOrEmail))
+      });
+    });
+
+    if (userNamesAndEmails.includes(userName) || userNamesAndEmails.includes(email)) {
+      return new Promise((resolve, reject) => {
+        reject('Username and/or email already exists.');
+      })
+    }
+    // console.log('=== userName:', userName);
+    // console.log('=== email:', email);
+    // console.log('=== userName in userNamesAndEmails:', userName in userNamesAndEmails)
+    // console.log('=== email in userNamesAndEmails:', email in userNamesAndEmails)
+    // console.log('=== userNamesAndEmails:', userNamesAndEmails);
   }
 
   // Create a new account

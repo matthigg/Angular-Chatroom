@@ -59,13 +59,7 @@ export class CreateAccountComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    if (!this.formCreateAccount.valid) { return null }
-    this.isLoading = true;
-    const userName = this.formCreateAccount.value.username;
-    const email = this.formCreateAccount.value.email;
-    const password = this.formCreateAccount.value.passwords.password;
-    // this.authService.checkIfUsernameOrEmailExists(userName, email)
+  createAccount(userName, email, password) {
     this.authService.createAccount(userName, email, password)
       .subscribe(
         response => { 
@@ -74,11 +68,26 @@ export class CreateAccountComponent implements OnInit {
           this.errorMessage = '';
           this.router.navigate(['/']);
         },
-        errorMessage => { 
+        error => { 
           this.isLoading = false; 
           this.isError = true; 
-          this.errorMessage = errorMessage; 
+          this.errorMessage = error; 
         },
       );
+  }
+
+  async onSubmit() {
+    if (!this.formCreateAccount.valid) { return null }
+    this.isLoading = true;
+    const userName = this.formCreateAccount.value.username;
+    const email = this.formCreateAccount.value.email;
+    const password = this.formCreateAccount.value.passwords.password;
+    await this.authService.checkIfUsernameOrEmailExists(userName, email)
+      .then(response => this.createAccount(userName, email, password))
+      .catch(error => {
+        this.isLoading = false;
+        this.isError = true;
+        this.errorMessage = error;
+      });
   }
 }
