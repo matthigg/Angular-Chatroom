@@ -15,7 +15,7 @@ import { ChannelMessagesService } from '../channels/channel/services/channel-mes
 })
 export class FooterToolbarComponent implements OnInit {
   activeChannel: string;
-  activeChannelSubscription: Subscription;
+  activeChannelSub: Subscription;
   formInput: FormGroup;
   message: string;
   userName: string;
@@ -28,18 +28,23 @@ export class FooterToolbarComponent implements OnInit {
   ) { }
 
   ngOnDestroy() {
+    if (this.activeChannelSub) this.activeChannelSub.unsubscribe();
     if (this.userNameSub) this.userNameSub.unsubscribe();
   }
 
   ngOnInit() {
+
+    // Initialize the chat input field in a FormGroup
     this.formInput = this.fb.group({
       input: ['', [Validators.required]]
     });
 
-    this.activeChannelSubscription = this.channelMessagesService.activeChannel
+    // Get the name of the active channel
+    this.activeChannelSub = this.channelMessagesService.activeChannel
       .subscribe(channel => this.activeChannel = channel);
   }
 
+  // Handle chat input field form submission
   onSubmit(): void {
     this.message = this.formInput.value.input;
     this.userNameSub = this.authService.user.subscribe(user => {

@@ -6,7 +6,6 @@ import { Subscription } from 'rxjs';
 
 // Services
 import { ChannelMessagesService } from './services/channel-messages.service';
-import { ToggleSideNavService } from '../../side-nav/services/toggle-side-nav.service';
 
 @Component({
   selector: 'app-channel',
@@ -15,14 +14,13 @@ import { ToggleSideNavService } from '../../side-nav/services/toggle-side-nav.se
 })
 export class ChannelComponent implements OnDestroy, OnInit {
   channelName: string;
-  channelNameSub: Subscription;
   isLoading: boolean = false;
   messages: {}[] = [];
+  private channelNameSub: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private channelMessagesService: ChannelMessagesService,
-    private toggleSideNavService: ToggleSideNavService,
   ) { }
 
   ngOnDestroy() {
@@ -39,21 +37,18 @@ export class ChannelComponent implements OnDestroy, OnInit {
         this.channelMessagesService.activeChannel.next(value.name);
         this.retrieveMessages(value.name);
       });
-
-    // Open the side nav
-    setTimeout(() => {
-      this.toggleSideNavService.handleSideNav('open');
-    }, 0);
   }
 
-  retrieveMessages(channelName): void {
+  // GET chat messages and user list from Firestore
+  retrieveMessages(channelName: string): void {
     this.isLoading = true;
     this.channelMessagesService.retrieveMessages(channelName).onSnapshot(
       doc => {
         doc.data() ? this.messages = doc.data().messages : this.messages = null;
+        doc.data() ? this.channelMessagesService.userList.next(doc.data().users) : this.channelMessagesService.userList.next(null);
         this.isLoading = false;
+        setTimeout(() => {}) // trigger change detection
       }
     )
   }
-
 }

@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
 // Services
+import { ChannelMessagesService } from '../channels/channel/services/channel-messages.service';
 import { CreateChannelService } from '../channels/services/create-channel.service';
 import { ToggleSideNavService } from './services/toggle-side-nav.service';
 
@@ -15,12 +16,15 @@ import { ToggleSideNavService } from './services/toggle-side-nav.service';
   styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent implements OnDestroy, OnInit {
-  isAccordionOpen: boolean = false;
   errorChannelCreation: string = '';
+  isAccordionOpen: boolean = false;
   isSideNavOpen: boolean = this.toggleSideNavService.isSideNavOpen;
+  users: string[] = [];
   private sideNavSubjectSub: Subscription;
+  private usersListSub: Subscription;
 
   constructor(
+    private channelMessagesService: ChannelMessagesService,
     private createChannelService: CreateChannelService,
     private router: Router,
     private toggleSideNavService: ToggleSideNavService,
@@ -28,18 +32,23 @@ export class SideNavComponent implements OnDestroy, OnInit {
 
   ngOnDestroy() {
     if (this.sideNavSubjectSub) this.sideNavSubjectSub.unsubscribe();
+    if (this.usersListSub) this.usersListSub.unsubscribe();
   }
 
   ngOnInit() {
+
+    // Keep track of whether the side nav is open or closed
     this.sideNavSubjectSub = this.toggleSideNavService.sideNavSubject.subscribe(state => {
       this.isSideNavOpen = state;
     });
+
+    // Get list of users in current channel
+    this.usersListSub = this.channelMessagesService.userList
+      .subscribe(usersArray => this.users = usersArray);
   }
 
   onCreateChannel(form: NgForm): Promise<any> {
-    console.log('=== isAccordionOpen:', this.isAccordionOpen)
     this.isAccordionOpen = false;
-    console.log('=== isAccordionOpen:', this.isAccordionOpen)
     return this.createChannelService.onCreateChannel(form)
       .then(response => { 
         this.router.navigate(['channel', form.value.channelName]);

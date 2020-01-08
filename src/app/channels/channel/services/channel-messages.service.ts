@@ -12,13 +12,13 @@ import '@firebase/firestore';
   providedIn: 'root'
 })
 export class ChannelMessagesService {
-  activeChannel = new BehaviorSubject(null);
+  activeChannel: BehaviorSubject<string> = new BehaviorSubject(null);
+  userList: BehaviorSubject<string[]> = new BehaviorSubject(null);
 
   constructor(private firestore: AngularFirestore) { }
 
   // POST chatroom messages to Firestore
   addANewMessage(userName: string, channelName: string, message: string) {
-    console.log('=== new Date()', new Date())
     return this.firestore.firestore.collection('channels').doc(channelName).update(
       {
         messages: firebase.firestore.FieldValue.arrayUnion(
@@ -32,8 +32,9 @@ export class ChannelMessagesService {
     )
   }
 
-  // GET chatroom messages from Firestore
+  // GET chatroom messages & user list from Firestore
   retrieveMessages(channelName: string) {
     return this.firestore.firestore.collection('channels').doc(channelName)
   }
+
 }
