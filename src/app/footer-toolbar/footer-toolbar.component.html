@@ -1,5 +1,8 @@
-<mat-toolbar>
-  <form [formGroup]="formInput" (ngSubmit)="onSubmit(inputField)">
+  <form 
+    [formGroup]="formInput" 
+    (ngSubmit)="onSubmit(inputField)"
+    *ngIf="activeChannel"
+  >
     <mat-toolbar class="toolbar-message">
 
       <!-- Message Input Field -->
@@ -26,4 +29,3 @@
       
     </mat-toolbar>
   </form>
-</mat-toolbar>

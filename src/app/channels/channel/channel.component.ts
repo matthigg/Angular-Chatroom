@@ -25,6 +25,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
 
   ngOnDestroy() {
     if (this.channelNameSub) this.channelNameSub.unsubscribe();
+    this.channelMessagesService.activeChannel.next(null);
   }
 
   ngOnInit() {
