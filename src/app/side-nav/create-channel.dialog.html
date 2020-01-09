@@ -17,7 +17,7 @@
     <mat-radio-group 
       aria-label="Select an option"
       name="permission" 
-      ngModel 
+      [(ngModel)]="selectedRadioButton"
       required 
     >
       <mat-radio-button value="public">Public</mat-radio-button>

@@ -63,6 +63,7 @@ export class SideNavComponent implements OnDestroy, OnInit {
 })
 export class CreateChannelDialog {
   errorChannelCreation: string = '';
+  selectedRadioButton: string = 'public';
 
   constructor(
     public dialogRef: MatDialogRef<CreateChannelDialog>,
