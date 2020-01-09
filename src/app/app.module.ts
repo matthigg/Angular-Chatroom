@@ -14,6 +14,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
+  MatDialogModule,
   MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
@@ -26,6 +27,7 @@ import {
 
 // Components
 import { AppComponent } from './app.component';
+import { CreateChannelDialog } from './side-nav/side-nav.component';
 import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
@@ -43,11 +45,13 @@ import { FooterToolbarComponent } from './footer-toolbar/footer-toolbar.componen
   declarations: [
     AppComponent,
     // ConsoleLogPipe,
+    CreateChannelDialog,
     NavToolbarComponent,
     SideNavComponent,
     PageNotFoundComponent,
     FooterToolbarComponent,
   ],
+  entryComponents: [ CreateChannelDialog ],
   imports: [
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
@@ -62,6 +66,7 @@ import { FooterToolbarComponent } from './footer-toolbar/footer-toolbar.componen
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
+    MatDialogModule,
     MatExpansionModule,
     MatFormFieldModule,
     MatIconModule,
