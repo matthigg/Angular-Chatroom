@@ -21,8 +21,39 @@
       required 
     >
       <mat-radio-button value="public">Public</mat-radio-button>
-      <mat-radio-button value="private">Private</mat-radio-button>
+      <mat-radio-button value="private" #privateRadioButton>Private</mat-radio-button>
     </mat-radio-group>
+
+  <!-- Set a Private Channel Password -->
+  <div 
+    #capw 
+    [ngClass]="{
+      'show': privateRadioButton.checked,
+      'hide': !privateRadioButton.checked,
+      'create-a-password-wrapper': true
+    }"
+  >
+    <mat-form-field>
+      <input 
+        matInput
+        name="password"
+        ngModel 
+        placeholder="Choose a Password"
+        [required]="privateRadioButton.checked"
+        type="text" 
+      >
+    </mat-form-field>
+    <mat-form-field>
+      <input 
+        matInput
+        name="passwordAgain"
+        ngModel 
+        placeholder="Choose a Password (again)"
+        [required]="privateRadioButton.checked"
+        type="text" 
+      >
+    </mat-form-field>
+  </div>
 
   <!-- Submit Button -->
   <button

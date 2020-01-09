@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -61,15 +61,19 @@ export class SideNavComponent implements OnDestroy, OnInit {
   templateUrl: './create-channel.dialog.html',
   styleUrls: ['./create-channel.dialog.scss'],
 })
-export class CreateChannelDialog {
+export class CreateChannelDialog implements OnInit {
   errorChannelCreation: string = '';
   selectedRadioButton: string = 'public';
 
   constructor(
     public dialogRef: MatDialogRef<CreateChannelDialog>,
     private createChannelService: CreateChannelService, 
+    private element: ElementRef<any>,
     private router: Router,
   ) {}
+
+  ngOnInit() {
+  }
 
   // Create a new channel
   onCreateChannel(form: NgForm): Promise<any> {

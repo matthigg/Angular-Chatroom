@@ -1,3 +1,22 @@
+$create-a-password-wrapper-transition: 0.1s ease-in-out;
+
+.create-a-password-wrapper {
+  text-align: center;
+  &.hide {
+    padding: 0;
+    height: 0;
+    transition: $create-a-password-wrapper-transition;
+    overflow-y: hidden;
+    visibility: hidden;
+  }
+  &.show {
+    padding: calc(1rem + 1vw);
+    height: auto;
+    transition: $create-a-password-wrapper-transition;
+    visibility: visible;
+  }
+}
+
 form {
   display: flex;
   flex-direction: column;
