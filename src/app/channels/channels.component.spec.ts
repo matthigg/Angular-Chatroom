@@ -161,7 +161,7 @@ describe('ChannelsComponent', () => {
     const deleteChannelServiceSpy = spyOn(component['deleteChannelService'], 'onDeleteChannel').and.returnValue(
       new Promise((resolve, reject) => resolve('test RESOLVE message'))
     );
-    await component.onDeleteChannel('testChannelId', 'testChannelName');
+    await component.onDeleteChannel('testChannelName');
     expect(deleteChannelServiceSpy).toHaveBeenCalled();
   });
 
@@ -171,7 +171,7 @@ describe('ChannelsComponent', () => {
     spyOn(component['deleteChannelService'], 'onDeleteChannel').and.returnValue(
       new Promise((resolve, reject) => reject('test REJECT message'))
     );
-    await component.onDeleteChannel('test channelId', 'test channelName');
+    await component.onDeleteChannel('test channelName');
     fixture.detectChanges();
     const errorElement = fixture.debugElement.query(By.css('.error-channel-deletion')).nativeElement;
     expect(errorElement.innerHTML).toBeTruthy();
