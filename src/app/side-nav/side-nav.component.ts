@@ -63,6 +63,7 @@ export class SideNavComponent implements OnDestroy, OnInit {
 })
 export class CreateChannelDialog implements OnInit {
   errorChannelCreation: string = '';
+  passwordIsVisible: boolean = false;
   selectedRadioButton: string = 'public';
 
   constructor(

@@ -1,5 +1,14 @@
 $create-a-password-wrapper-transition: 0.1s ease-in-out;
 
+.button-password-visibility {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
 .create-a-password-wrapper {
   text-align: center;
   &.hide {

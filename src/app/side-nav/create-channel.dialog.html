@@ -24,7 +24,7 @@
       <mat-radio-button value="private" #privateRadioButton>Private</mat-radio-button>
     </mat-radio-group>
 
-  <!-- Set a Private Channel Password -->
+  <!-- Private Channel Password -->
   <div 
     #capw 
     [ngClass]="{
@@ -33,24 +33,37 @@
       'create-a-password-wrapper': true
     }"
   >
+
+    <!-- Password -->
     <mat-form-field>
       <input 
         matInput
         name="password"
         ngModel 
-        placeholder="Choose a Password"
+        placeholder="Create a Password"
         [required]="privateRadioButton.checked"
-        type="text" 
+        [type]="passwordIsVisible ? 'text' : 'password'"
       >
+      <button 
+        class="button-password-visibility" 
+        matSuffix 
+        tabindex="-1"
+        type="button" 
+        (click)="passwordIsVisible = !passwordIsVisible" 
+      >
+        <mat-icon>{{ passwordIsVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
+      </button>
     </mat-form-field>
+
+    <!-- Retype Password -->
     <mat-form-field>
       <input 
         matInput
         name="passwordAgain"
         ngModel 
-        placeholder="Choose a Password (again)"
+        placeholder="Retype Password"
         [required]="privateRadioButton.checked"
-        type="text" 
+        [type]="passwordIsVisible ? 'text' : 'password'" 
       >
     </mat-form-field>
   </div>
