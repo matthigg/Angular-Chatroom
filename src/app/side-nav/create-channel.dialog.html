@@ -10,10 +10,19 @@
       placeholder="New Channel Name"
       required
       type="text" 
-      value
-      #inputField
     >
   </mat-form-field>
+
+  <!-- Public vs Private Channel -->
+    <mat-radio-group 
+      aria-label="Select an option"
+      name="permission" 
+      ngModel 
+      required 
+    >
+      <mat-radio-button value="public">Public</mat-radio-button>
+      <mat-radio-button value="private">Private</mat-radio-button>
+    </mat-radio-group>
 
   <!-- Submit Button -->
   <button

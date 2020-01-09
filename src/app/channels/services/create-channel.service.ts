@@ -13,6 +13,7 @@ export class CreateChannelService {
 
   onCreateChannel(form: NgForm): Promise<any> {
     const channelName = form.value.channelName;
+    const permission = form.value.permission;
 
     return this.firestore
       .collection('channels')
@@ -27,6 +28,7 @@ export class CreateChannelService {
             }
           ],
           users: ['System'],
+          permission: permission,
         }
       );
   }
