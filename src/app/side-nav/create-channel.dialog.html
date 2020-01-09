@@ -7,7 +7,8 @@
       matInput
       name="channelName"
       ngModel 
-      placeholder="Name"
+      placeholder="New Channel Name"
+      required
       type="text" 
       value
       #inputField
@@ -23,3 +24,8 @@
     Create
   </button>
 </form>
+
+<!-- Channel Creation Errors -->
+<div *ngIf="errorChannelCreation">
+  <mat-toolbar class="error-channel-creation">{{ errorChannelCreation }}</mat-toolbar>
+</div>

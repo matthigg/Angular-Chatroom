@@ -7,16 +7,13 @@ import { Subscription } from 'rxjs';
 
 // Angular Material
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-export interface DialogData {
-  animal: string;
-  name: string;
-}
 
 // Services
 import { ChannelMessagesService } from '../channels/channel/services/channel-messages.service';
 import { CreateChannelService } from '../channels/services/create-channel.service';
 import { ToggleSideNavService } from './services/toggle-side-nav.service';
 
+// ===== SIDE NAV COMPONENT =====
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
@@ -27,10 +24,6 @@ export class SideNavComponent implements OnDestroy, OnInit {
   users: string[] = [];
   private sideNavSubjectSub: Subscription;
   private usersListSub: Subscription;
-
-  // Dialog
-  animal: string;
-  name: string;
 
   constructor(
     public dialog: MatDialog,
@@ -55,21 +48,14 @@ export class SideNavComponent implements OnDestroy, OnInit {
       .subscribe(usersArray => this.users = usersArray);
   }
 
-  // Open dialog to enter a new channel name when creating a new channel
+  // Open dialog to create a new channel
   openCreateChannelDialog(): void {
-    const dialogRef = this.dialog.open(CreateChannelDialog, {
-      width: '250px',
-      data: { name: this.name, animal: this.animal }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.animal = result;
-    });
+    this.dialog.open(CreateChannelDialog, { width: '50vw' });
   }
 }
 
-// Dialog component that is opened when creating a new channel
+// ===== DIALOG COMPONENT ===== 
+// Opened when creating a new channel
 @Component({
   selector: 'dialog-overview-example-dialog',
   templateUrl: './create-channel.dialog.html',
@@ -80,7 +66,6 @@ export class CreateChannelDialog {
 
   constructor(
     public dialogRef: MatDialogRef<CreateChannelDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData,
     private createChannelService: CreateChannelService, 
     private router: Router,
   ) {}

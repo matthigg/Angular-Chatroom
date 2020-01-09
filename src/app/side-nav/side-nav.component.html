@@ -9,11 +9,6 @@
       <a mat-list-item (click)="openCreateChannelDialog()">Create Channel</a>
     </mat-nav-list>
 
-    <!-- Channel Creation Errors -->
-    <div *ngIf="errorChannelCreation">
-      <mat-toolbar class="error-channel-creation">{{ errorChannelCreation }}</mat-toolbar>
-    </div>
-
     <mat-accordion>
       <mat-expansion-panel>
         <mat-expansion-panel-header>Users</mat-expansion-panel-header>
