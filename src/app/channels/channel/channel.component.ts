@@ -1,5 +1,5 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 
 // RxJS
 import { Subscription } from 'rxjs';
@@ -21,6 +21,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private channelMessagesService: ChannelMessagesService,
+    private zone: NgZone,
   ) { }
 
   ngOnDestroy() {
@@ -44,10 +45,11 @@ export class ChannelComponent implements OnDestroy, OnInit {
     this.isLoading = true;
     this.channelMessagesService.retrieveMessages(channelName).onSnapshot(
       doc => {
-        doc.data() ? this.messages = doc.data().messages : this.messages = null;
-        doc.data() ? this.channelMessagesService.userList.next(doc.data().users) : this.channelMessagesService.userList.next(null);
-        this.isLoading = false;
-        setTimeout(() => {}) // trigger change detection
+        this.zone.run(() => { 
+          doc.data() ? this.messages = doc.data().messages : this.messages = null;
+          doc.data() ? this.channelMessagesService.userList.next(doc.data().users) : this.channelMessagesService.userList.next(null);
+          this.isLoading = false;
+        });
       }
     )
   }
