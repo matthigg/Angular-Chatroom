@@ -3,13 +3,12 @@
   <!-- Sidenav -->
   <mat-sidenav [opened]="isSideNavOpen" mode="side">
 
-    <!-- Channel List -->
+    <!-- Navigation -->
     <mat-nav-list>
       <a mat-list-item routerLink="/channels">Channel List</a>
       <a mat-list-item (click)="openCreateChannelDialog()">Create Channel</a>
     </mat-nav-list>
-
-    <mat-accordion>
+    <mat-accordion *ngIf="activeChannel">
       <mat-expansion-panel>
         <mat-expansion-panel-header>Users</mat-expansion-panel-header>
         <mat-list>

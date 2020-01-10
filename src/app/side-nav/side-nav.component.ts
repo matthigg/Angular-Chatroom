@@ -20,8 +20,10 @@ import { ToggleSideNavService } from './services/toggle-side-nav.service';
   styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent implements OnDestroy, OnInit {
+  activeChannel: string;
   isSideNavOpen: boolean = this.toggleSideNavService.isSideNavOpen;
   users: string[] = [];
+  private activeChannelSub: Subscription;
   private sideNavSubjectSub: Subscription;
   private usersListSub: Subscription;
 
@@ -32,6 +34,7 @@ export class SideNavComponent implements OnDestroy, OnInit {
   ) { }
 
   ngOnDestroy() {
+    if (this.activeChannelSub) this.activeChannelSub.unsubscribe();
     if (this.sideNavSubjectSub) this.sideNavSubjectSub.unsubscribe();
     if (this.usersListSub) this.usersListSub.unsubscribe();
   }
@@ -46,6 +49,10 @@ export class SideNavComponent implements OnDestroy, OnInit {
     // Get list of users in current channel
     this.usersListSub = this.channelMessagesService.userList
       .subscribe(usersArray => this.users = usersArray);
+
+    // Keep track of whether or not there is an active channel
+    this.activeChannelSub = this.channelMessagesService.activeChannel
+      .subscribe(channel => this.activeChannel = channel);
   }
 
   // Open dialog to create a new channel

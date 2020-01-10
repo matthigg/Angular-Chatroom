@@ -15,11 +15,11 @@ import { ChannelMessagesService } from '../channels/channel/services/channel-mes
 })
 export class FooterToolbarComponent implements OnInit {
   activeChannel: string;
-  activeChannelSub: Subscription;
   formInput: FormGroup;
   message: string;
   userName: string;
-  userNameSub: Subscription;
+  private activeChannelSub: Subscription;
+  private userNameSub: Subscription;
 
   constructor(
     private authService: AuthService,
