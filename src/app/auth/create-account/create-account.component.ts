@@ -63,19 +63,15 @@ export class CreateAccountComponent implements OnInit {
     this.authService.createAccount(userName, email, password)
       .subscribe(
         response => { 
-          console.log('=== response:', response)
           this.isLoading = false;
           this.isError = false;
           this.errorMessage = '';
           this.router.navigate(['/']);
         },
         error => { 
-          console.log('=== error:', error)
           this.isLoading = false; 
           this.isError = true; 
           this.errorMessage = error; 
-          console.log('=== this.isError:', this.isError);
-          console.log('=== this.errorMessage:', this.errorMessage);
         },
       );
   }

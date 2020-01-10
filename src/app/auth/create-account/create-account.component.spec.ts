@@ -174,6 +174,9 @@ describe('CreateAccountComponent', () => {
   });
 
   it(`should invoke the onSubmit() function if the button is clicked`, () => {
+    spyOn(component['authService'], 'checkIfUsernameOrEmailExists').and.returnValue(
+      new Promise((resolve, reject) => resolve())
+    )
     onSubmitSpy = spyOn(component, 'onSubmit').and.callThrough();
     controls.forEach(control => {
       control.value = 'test@test';
@@ -193,6 +196,9 @@ describe('CreateAccountComponent', () => {
   })
 
   it(`should capture all form control values if form is valid and user clicks the 'Create Account' button`, () => {
+    spyOn(component['authService'], 'checkIfUsernameOrEmailExists').and.returnValue(
+      new Promise((resolve, reject) => resolve())
+    )
     controls.forEach(control => {
       control.value = 'test@test';
       control.dispatchEvent(new Event('input'));
@@ -220,6 +226,9 @@ describe('CreateAccountComponent', () => {
   });
 
   it(`should not show an error message if a successful response is received from authService.createAccount()`, () => {
+    spyOn(component['authService'], 'checkIfUsernameOrEmailExists').and.returnValue(
+      new Promise((resolve, reject) => resolve())
+    )
     spyOn(component['authService'], 'createAccount').and.returnValue(of(
       {
         kind: '',
