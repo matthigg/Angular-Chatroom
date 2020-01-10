@@ -139,7 +139,7 @@ describe('AuthService', () => {
 
   it(`should login the user if account creation is successful`, () => {
     const handleAuthenticationSpy: any = spyOn<any>(service, 'handleAuthentication');
-    service.createAccount('test email', 'test password')
+    service.createAccount('test username', 'test email', 'test password')
       .subscribe(response => {
         expect(response).toBeTruthy();
       });
