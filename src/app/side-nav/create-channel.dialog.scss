@@ -1,4 +1,4 @@
-$create-a-password-wrapper-transition: 0.1s ease-in-out;
+$create-a-password-wrapper-transition: 0.2s ease-in-out;
 
 .button-password-visibility {
   background-color: transparent;
@@ -14,13 +14,14 @@ $create-a-password-wrapper-transition: 0.1s ease-in-out;
   &.hide {
     padding: 0;
     height: 0;
-    transition: $create-a-password-wrapper-transition;
     overflow-y: hidden;
+    transition: $create-a-password-wrapper-transition;
     visibility: hidden;
   }
   &.show {
-    padding: calc(1rem + 1vw);
-    height: auto;
+    padding: calc(0.25rem + 0.25vw);
+    height: 30vh;
+    overflow-y: hidden;
     transition: $create-a-password-wrapper-transition;
     visibility: visible;
   }
