@@ -21,29 +21,38 @@ import {
 import { ChannelComponent } from './channel.component';
 
 // Firestore
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, DocumentReference } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 
-// Classes
+// Mocks
 class MockActivatedRoute {
   params = Observable.create(obs => {
     obs.next('test-route')
   });
 }
 
+class MockAngularFirestore {
+  firestore = {
+    collection() { 
+      return {
+        doc() { 
+          return {
+            onSnapshot() {}
+          }
+        }
+      }
+    }
+  }
+}
+
 describe('ChannelComponent', () => {
   let component: ChannelComponent;
-  let firestore: AngularFirestore;
   let fixture: ComponentFixture<ChannelComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ChannelComponent ],
       imports: [ 
-        AngularFireModule.initializeApp(environment.firebaseConfig),
-        AngularFirestoreModule,
         HttpClientTestingModule,
         LoadingSpinnerModule,
         MatCardModule,
@@ -53,16 +62,11 @@ describe('ChannelComponent', () => {
         RouterTestingModule,
       ],
       providers: [ 
-        { 
-          provide: ActivatedRoute,
-          useClass: MockActivatedRoute
-          // useValue: { snapshot: { params: { get(): string { return 'test-route' }}}}
-          // useValue: { snapshot: { params: 'test-route' } }
-        } 
+        { provide: ActivatedRoute, useClass: MockActivatedRoute }, 
+        { provide: AngularFirestore, useClass: MockAngularFirestore }, 
       ]
     })
     .compileComponents();
-    firestore = TestBed.get(AngularFirestore);
   }));
 
   beforeEach(() => {

@@ -11,6 +11,12 @@ import { AuthGuardService } from './auth-guard.service';
 // Models
 import { User } from '../models/user.model';
 
+// Firestore
+import { AngularFirestore } from '@angular/fire/firestore';
+
+// Mocks
+class MockAngularFirestore {}
+
 describe('AuthGuardService', () => {
   let service: AuthGuardService;
 
@@ -19,6 +25,9 @@ describe('AuthGuardService', () => {
       imports: [ 
         HttpClientTestingModule,
         RouterTestingModule,
+      ],
+      providers: [
+        { provide: AngularFirestore, useClass: MockAngularFirestore }
       ]
     });
     service = TestBed.get(AuthGuardService);

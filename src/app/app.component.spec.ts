@@ -1,6 +1,5 @@
 // Testing
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-// import { DebugElement } from '@angular/core';
 
 // Modules
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -13,6 +12,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
+  MatDialogModule,
   MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
@@ -50,6 +50,7 @@ describe('AppComponent', () => {
         MatButtonModule,
         MatCardModule,
         MatCheckboxModule,
+        MatDialogModule,
         MatExpansionModule,
         MatFormFieldModule,
         MatIconModule,

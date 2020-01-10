@@ -28,6 +28,14 @@ import { LoginComponent } from './login.component';
 // Services
 import { AuthService } from '../services/auth.service';
 
+// Firestore
+import { AngularFirestore } from '@angular/fire/firestore';
+
+// Mocks
+class MockAngularFirestore {
+
+}
+
 describe('LoginComponent', () => {
   let buttonLogin: HTMLButtonElement;
   let buttonVisibility: HTMLButtonElement;
@@ -55,7 +63,10 @@ describe('LoginComponent', () => {
         ReactiveFormsModule,
         RouterTestingModule,
       ],
-      providers: [ AuthService ]
+      providers: [ 
+        AuthService,
+        { provide: AngularFirestore, useClass: MockAngularFirestore },
+      ]
     })
     .compileComponents();
   }));

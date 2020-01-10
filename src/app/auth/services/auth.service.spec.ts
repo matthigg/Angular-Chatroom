@@ -9,6 +9,25 @@ import { AuthService } from './auth.service';
 // Models
 import { User } from '../models/user.model';
 
+// Firestore
+import { AngularFirestore } from '@angular/fire/firestore';
+import { environment } from '../../../environments/environment';
+
+// Mocks
+class MockAngularFirestore {
+  firestore = {
+    collection() {
+      return {
+        doc() {
+          return {
+            set() {}
+          }
+        }
+      }
+    }
+  }
+}
+
 describe('AuthService', () => {
   let errorResponse: { error: { error: { message: string } } } | null | undefined;
   let httpMock: HttpTestingController;
@@ -19,6 +38,9 @@ describe('AuthService', () => {
       imports: [ 
         HttpClientTestingModule,
         RouterTestingModule,
+      ],
+      providers: [
+        { provide: AngularFirestore, useClass: MockAngularFirestore }
       ]
     });
     errorResponse = null;
@@ -145,7 +167,7 @@ describe('AuthService', () => {
       });
 
     // Order is important -- these lines must occur after the initial subscription
-    const webAPIKey = 'AIzaSyAAC4JQbA0KOAL5RVMPyAIpp5XxWdnwRy8';
+    const webAPIKey = environment.firebaseConfig.apiKey;
     const req = httpMock.expectOne('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + webAPIKey);
     expect(req.request.method).toBe('POST');
     req.flush({

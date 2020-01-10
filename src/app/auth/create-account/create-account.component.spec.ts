@@ -24,6 +24,15 @@ import {
 import { CreateAccountComponent } from './create-account.component';
 import { LoadingSpinnerComponent } from '../../shared/loading-spinner/loading-spinner.component';
 
+// Services
+import { AuthService } from '../services/auth.service';
+
+// Mocks
+class MockAuthService {
+  checkIfUsernameOrEmailExists() {}
+  createAccount() {}
+}
+
 describe('CreateAccountComponent', () => {
   let component: CreateAccountComponent;
   let fixture: ComponentFixture<CreateAccountComponent>;
@@ -53,6 +62,9 @@ describe('CreateAccountComponent', () => {
         ReactiveFormsModule, 
         RouterTestingModule,
       ],
+      providers: [
+        { provide: AuthService, useClass: MockAuthService }
+      ]
     })
     .compileComponents();
   }));
@@ -172,9 +184,12 @@ describe('CreateAccountComponent', () => {
     expect(onSubmitSpy).toHaveBeenCalled();
   });
 
-  it(`should have the onSubmit() function return 'null' if the account creation form is invalid`, () => {
-    const onSubmitResult = component.onSubmit();
-    expect(onSubmitResult).toEqual(null);
+  it(`should have the onSubmit() function return 'null' if the account creation form is invalid`, (done) => {
+    component.onSubmit()
+      .catch(error => {
+        expect(error).toBe(null);
+        done();
+      })
   })
 
   it(`should capture all form control values if form is valid and user clicks the 'Create Account' button`, () => {
@@ -231,13 +246,21 @@ describe('CreateAccountComponent', () => {
     expect(component.errorMessage).toEqual('');
   });
 
-  it(`should show an error message if an error is thrown from authService.createAccount()`, () => {
+  it(`should show an error message if an error is thrown from authService.createAccount()`, (done) => {
+    spyOn(component['authService'], 'checkIfUsernameOrEmailExists').and.returnValue(
+      new Promise((resolve, reject) => resolve())
+    )
     spyOn(component['authService'], 'createAccount').and.returnValue(
       throwError({ status: 404 })
     )()
       .subscribe(
         response => expect(response).toBeFalsy(),
-        error => expect(error).toEqual({ status: 404 })
+        error => {
+          expect(error).toEqual({ status: 404 })
+          component.isError = true; 
+          component.errorMessage = error; 
+          done();
+        }
       );
 
     controls.forEach(control => {
@@ -251,5 +274,5 @@ describe('CreateAccountComponent', () => {
     expect(component.errorMessage).toBeTruthy();
   });
 
-  
+
 });

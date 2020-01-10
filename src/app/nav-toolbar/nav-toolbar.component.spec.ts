@@ -23,6 +23,12 @@ import { NavToolbarComponent } from './nav-toolbar.component';
 import { AuthService } from '../auth/services/auth.service';
 import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.service';
 
+// Firestore
+import { AngularFirestore } from '@angular/fire/firestore';
+
+// Mocks
+class MockAngularFirestore {}
+
 describe('NavToolbarComponent', () => {
   let authService: AuthService;
   let component: NavToolbarComponent;
@@ -44,6 +50,9 @@ describe('NavToolbarComponent', () => {
         MatToolbarModule,
         RouterTestingModule,
       ],
+      providers: [
+        { provide: AngularFirestore, useClass: MockAngularFirestore }
+      ]
     })
     .compileComponents();
   }));

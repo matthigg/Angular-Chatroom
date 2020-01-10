@@ -24,6 +24,12 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import { LoadingSpinnerComponent } from '../shared/loading-spinner/loading-spinner.component';
 import { LoginComponent } from './login/login.component';
 
+// Firestore
+import { AngularFirestore } from '@angular/fire/firestore';
+
+// Mocks
+class MockAngularFirestore {}
+
 describe('AuthComponent', () => {
   let component: AuthComponent;
   let fixture: ComponentFixture<AuthComponent>;
@@ -48,6 +54,9 @@ describe('AuthComponent', () => {
         ReactiveFormsModule,
         RouterTestingModule,
       ],
+      providers: [
+        { provide: AngularFirestore, useClass: MockAngularFirestore }
+      ]
     })
     .compileComponents();
   }));

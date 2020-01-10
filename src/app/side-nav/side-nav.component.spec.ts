@@ -7,16 +7,24 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 // Angular Material Modules
 import {
+  MatDialogModule,
   MatExpansionModule,
   MatListModule, 
   MatSidenavModule
 } from '@angular/material';
+// import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 // Components
 import { SideNavComponent } from './side-nav.component';
 
 // Services
 import { ToggleSideNavService } from './services/toggle-side-nav.service';
+
+// Firestore
+import { AngularFirestore } from '@angular/fire/firestore';
+
+// Mocks
+class MockAngularFirestore {}
 
 describe('SideNavComponent', () => {
   let component: SideNavComponent;
@@ -29,11 +37,15 @@ describe('SideNavComponent', () => {
       imports: [ 
         BrowserAnimationsModule,
         HttpClientTestingModule,
+        MatDialogModule,
         MatExpansionModule,
         MatListModule,
         MatSidenavModule,
         RouterTestingModule,
       ],
+      providers: [
+        { provide: AngularFirestore, useClass: MockAngularFirestore }
+      ]
     })
     .compileComponents();
   }));

@@ -4,22 +4,20 @@ import { TestBed } from '@angular/core/testing';
 import { ChannelMessagesService } from './channel-messages.service';
 
 // Firestore
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { environment } from 'src/environments/environment';
+
+// Mocks
+class MockAngularFirestore {
+  collections() {}
+}
 
 describe('ChannelMessagesService', () => {
-  let firestore: AngularFirestore;
-
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ 
-        AngularFireModule.initializeApp(environment.firebaseConfig),
-        AngularFirestoreModule
+      providers: [
+        { provide: AngularFirestore, useClass: MockAngularFirestore }
       ]
-    }),
-    firestore = TestBed.get(AngularFirestore);
+    });
   });
 
   it('should be created', () => {
