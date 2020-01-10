@@ -35,7 +35,9 @@ export class ChannelComponent implements OnDestroy, OnInit {
     this.channelNameSub = this.activatedRoute.params
       .subscribe(value => {
         this.channelName = value.name;
-        this.channelMessagesService.activeChannel.next(value.name);
+        setTimeout(() => {
+          this.channelMessagesService.activeChannel.next(value.name);
+        }, 0)
         this.retrieveMessages(value.name);
       });
   }
