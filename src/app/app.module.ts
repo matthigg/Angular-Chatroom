@@ -29,6 +29,7 @@ import {
 // Components
 import { AppComponent } from './app.component';
 import { CreateChannelDialog } from './side-nav/side-nav.component';
+import { FooterToolbarComponent } from './footer-toolbar/footer-toolbar.component';
 import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
@@ -40,7 +41,6 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
-import { FooterToolbarComponent } from './footer-toolbar/footer-toolbar.component';
 
 @NgModule({
   declarations: [

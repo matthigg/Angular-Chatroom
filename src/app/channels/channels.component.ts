@@ -14,9 +14,6 @@ import { DeleteChannelService } from './services/delete-channel.service';
 import { ListChannelsService } from './services/list-channels.service';
 import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.service';
 
-// Firestore
-// import { DocumentReference } from '@angular/fire/firestore';
-
 @Component({
   selector: 'app-channels',
   templateUrl: './channels.component.html',

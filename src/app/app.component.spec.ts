@@ -13,6 +13,7 @@ import {
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
+  MatExpansionModule,
   MatFormFieldModule,
   MatIconModule,
   MatInputModule,
@@ -25,8 +26,15 @@ import {
 
 // Components
 import { AppComponent } from './app.component';
+import { FooterToolbarComponent } from './footer-toolbar/footer-toolbar.component';
 import { NavToolbarComponent } from './nav-toolbar/nav-toolbar.component';
 import { SideNavComponent} from './side-nav/side-nav.component';
+
+// Firestore
+import { AngularFirestore } from '@angular/fire/firestore';
+
+// Mocks
+class MockAngularFirestore {}
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -42,6 +50,7 @@ describe('AppComponent', () => {
         MatButtonModule,
         MatCardModule,
         MatCheckboxModule,
+        MatExpansionModule,
         MatFormFieldModule,
         MatIconModule,
         MatInputModule,
@@ -55,9 +64,13 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
+        FooterToolbarComponent,
         NavToolbarComponent,
         SideNavComponent,
       ],
+      providers: [ 
+        { provide: AngularFirestore, useClass: MockAngularFirestore }
+      ]
     }).compileComponents();
     fixture = TestBed.createComponent(AppComponent);
     app = fixture.debugElement.componentInstance;

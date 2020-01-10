@@ -145,18 +145,6 @@ describe('ChannelsComponent', () => {
     expect(routerNavigateSpy).toHaveBeenCalled();
   });
 
-  it(`displays an error message to the user if there was a problem creating a new channel`, async () => {
-    const routerNavigateSpy = spyOn(component['router'], 'navigate');
-    spyOn(component['createChannelService'], 'onCreateChannel').and.returnValue(
-      new Promise((resolve, reject) => reject('test REJECT message'))
-    );
-    await component.onCreateChannel(<NgForm>{ 'value': 'testChannelName' });
-    fixture.detectChanges();
-    const errorElement = fixture.debugElement.query(By.css('.error-channel-creation')).nativeElement;
-    expect(errorElement.innerHTML).toBeTruthy();
-    expect(routerNavigateSpy).not.toHaveBeenCalled();
-  });
-
   it(`should allow users to delete a channel via onDeleteChannel()`, async () => {
     const deleteChannelServiceSpy = spyOn(component['deleteChannelService'], 'onDeleteChannel').and.returnValue(
       new Promise((resolve, reject) => resolve('test RESOLVE message'))

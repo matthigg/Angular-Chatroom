@@ -6,10 +6,13 @@ import { Observable } from 'rxjs';
 
 // Modules
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LoadingSpinnerModule } from '../../shared/loading-spinner/loading-spinner.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
 // Angular Material Modules
 import { 
+  MatCardModule,
+  MatChipsModule,
   MatListModule,
   MatToolbarModule, 
 } from '@angular/material';
@@ -42,6 +45,9 @@ describe('ChannelComponent', () => {
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFirestoreModule,
         HttpClientTestingModule,
+        LoadingSpinnerModule,
+        MatCardModule,
+        MatChipsModule,
         MatListModule,
         MatToolbarModule,
         RouterTestingModule,

@@ -7,6 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 // Angular Material Modules
 import {
+  MatExpansionModule,
   MatListModule, 
   MatSidenavModule
 } from '@angular/material';
@@ -28,6 +29,7 @@ describe('SideNavComponent', () => {
       imports: [ 
         BrowserAnimationsModule,
         HttpClientTestingModule,
+        MatExpansionModule,
         MatListModule,
         MatSidenavModule,
         RouterTestingModule,
@@ -56,4 +58,16 @@ describe('SideNavComponent', () => {
     fixture.detectChanges();
     expect(component.isSideNavOpen).toEqual(false);
   });
+
+  // it(`displays an error message to the user if there was a problem creating a new channel`, async () => {
+  //   const routerNavigateSpy = spyOn(component['router'], 'navigate');
+  //   spyOn(component['createChannelService'], 'onCreateChannel').and.returnValue(
+  //     new Promise((resolve, reject) => reject('test REJECT message'))
+  //   );
+  //   await component.onCreateChannel(<NgForm>{ 'value': 'testChannelName' });
+  //   fixture.detectChanges();
+  //   const errorElement = fixture.debugElement.query(By.css('.error-channel-creation')).nativeElement;
+  //   expect(errorElement.innerHTML).toBeTruthy();
+  //   expect(routerNavigateSpy).not.toHaveBeenCalled();
+  // });
 });
