@@ -42,14 +42,16 @@ export class FooterToolbarComponent implements OnInit {
     // Get the name of the active channel
     this.activeChannelSub = this.channelMessagesService.activeChannel
       .subscribe(channel => this.activeChannel = channel);
+
+    // Get user name
+    this.userNameSub = this.authService.user.subscribe(user => {
+      user ? this.userName = user.email : this.userName = null;
+    });
   }
 
   // Handle chat input field form submission
   onSubmit(): void {
     this.message = this.formInput.value.input;
-    this.userNameSub = this.authService.user.subscribe(user => {
-      user ? this.userName = user.email : this.userName = null;
-    });
     this.channelMessagesService.addANewMessage(this.userName, this.activeChannel, this.message)
       .catch(error => console.log('=== error:', error));
     this.formInput.reset();

@@ -5,6 +5,7 @@ import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 // Services
+import { AuthService } from '../../auth/services/auth.service';
 import { ChannelMessagesService } from './services/channel-messages.service';
 
 @Component({
@@ -16,22 +17,30 @@ export class ChannelComponent implements OnDestroy, OnInit {
   channelName: string;
   isLoading: boolean = false;
   messages: {}[] = [];
+  userName: string;
   private channelNameSub: Subscription;
+  private userNameSub: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private authService: AuthService,
     private channelMessagesService: ChannelMessagesService,
     private zone: NgZone,
   ) { }
 
   ngOnDestroy() {
     if (this.channelNameSub) this.channelNameSub.unsubscribe();
+    if (this.userNameSub) this.userNameSub.unsubscribe();
     this.channelMessagesService.activeChannel.next(null);
+
+    // Remove user's name from the current channel's list of usernames
+    this.channelMessagesService.removeAUser(this.channelName)
   }
 
   ngOnInit() {
 
-    // Get the channel name from the URL & retrieve channel messages
+    // Get the channel name from the URL, set the active channel, & retrieve 
+    // channel messages
     this.channelNameSub = this.activatedRoute.params
       .subscribe(value => {
         this.channelName = value.name;
@@ -40,6 +49,14 @@ export class ChannelComponent implements OnDestroy, OnInit {
         }, 0)
         this.retrieveMessages(value.name);
       });
+
+    // Get user name
+    this.userNameSub = this.authService.user.subscribe(user => {
+      user ? this.userName = user.email : this.userName = null;
+    });
+
+    // Add user name to the current channel's list of usernames
+    this.channelMessagesService.addANewUser(this.userName, this.channelName)
   }
 
   // GET chat messages and user list from Firestore
