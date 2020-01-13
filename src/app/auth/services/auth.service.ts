@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 
 // RxJS
 import { catchError, tap } from 'rxjs/operators';
-import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription, throwError } from 'rxjs';
 
 // Models, Interfaces, Environment Variables
 import { AuthResponseData } from '../models/auth-response-data';
@@ -32,6 +32,7 @@ export class AuthService {
 
   // Handle user authentication
   private handleAuthentication(
+    userName: string,
     email: string, 
     userId: string, 
     token: string, 
@@ -39,6 +40,7 @@ export class AuthService {
   ) {
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
     const user = new User(
+      userName,
       email, 
       userId,
       token,
@@ -83,6 +85,7 @@ export class AuthService {
   // Automatically log in user if user data exists in localStorage
   autoLogin(): void {
     const userData: {
+      name: string,
       email: string,
       id: string,
       _token: string,
@@ -93,6 +96,7 @@ export class AuthService {
     // Reconstruct the user from being strigified & stored in localStorage so 
     // that it regains the functionality of the token() getter
     const loadedUser = new User(
+      userData.name,
       userData.email, 
       userData.id, 
       userData._token, 
@@ -150,7 +154,7 @@ export class AuthService {
 
         // Add username & email to Firestore 'users' collection
         tap(response => {
-          this.firestore.firestore.collection('users').doc(userName).set(
+          this.firestore.firestore.collection('users').doc(email).set(
             {
               name: userName,
               email: email
@@ -161,6 +165,7 @@ export class AuthService {
         // Authenticate newly created user
         tap(response => {
           this.handleAuthentication(
+            userName,
             response.email,
             response.localId,
             response.idToken,
@@ -171,7 +176,16 @@ export class AuthService {
       );
   }
 
+  // Fetch username associated with a particular email address
+  async fetchUserName(email: string) {
+    let userName: string;
+    await this.firestore.firestore.collection('users').doc(email).get()
+      .then(response => userName = response.data().name)
+    return userName
+  }
+
   // Log in to an existing account
+  // login(email: string, password: string): any {
   login(email: string, password: string): Observable<AuthResponseData> {
     const webAPIKey = environment.firebaseConfig.apiKey;
     return this.http
@@ -184,15 +198,18 @@ export class AuthService {
         }
       )
       .pipe(
-        catchError(this.handleError),
-        tap(response => {
+        tap(async (response) => {
+          const name = await this.fetchUserName(email);
           this.handleAuthentication(
+            name,
             response.email,
             response.localId,
             response.idToken,
             +response.expiresIn,
           );
-        })
+          this.router.navigate(['/']);
+        }),
+        catchError(this.handleError),
       );
   }
 

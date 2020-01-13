@@ -85,7 +85,6 @@ export class CreateChannelDialog implements OnInit {
 
   // Create a new channel
   onCreateChannel(form: NgForm): Promise<any> {
-    console.log('=== form:', form)
     return this.createChannelService.onCreateChannel(form)
       .then(response => { 
         this.router.navigate(['channel', form.value.channelName]);

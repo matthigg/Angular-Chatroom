@@ -52,7 +52,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
 
     // Get user name
     this.userNameSub = this.authService.user.subscribe(user => {
-      user ? this.userName = user.email : this.userName = null;
+      user ? this.userName = user.name : this.userName = null;
     });
 
     // Add user name to the current channel's list of usernames
