@@ -14,7 +14,6 @@ import '@firebase/firestore';
 export class ChannelMessagesService {
   activeChannel: BehaviorSubject<string> = new BehaviorSubject(null);
   userList: BehaviorSubject<string[]> = new BehaviorSubject(null);
-  userName: string;
 
   constructor(private firestore: AngularFirestore) { }
 
@@ -35,7 +34,6 @@ export class ChannelMessagesService {
 
   // Add a user to the list of current chatroom users
   addANewUser(userName: string, channelName: string) {
-    this.userName = userName;
     return this.firestore.firestore.collection('channels').doc(channelName).update(
       {
         users: firebase.firestore.FieldValue.arrayUnion(userName)
@@ -44,10 +42,10 @@ export class ChannelMessagesService {
   }
 
   // Remove a user from the list of current chatroom users
-  removeAUser(channelName: string) {
+  removeAUser(userName: string, channelName: string) {
     return this.firestore.firestore.collection('channels').doc(channelName).update(
       {
-        users: firebase.firestore.FieldValue.arrayRemove(this.userName)
+        users: firebase.firestore.FieldValue.arrayRemove(userName)
       }
     )
   }

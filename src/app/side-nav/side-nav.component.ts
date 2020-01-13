@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -23,7 +23,7 @@ export class SideNavComponent implements OnDestroy, OnInit {
   activeChannel: string;
   isSideNavOpen: boolean = this.toggleSideNavService.isSideNavOpen;
   users: string[] = [];
-  usersLength = users => { if (users) return users.length }
+  usersLength = users => { if (users) return users.length };
   private activeChannelSub: Subscription;
   private sideNavSubjectSub: Subscription;
   private usersListSub: Subscription;
@@ -58,7 +58,7 @@ export class SideNavComponent implements OnDestroy, OnInit {
 
   // Open dialog to create a new channel
   openCreateChannelDialog(): void {
-    this.dialog.open(CreateChannelDialog, { width: '50vw' });
+    this.dialog.open(CreateChannelDialog, { width: '40vw' });
   }
 }
 
@@ -77,7 +77,6 @@ export class CreateChannelDialog implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<CreateChannelDialog>,
     private createChannelService: CreateChannelService, 
-    private element: ElementRef<any>,
     private router: Router,
   ) {}
 
@@ -86,6 +85,7 @@ export class CreateChannelDialog implements OnInit {
 
   // Create a new channel
   onCreateChannel(form: NgForm): Promise<any> {
+    console.log('=== form:', form)
     return this.createChannelService.onCreateChannel(form)
       .then(response => { 
         this.router.navigate(['channel', form.value.channelName]);

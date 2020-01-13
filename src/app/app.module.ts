@@ -38,6 +38,9 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 // Pipes
 // import { ConsoleLogPipe } from './shared/console-log.pipe';
 
+// Directives
+import { CheckPasswordsMatchDirective } from './side-nav/check-passwords-match.directive';
+
 // Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -52,6 +55,7 @@ import { environment } from 'src/environments/environment';
     SideNavComponent,
     PageNotFoundComponent,
     FooterToolbarComponent,
+    CheckPasswordsMatchDirective,
   ],
   entryComponents: [ CreateChannelDialog ],
   imports: [

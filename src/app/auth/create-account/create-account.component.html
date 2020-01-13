@@ -68,19 +68,19 @@
           <mat-form-field>
             <mat-label>Password (again)</mat-label>
             <input 
-              class="input-password-retype"
+              class="input-password-retype" 
               formControlName="passwordRetype" 
               matInput 
               required 
               [type]="passwordIsVisible ? 'text' : 'password'" 
               [errorStateMatcher]="errorMatcher" 
             >
-            <mat-error >
+            <mat-error>
               <div *ngIf="formCreateAccount.get('passwords.passwordRetype').value === ''">
                 *required
               </div>
               <div *ngIf="
-                formCreateAccount.get('passwords.passwordRetype').value !== ('' && null) &&
+                formCreateAccount.get('passwords.passwordRetype').value !== '' &&
                 formCreateAccount.controls.passwords.hasError('noMatch')
               ">
                 Passwords do not match

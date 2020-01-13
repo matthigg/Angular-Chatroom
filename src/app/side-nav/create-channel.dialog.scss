@@ -9,6 +9,10 @@ $create-a-password-wrapper-transition: 0.2s ease-in-out;
   }
 }
 
+button {
+  margin-top: calc(1rem + 1vw);
+}
+
 .create-a-password-wrapper {
   text-align: center;
   &.hide {

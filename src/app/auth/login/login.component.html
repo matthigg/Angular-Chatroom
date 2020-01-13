@@ -49,10 +49,10 @@
           >
             <mat-icon>{{ passwordIsVisible ? 'visibility' : 'visibility_off' }}</mat-icon>
           </button>
-          <mat-error *ngIf="formLogin.get('password').value === ''; else password4CharsError">
+          <mat-error *ngIf="formLogin.get('password').value === ''; else password6CharsError">
             *required
           </mat-error>
-          <ng-template #password4CharsError>
+          <ng-template #password6CharsError>
             <mat-error>Password must be at least 6 characters long</mat-error>
           </ng-template>
         </mat-form-field>

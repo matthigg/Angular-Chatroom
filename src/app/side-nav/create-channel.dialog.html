@@ -1,5 +1,9 @@
 <!-- Create Channel Form -->
-<form #f="ngForm" (ngSubmit)="onCreateChannel(f)">
+<form 
+  #f="ngForm" 
+  (ngSubmit)="onCreateChannel(f)"
+  [mustMatch]="['password', 'passwordRetype']"
+>
 
   <!-- Input Field -->
   <mat-form-field>
@@ -38,12 +42,20 @@
     <mat-form-field>
       <input 
         matInput
+        minlength="6"
         name="password"
         ngModel 
         placeholder="Create a Password"
+        #inputPassword
         [required]="privateRadioButton.checked"
         [type]="passwordIsVisible ? 'text' : 'password'"
       >
+      <mat-error *ngIf="inputPassword.value === ''; else password6CharError">
+        *required
+      </mat-error>
+      <ng-template #password6CharError>
+        <mat-error>Password must be at least 6 characters long</mat-error>
+      </ng-template>
       <button 
         class="button-password-visibility" 
         matSuffix 
@@ -59,12 +71,19 @@
     <mat-form-field>
       <input 
         matInput
-        name="passwordAgain"
+        name="passwordRetype"
         ngModel 
         placeholder="Retype Password"
+        #inputPasswordRetype 
         [required]="privateRadioButton.checked"
         [type]="passwordIsVisible ? 'text' : 'password'" 
       >
+      <mat-error *ngIf="inputPasswordRetype.value === ''">
+        *required
+      </mat-error>
+      <mat-error *ngIf="inputPasswordRetype.value !== ''">
+        Passwords do not match
+      </mat-error>
     </mat-form-field>
   </div>
 

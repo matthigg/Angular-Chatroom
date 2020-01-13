@@ -34,7 +34,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
     this.channelMessagesService.activeChannel.next(null);
 
     // Remove user's name from the current channel's list of usernames
-    this.channelMessagesService.removeAUser(this.channelName)
+    this.channelMessagesService.removeAUser(this.userName, this.channelName)
   }
 
   ngOnInit() {
