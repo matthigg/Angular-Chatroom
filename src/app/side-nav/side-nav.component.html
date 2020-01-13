@@ -10,7 +10,16 @@
     </mat-nav-list>
     <mat-accordion *ngIf="activeChannel">
       <mat-expansion-panel>
-        <mat-expansion-panel-header>Users</mat-expansion-panel-header>
+        <mat-expansion-panel-header>
+          <span 
+            matBadge="{{ usersLength(users) }}" 
+            matBadgeOverlap="false"
+            matBadgePosition="above after"
+            matBadgeSize="small"
+          >
+            Users
+          </span>
+        </mat-expansion-panel-header>
         <mat-list>
           <mat-list-item *ngFor="let user of users">{{ user }}</mat-list-item>
         </mat-list>

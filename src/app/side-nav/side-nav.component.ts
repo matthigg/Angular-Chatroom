@@ -23,6 +23,7 @@ export class SideNavComponent implements OnDestroy, OnInit {
   activeChannel: string;
   isSideNavOpen: boolean = this.toggleSideNavService.isSideNavOpen;
   users: string[] = [];
+  usersLength = users => { if (users) return users.length }
   private activeChannelSub: Subscription;
   private sideNavSubjectSub: Subscription;
   private usersListSub: Subscription;

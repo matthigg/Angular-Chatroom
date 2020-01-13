@@ -45,7 +45,6 @@ export class ChannelMessagesService {
 
   // Remove a user from the list of current chatroom users
   removeAUser(channelName: string) {
-    console.log('=== removeAUser():', channelName)
     return this.firestore.firestore.collection('channels').doc(channelName).update(
       {
         users: firebase.firestore.FieldValue.arrayRemove(this.userName)

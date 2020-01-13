@@ -11,6 +11,7 @@ import { NgModule } from '@angular/core';
 
 // Angular Material Modules
 import { 
+  MatBadgeModule,
   MatButtonModule,
   MatCardModule,
   MatCheckboxModule,
@@ -64,6 +65,7 @@ import { environment } from 'src/environments/environment';
     ChannelsRoutingModule,
     FormsModule,
     HttpClientModule,
+    MatBadgeModule,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,
