@@ -156,7 +156,7 @@ export class AuthService {
           response.user.refreshToken,
           3600,
         );
-        // this.router.navigate(['/']);
+        this.router.navigate(['/']);
       })
   }
 
