@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../auth/services/auth.service';
 import { ChannelMessagesService } from './services/channel-messages.service';
 import { ChannelPasswordService } from './services/channel-password.service';
+import { ChannelUsersService } from './services/channel-users.service';
 
 @Component({
   selector: 'app-channel',
@@ -27,6 +28,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
     private authService: AuthService,
     private channelMessagesService: ChannelMessagesService,
     private channelPasswordService: ChannelPasswordService,
+    private channelUsersService: ChannelUsersService,
     private zone: NgZone,
   ) { }
 
@@ -36,7 +38,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
     this.channelMessagesService.activeChannel.next(null);
 
     // Remove user's name from the current channel's list of usernames
-    this.channelMessagesService.removeAUser(this.userName, this.channelName)
+    this.channelUsersService.removeAUser(this.userName, this.channelName)
   }
 
   ngOnInit() {
@@ -59,7 +61,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
     });
 
     // Add user name to the current channel's list of usernames
-    this.channelMessagesService.addANewUser(this.userName, this.channelName)
+    this.channelUsersService.addANewUser(this.userName, this.channelName)
   }
 
   // GET chat messages and user list from Firestore

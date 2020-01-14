@@ -215,12 +215,12 @@ export class AuthService {
 
   // Log out of session
   logout(): void {
-    this.user.next(null);
     localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
     this.tokenExpirationTimer = null;
     this.ngZone.run(() => this.router.navigate(['/auth']));
+    this.user.next(null);
   }
 }
