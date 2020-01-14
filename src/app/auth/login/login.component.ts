@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
       .catch(error => {
         this.isLoading = false;
         this.isError = true;
-        this.errorMessage = 'Error: Invalid login email and/or password.';
+        this.errorMessage = 'ERROR: ' + error;
       });
   }
 }
