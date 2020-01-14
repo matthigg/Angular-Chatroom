@@ -140,41 +140,24 @@ export class AuthService {
   }
 
   // Create a new account
-  createAccount(userName: string, email: string, password: string): Observable<AuthResponseData> {
-    const webAPIKey = environment.firebaseConfig.apiKey;
-    return this.http
-      .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + webAPIKey,
-        {
-          email: email,
-          password: password,
-          returnSecureToken: true, 
-        }
-      )
-      .pipe(
-
-        // Add username & email to Firestore 'users' collection
-        tap(response => {
-          this.firestore.firestore.collection('users').doc(email).set(
-            {
-              name: userName,
-              email: email
-            }
-          );
-        }),
-        
-        // Authenticate newly created user
-        tap(response => {
-          this.handleAuthentication(
-            userName,
-            response.email,
-            response.localId,
-            response.idToken,
-            +response.expiresIn,
-          );
-        }),
-        catchError(this.handleError), 
-      );
+  createAccount(userName: string, email: string, password: string) {
+    return firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(response => {
+        this.firestore.firestore.collection('users').doc(email).set(
+          {
+            name: userName,
+            email: email
+          }
+        );
+        this.handleAuthentication(
+          userName,
+          email,
+          'uid',
+          'referenceToken',
+          3600,
+        );
+        this.router.navigate(['/']);
+      })
   }
 
   // Fetch username associated with a particular email address

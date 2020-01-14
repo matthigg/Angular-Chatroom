@@ -47,7 +47,9 @@ export class ChannelComponent implements OnDestroy, OnInit {
     this.channelNameSub = this.activatedRoute.params
       .subscribe(value => {
         this.channelName = value.name;
-        this.isChannelPrivate(this.channelName);
+
+        // Need to halt further code execution until this check returns
+        this.isChannelPrivate(this.channelName);  
         setTimeout(() => {
           this.channelMessagesService.activeChannel.next(value.name);
         }, 0)
