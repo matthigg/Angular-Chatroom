@@ -152,11 +152,11 @@ export class AuthService {
         this.handleAuthentication(
           userName,
           email,
-          'uid',
-          'referenceToken',
+          response.user.uid,
+          response.user.refreshToken,
           3600,
         );
-        this.router.navigate(['/']);
+        // this.router.navigate(['/']);
       })
   }
 
@@ -171,7 +171,7 @@ export class AuthService {
   // Log in to an existing account
   login(email: string, password: string) {
     return firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(async (response) => { 
+      .then(async (response) => {
         const currentUser = firebase.auth().currentUser;
         const name = await this.fetchUserName(currentUser.email);
         this.handleAuthentication(
@@ -182,7 +182,7 @@ export class AuthService {
           3600,
         );
         this.router.navigate(['/']);
-      });
+      })
   }
 
   // Log out of session
