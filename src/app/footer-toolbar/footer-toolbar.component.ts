@@ -45,7 +45,7 @@ export class FooterToolbarComponent implements OnInit {
 
     // Get user name
     this.userNameSub = this.authService.user.subscribe(user => {
-      user ? this.userName = user.email : this.userName = null;
+      user ? this.userName = user.name : this.userName = null;
     });
   }
 
