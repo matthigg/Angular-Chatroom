@@ -3,6 +3,7 @@ import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
 
 // RxJS
 import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 // Services
 import { AuthService } from '../../auth/services/auth.service';
@@ -21,7 +22,6 @@ export class ChannelComponent implements OnDestroy, OnInit {
   messages: {}[] = [];
   userName: string;
   private channelNameSub: Subscription;
-  private userNameSub: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -34,7 +34,6 @@ export class ChannelComponent implements OnDestroy, OnInit {
 
   ngOnDestroy() {
     if (this.channelNameSub) this.channelNameSub.unsubscribe();
-    if (this.userNameSub) this.userNameSub.unsubscribe();
     this.channelMessagesService.activeChannel.next(null);
 
     // Remove user's name from the current channel's list of usernames
@@ -56,7 +55,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
       });
 
     // Get user name
-    this.userNameSub = this.authService.user.subscribe(user => {
+    this.authService.user.pipe(take(1)).subscribe(user => {
       user ? this.userName = user.name : this.userName = null;
     });
 
@@ -87,5 +86,4 @@ export class ChannelComponent implements OnDestroy, OnInit {
   promptUserForPassword() {
     console.log('=== PROMPT user for password')
   }
-
 }
