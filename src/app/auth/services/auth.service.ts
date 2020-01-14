@@ -15,6 +15,7 @@ import { User } from '../models/user.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import firebase from '@firebase/app';
 import '@firebase/firestore';
+import '@firebase/auth';
 
 @Injectable({
   providedIn: 'root'
@@ -185,32 +186,20 @@ export class AuthService {
   }
 
   // Log in to an existing account
-  // login(email: string, password: string): any {
-  login(email: string, password: string): Observable<AuthResponseData> {
-    const webAPIKey = environment.firebaseConfig.apiKey;
-    return this.http
-      .post<AuthResponseData>(
-        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + webAPIKey,
-        {
-          email: email,
-          password: password,
-          returnSecureToken: true
-        }
-      )
-      .pipe(
-        tap(async (response) => {
-          const name = await this.fetchUserName(email);
-          this.handleAuthentication(
-            name,
-            response.email,
-            response.localId,
-            response.idToken,
-            +response.expiresIn,
-          );
-          this.router.navigate(['/']);
-        }),
-        catchError(this.handleError),
-      );
+  login(email: string, password: string) {
+    return firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(async (response) => { 
+        const currentUser = firebase.auth().currentUser;
+        const name = await this.fetchUserName(currentUser.email);
+        this.handleAuthentication(
+          name,
+          currentUser.email,
+          currentUser.uid,
+          currentUser.refreshToken,
+          3600,
+        );
+        this.router.navigate(['/']);
+      });
   }
 
   // Log out of session

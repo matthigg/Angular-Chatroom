@@ -39,17 +39,15 @@ export class LoginComponent implements OnInit {
     const email = this.formLogin.value.email;
     const password = this.formLogin.value.password;
     this.authService.login(email, password)
-      .subscribe(
-        response => {
-          this.isLoading = false;
-          this.isError = false;
-          this.errorMessage = '';
-        },
-        errorMessage => {
-          this.isLoading = false;
-          this.isError = true;
-          this.errorMessage = errorMessage;
-        }
-      );
+      .then(response => {
+        this.isLoading = false;
+        this.isError = false;
+        this.errorMessage = '';
+      })
+      .catch(error => {
+        this.isLoading = false;
+        this.isError = true;
+        this.errorMessage = 'Error: Invalid login email and/or password.';
+      });
   }
 }
