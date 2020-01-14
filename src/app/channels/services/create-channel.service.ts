@@ -27,7 +27,7 @@ export class CreateChannelService {
     const password = form.value.password;
     this.authService.user
       .pipe(take(1))
-      .subscribe(user => { this.userName = user.email });
+      .subscribe(user => { this.userName = user.name });
 
     return this.firestore
       .collection('channels')
