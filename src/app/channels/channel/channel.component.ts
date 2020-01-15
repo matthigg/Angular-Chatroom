@@ -8,7 +8,6 @@ import { take } from 'rxjs/operators';
 // Services
 import { AuthService } from '../../auth/services/auth.service';
 import { ChannelMessagesService } from './services/channel-messages.service';
-import { ChannelPasswordService } from './services/channel-password.service';
 import { ChannelUsersService } from './services/channel-users.service';
 
 @Component({
@@ -27,7 +26,6 @@ export class ChannelComponent implements OnDestroy, OnInit {
     private activatedRoute: ActivatedRoute,
     private authService: AuthService,
     private channelMessagesService: ChannelMessagesService,
-    private channelPasswordService: ChannelPasswordService,
     private channelUsersService: ChannelUsersService,
     private zone: NgZone,
   ) { }
@@ -46,10 +44,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
     // channel messages, and check whether or not channel is private
     this.channelNameSub = this.activatedRoute.params
       .subscribe(value => {
-        this.channelName = value.name;
-
-        // Need to halt further code execution until this check returns
-        this.isChannelPrivate(this.channelName);  
+        this.channelName = value.name; 
         setTimeout(() => {
           this.channelMessagesService.activeChannel.next(value.name);
         }, 0)
@@ -77,15 +72,5 @@ export class ChannelComponent implements OnDestroy, OnInit {
         });
       }
     )
-  }
-
-  isChannelPrivate(channelName: string) {
-    this.channelPasswordService.isChannelPrivate(channelName)
-      .then(response => { if (response.data().password) this.promptUserForPassword() })
-      .catch(error => console.log('=== error:', error));
-  }
-
-  promptUserForPassword() {
-    console.log('=== PROMPT user for password')
   }
 }

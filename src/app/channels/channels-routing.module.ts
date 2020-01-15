@@ -9,6 +9,7 @@ import { PageNotFoundComponent } from '../page-not-found/page-not-found.componen
 
 // Services
 import { AuthGuardService } from '../auth/services/auth-guard.service';
+import { ChannelGuardService } from './auth-channel/services/channel-guard.service';
 
 const routes: Routes = [
   { 
@@ -18,7 +19,7 @@ const routes: Routes = [
   },
   { 
     path: 'channel', 
-    canActivate: [ AuthGuardService ],
+    canActivate: [ AuthGuardService, ChannelGuardService ],
     children: [
       { path: '', pathMatch: 'full', redirectTo: '/channels' },
       { path: ':name', component: ChannelComponent },

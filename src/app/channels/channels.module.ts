@@ -20,11 +20,13 @@ import {
 // Components
 import { ChannelsComponent } from './channels.component';
 import { ChannelComponent } from './channel/channel.component';
+import { AuthChannelComponent } from './auth-channel/auth-channel.component';
 
 @NgModule({
   declarations: [
     ChannelsComponent,
     ChannelComponent,
+    AuthChannelComponent,
   ],
   exports: [
     ChannelsComponent,

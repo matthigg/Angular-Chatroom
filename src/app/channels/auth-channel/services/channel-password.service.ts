@@ -15,4 +15,14 @@ export class ChannelPasswordService {
   async isChannelPrivate(channelName: string) {
     return await this.firestore.firestore.collection('channels').doc(channelName).get()
   }
+
+  // isChannelPrivate(channelName: string) {
+  //   this.channelPasswordService.isChannelPrivate(channelName)
+  //     .then(response => { if (response.data().password) this.promptUserForPassword() })
+  //     .catch(error => console.log('=== error:', error));
+  // }
+
+  // promptUserForPassword() {
+  //   console.log('=== PROMPT user for password')
+  // }
 }
