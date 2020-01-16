@@ -11,6 +11,7 @@ import { AuthChannelService } from './services/auth-channel.service';
 })
 export class AuthChannelComponent implements OnInit {
   channelName: string;
+  channelIsPrivate: boolean = false;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -19,18 +20,23 @@ export class AuthChannelComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.channelName = (this.activatedRoute.snapshot.paramMap as any).params.name;
+    this.channelName = this.activatedRoute.snapshot.paramMap['params'].name;
     this.authChannelService.isChannelPrivate(this.channelName)
       .then(response => {
         if (response === 'public') {
-          console.log('=== PUBLIC')
           this.authChannelService.authenticatedChannel.next(this.channelName);
+          this.channelIsPrivate = false;
           this.router.navigate(['/channel', this.channelName]);
         } else if (response === 'private') {
-          console.log('=== PRIVATE')
+          // TODO
+          this.channelIsPrivate = true;
+
         }
       })
       .catch(error => console.log('=== Error:', error))
   }
 
+  onSubmit(form) {
+    console.log('=== form:', form)
+  }
 }

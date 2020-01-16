@@ -1,1 +1,23 @@
-<p>auth-channel works!</p>
+<div class="channel-password-wrapper" *ngIf="channelIsPrivate">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <mat-form-field>
+      <input 
+        matInput
+        name="channelPassword"
+        ngModel
+        placeholder="Channel Password"
+        required
+        type="text"
+      >
+    </mat-form-field>
+    <br>
+    <button
+      color="primary"
+      mat-raised-button
+      type="submit"
+      [disabled]="false"
+    >
+      Enter
+    </button>
+  </form>
+</div>
