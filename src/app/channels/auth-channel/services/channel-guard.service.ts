@@ -1,38 +1,46 @@
 import { Injectable } from '@angular/core';
 import { 
   ActivatedRouteSnapshot, 
-  CanActivate, 
   RouterStateSnapshot,
   Router,
   UrlTree
 } from '@angular/router';
 
 // RxJS
-import { Observable, of } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
+
+// Services
+import { AuthChannelService } from './auth-channel.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChannelGuardService {
 
-  constructor(private router: Router) { }
+  constructor(
+    private authChannelService: AuthChannelService,
+    private router: Router
+  ) { }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   // ): boolean | UrlTree | Promise<boolean | UrlTree> | Observable<boolean | UrlTree> {
   ): Observable<boolean | UrlTree> {
+    const channelName = route.children[0].params.name;
+    let currentAuthenticatedChannel: string;
+    this.authChannelService.authenticatedChannel
+      .pipe(take(1))
+      .subscribe(
+        response => currentAuthenticatedChannel = response,
+        error => console.log('=== Error:', error)
+      );
 
-    return new Observable(obs => obs.next(true))
-
-    // return this.authService.user.pipe(
-    //   take(1),
-    //   map(user => {
-    //     const isAuth = !!user;
-    //     if (isAuth) { return true }
-    //     return this.router.createUrlTree(['/auth']);
-    //   }),
-    // );
+    if (channelName === currentAuthenticatedChannel) {
+      return new Observable(obs => obs.next(true))
+    } else {
+      return new Observable(obs => obs.next(this.router.createUrlTree(['/auth-channel', channelName])));
+    }
   }
 }
