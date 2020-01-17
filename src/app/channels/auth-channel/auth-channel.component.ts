@@ -83,7 +83,7 @@ export class AuthChannelComponent implements OnInit {
       .then(response => {
         console.log('=== response:', response);
         this.authChannelService.authenticatedChannel.next(this.channelName);
-        // this.router.navigate(['/channel', this.channelName])
+        this.router.navigate(['/channel', this.channelName])
       })
       .catch(error => console.log('=== error:', error));
   }
