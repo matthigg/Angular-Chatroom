@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 // Services
+import { AuthChannelService } from '../auth-channel/services/auth-channel.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { ChannelMessagesService } from './services/channel-messages.service';
 import { ChannelUsersService } from './services/channel-users.service';
@@ -17,13 +18,16 @@ import { ChannelUsersService } from './services/channel-users.service';
 })
 export class ChannelComponent implements OnDestroy, OnInit {
   channelName: string;
+  isChannelPrivate: boolean;
   isLoading: boolean = false;
   messages: {}[] = [];
   userName: string;
+  private authChannelServiceSub: Subscription;
   private channelNameSub: Subscription;
 
   constructor(
     private activatedRoute: ActivatedRoute,
+    private authChannelService: AuthChannelService,
     private authService: AuthService,
     private channelMessagesService: ChannelMessagesService,
     private channelUsersService: ChannelUsersService,
@@ -31,6 +35,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
   ) { }
 
   ngOnDestroy() {
+    if (this.authChannelServiceSub) this.authChannelServiceSub.unsubscribe();
     if (this.channelNameSub) this.channelNameSub.unsubscribe();
     this.channelMessagesService.activeChannel.next(null);
 
@@ -49,6 +54,10 @@ export class ChannelComponent implements OnDestroy, OnInit {
           this.channelMessagesService.activeChannel.next(value.name);
         }, 0)
         this.retrieveMessages(value.name);
+        this.authChannelServiceSub = this.authChannelService.channelIsPrivate.subscribe(
+          response => this.isChannelPrivate = response, 
+          error => console.log('=== Error:', error)
+        );
       });
 
     // Get user name
@@ -56,8 +65,11 @@ export class ChannelComponent implements OnDestroy, OnInit {
       user ? this.userName = user.name : this.userName = null;
     });
 
-    // Add user name to the current channel's list of usernames
-    this.channelUsersService.addANewUser(this.userName, this.channelName)
+    // Add user name to the current channel's list of usernames if the channel
+    // is public
+    if (!this.isChannelPrivate) {
+      this.channelUsersService.addANewUser(this.userName, this.channelName)
+    }
   }
 
   // GET chat messages and user list from Firestore

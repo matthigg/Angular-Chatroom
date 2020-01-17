@@ -3,12 +3,9 @@ import { Injectable, NgZone } from '@angular/core';
 import { Router } from '@angular/router';
 
 // RxJS
-// import { catchError, tap } from 'rxjs/operators';
 import { BehaviorSubject, Observable, Subscription, throwError } from 'rxjs';
 
 // Models, Interfaces, Environment Variables
-// import { AuthResponseData } from '../models/auth-response-data';
-// import { environment } from '../../../environments/environment';
 import { User } from '../models/user.model';
 
 // Firestore
@@ -26,7 +23,6 @@ export class AuthService {
 
   constructor(
     private firestore: AngularFirestore,
-    // private http: HttpClient,
     private ngZone: NgZone,
     private router: Router,
   ) { }
