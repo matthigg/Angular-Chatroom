@@ -62,18 +62,16 @@ export class ChannelComponent implements OnDestroy, OnInit {
       });
 
     // Get user name
-    this.authService.user.pipe(take(1)).subscribe(user => {
-      user ? this.userName = user.name : this.userName = null;
-    });
+    this.authService.user.pipe(take(1)).subscribe(
+      user => user ? this.userName = user.name : this.userName = null,
+      error => console.log('=== Error:', error)
+    );
 
     // Add user name to the current channel's list of usernames if the channel
     // is public
     if (!this.isChannelPrivate) {
       this.channelUsersService.addANewUser(this.userName, this.channelName)
-        .then(response => {
-          // console.log('=== ChannelComponent.ngOnInit.!this.isChannelPrivate response:', response)
-        })
-        .catch(error => console.log('=== error:', error))
+        .catch(error => console.log('=== Error:', error))
     }
   }
 

@@ -37,7 +37,6 @@ export class ChannelGuardService {
         error => console.log('=== Error:', error)
       );
 
-    console.log('=== channelName:', channelName, '=== currentAthenticatedChannel:', currentAuthenticatedChannel)
     if (channelName === currentAuthenticatedChannel) {
       return new Observable(obs => obs.next(true))
     } else {

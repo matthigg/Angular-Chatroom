@@ -21,6 +21,7 @@ import '@firebase/firestore';
 export class AuthChannelComponent implements OnInit {
   channelName: string;
   channelIsPrivate: boolean = false;
+  errorMessage: string;
   userName: string;
 
   constructor(
@@ -81,11 +82,13 @@ export class AuthChannelComponent implements OnInit {
       }
     )
       .then(response => {
-        console.log('=== response:', response);
         this.authChannelService.authenticatedChannel.next(this.channelName);
         this.router.navigate(['/channel', this.channelName])
       })
-      .catch(error => console.log('=== error:', error));
+      .catch(error => {
+        console.log('=== error:', error)
+        this.errorMessage = 'The entered password is incorrect.'
+      });
   }
 }
 
