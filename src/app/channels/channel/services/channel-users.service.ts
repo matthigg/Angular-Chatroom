@@ -16,7 +16,7 @@ export class ChannelUsersService {
   constructor(private firestore: AngularFirestore) { }
 
   // Add a user to the list of current chatroom users
-  addANewUser(userName: string, channelName: string) {
+  addANewUser(userName: string, channelName: string): Promise<void> {
     return this.firestore.firestore.collection('channels').doc(channelName).update(
       {
         users: firebase.firestore.FieldValue.arrayUnion(userName)

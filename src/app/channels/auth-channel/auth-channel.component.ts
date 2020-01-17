@@ -35,7 +35,7 @@ export class AuthChannelComponent implements OnInit {
 
     // Get user name
     this.authService.user.subscribe(
-      (user: User) => this.userName = user.name,
+      (user: User) => user ? this.userName = user.name : this.userName = null,
       error => console.log('=== Error:', error)
     );
 
@@ -46,8 +46,8 @@ export class AuthChannelComponent implements OnInit {
     this.authChannelService.isChannelPrivate(this.channelName)
       .then(response => {
 
-        // If channel's permission is 'public' then authenticate this channel, halt
-        // loading this component, and navigate to the authenticated channel
+        // If channel's permission is 'public' then authenticate this channel, 
+        // halt loading this component, and navigate to the authenticated channel
         if (response === 'public') {
           this.authChannelService.authenticatedChannel.next(this.channelName);
           this.authChannelService.channelIsPrivate.next(false)
@@ -65,23 +65,27 @@ export class AuthChannelComponent implements OnInit {
 
   // Handle channel password form submission
   onSubmit(form) {
-    console.log('=== channelPassword:', form.value.channelPassword);
 
     // Don't try to get the private channel password like this - directly
     // grabbing the password from the database is a security vulnerability
     // this.firestore.firestore.collection('channels').doc(this.channelName).get()
     //   .then(documentSnapshot => { documentSnapshot.get('password') })
 
-    // Attempt to add the current user to the users[] array of a private channel,
-    // where validation/verification occurs in the Firestore database
+    // Attempt to add the current user to the users[] array of a private channel
+    // in Firestore, and navigate the user to that private channel if the submitted
+    // password is valid
     this.firestore.firestore.collection('channels').doc(this.channelName).update(
       {
-        // users: 'test guy 6',
         users: firebase.firestore.FieldValue.arrayUnion(this.userName),
-        // lastSubmittedPassword: 'asdf',
         lastSubmittedPassword: form.value.channelPassword,
       }
     )
+      .then(response => {
+        console.log('=== response:', response);
+        this.authChannelService.authenticatedChannel.next(this.channelName);
+        // this.router.navigate(['/channel', this.channelName])
+      })
+      .catch(error => console.log('=== error:', error));
   }
 }
 

@@ -37,6 +37,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
   ngOnDestroy() {
     if (this.authChannelServiceSub) this.authChannelServiceSub.unsubscribe();
     if (this.channelNameSub) this.channelNameSub.unsubscribe();
+    this.authChannelService.authenticatedChannel.next(null);
     this.channelMessagesService.activeChannel.next(null);
 
     // Remove user's name from the current channel's list of usernames
@@ -69,6 +70,10 @@ export class ChannelComponent implements OnDestroy, OnInit {
     // is public
     if (!this.isChannelPrivate) {
       this.channelUsersService.addANewUser(this.userName, this.channelName)
+        .then(response => {
+          // console.log('=== ChannelComponent.ngOnInit.!this.isChannelPrivate response:', response)
+        })
+        .catch(error => console.log('=== error:', error))
     }
   }
 
