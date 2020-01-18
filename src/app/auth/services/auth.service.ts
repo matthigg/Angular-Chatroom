@@ -137,9 +137,9 @@ export class AuthService {
 
   // Create a new account
   createAccount(userName: string, email: string, password: string) {
-    return firebase.auth().createUserWithEmailAndPassword(email, password)
+    let authenticatedUser = firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(response => {
-        this.firestore.firestore.collection('users').doc(email).set(
+        this.firestore.firestore.collection('users').doc(firebase.auth().currentUser.uid).set(
           {
             name: userName,
             email: email
@@ -154,12 +154,13 @@ export class AuthService {
         );
         this.router.navigate(['/']);
       })
+    return authenticatedUser
   }
 
-  // Fetch username associated with a particular email address
-  async fetchUserName(email: string) {
+  // Fetch username by its ID value
+  async fetchUserName(userId: string) {
     let userName: string;
-    await this.firestore.firestore.collection('users').doc(email).get()
+    await this.firestore.firestore.collection('users').doc(userId).get()
       .then(response => userName = response.data().name)
     return userName
   }
@@ -169,7 +170,7 @@ export class AuthService {
     return firebase.auth().signInWithEmailAndPassword(email, password)
       .then(async (response) => {
         const currentUser = firebase.auth().currentUser;
-        const name = await this.fetchUserName(currentUser.email);
+        const name = await this.fetchUserName(currentUser.uid);
         this.handleAuthentication(
           name,
           currentUser.email,
