@@ -85,10 +85,7 @@ export class AuthChannelComponent implements OnInit {
         this.authChannelService.authenticatedChannel.next(this.channelName);
         this.router.navigate(['/channel', this.channelName])
       })
-      .catch(error => {
-        console.log('=== error:', error)
-        this.errorMessage = 'The entered password is incorrect.'
-      });
+      .catch(error => this.errorMessage = 'Password could not be authenticated.');
   }
 }
 
