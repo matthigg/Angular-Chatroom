@@ -121,7 +121,7 @@ export class AuthService {
   // Check if username and/or email already exists in Firestore
   async checkIfUsernameOrEmailExists(userName: string, email: string): Promise<any> {
     let userNamesAndEmails: string[] = [];
-    let usersSnapshot = firebase.firestore().collection('users').get();
+    let usersSnapshot = firebase.firestore().collection('accounts').get();
     await usersSnapshot.then(response => {
       response.docs.map(doc => {
         Object.values(doc.data()).forEach(usernameOrEmail => userNamesAndEmails.push(usernameOrEmail))
@@ -139,7 +139,7 @@ export class AuthService {
   createAccount(userName: string, email: string, password: string) {
     let authenticatedUser = firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(response => {
-        this.firestore.firestore.collection('users').doc(firebase.auth().currentUser.uid).set(
+        this.firestore.firestore.collection('accounts').doc(firebase.auth().currentUser.uid).set(
           {
             name: userName,
             email: email
@@ -160,7 +160,7 @@ export class AuthService {
   // Fetch username by its ID value
   async fetchUserName(userId: string) {
     let userName: string;
-    await this.firestore.firestore.collection('users').doc(userId).get()
+    await this.firestore.firestore.collection('accounts').doc(userId).get()
       .then(response => userName = response.data().name)
     return userName
   }
