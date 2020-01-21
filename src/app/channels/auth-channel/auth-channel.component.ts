@@ -12,6 +12,7 @@ import { User } from '../../auth/models/user.model';
 import { AngularFirestore } from '@angular/fire/firestore';
 import firebase from '@firebase/app';
 import '@firebase/firestore';
+import '@firebase/auth';
 
 @Component({
   selector: 'app-auth-channel',
@@ -47,8 +48,9 @@ export class AuthChannelComponent implements OnInit {
     this.authChannelService.isChannelPrivate(this.channelName)
       .then(response => {
 
-        // If channel's permission is 'public' then authenticate this channel, 
-        // halt loading this component, and navigate to the authenticated channel
+        // If channel's permission is 'public' then automatically authenticate 
+        // this channel (since it is public), halt loading this component, and 
+        // navigate to the public channel
         if (response === 'public') {
           this.authChannelService.authenticatedChannel.next(this.channelName);
           this.authChannelService.channelIsPrivate.next(false)
@@ -56,6 +58,7 @@ export class AuthChannelComponent implements OnInit {
           this.router.navigate(['/channel', this.channelName]);
 
         // If the channel's permission is 'private', finish loading this component
+        // in order to eventually prompt the user for a password
         } else if (response === 'private') {
           this.authChannelService.channelIsPrivate.next(true);
           this.channelIsPrivate = true;
@@ -73,13 +76,13 @@ export class AuthChannelComponent implements OnInit {
     //   .then(documentSnapshot => { documentSnapshot.get('password') })
 
     // Attempt to add the current user to the users[] array of a private channel
-    // in Firestore, and navigate the user to that private channel if the submitted
-    // password is valid
+    // in Firestore, and navigate the user to that private channel if the 
+    // submitted password is valid
+    this.firestore.firestore.collection('accounts').doc(firebase.auth().currentUser.uid).update(
+      { lastSubmittedPassword: form.value.channelPassword }
+    )
     this.firestore.firestore.collection('channels').doc(this.channelName).update(
-      {
-        users: firebase.firestore.FieldValue.arrayUnion(this.userName),
-        lastSubmittedPassword: form.value.channelPassword,
-      }
+      { users: firebase.firestore.FieldValue.arrayUnion(this.userName) }
     )
       .then(response => {
         this.authChannelService.authenticatedChannel.next(this.channelName);
