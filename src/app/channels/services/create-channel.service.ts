@@ -22,30 +22,37 @@ export class CreateChannelService {
   ) { }
 
   onCreateChannel(form: NgForm): Promise<any> {
-    const channelName = form.value.channelName;
-    const permission = form.value.permission;
-    const password = form.value.password;
     this.authService.user
       .pipe(take(1))
       .subscribe(user => { this.userName = user.name });
 
     return this.firestore
       .collection('channels')
-      .doc(channelName)
+      .doc(form.value.channelName)
       .set(
         {
           messages: [
             { 
               user: 'System',
               time: new Date(),
-              message: `Channel ${channelName} has been created.`,
+              message: `Channel ${form.value.channelName} has been created.`,
             }
           ],
           users: [],
-          permission: permission,
-          password: password,
+          permission: form.value.permission,
           creator: this.userName,
         }
       );
+  }
+
+  onCreateChannelPassword(form: NgForm): Promise<any> {
+    console.log('=== PRIVATE ===');
+    return this.firestore
+      .collection('channels')
+      .doc(form.value.channelName)
+      .collection('credentials')
+      .doc('password')
+      .set({ password: form.value.password });
+    // return new Promise((res, rej) => res('=== onCreateChannelPassword response ==='))
   }
 }

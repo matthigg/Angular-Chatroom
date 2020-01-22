@@ -84,14 +84,31 @@ export class CreateChannelDialog implements OnInit {
   }
 
   // Create a new channel
-  onCreateChannel(form: NgForm): Promise<any> {
-    return this.createChannelService.onCreateChannel(form)
+  onCreateChannel(form: NgForm): void {
+    this.createChannelService.onCreateChannel(form)
       .then(response => { 
-        this.router.navigate(['channel', form.value.channelName]);
-        form.reset();
-        this.dialogRef.close();
+        if (form.value.permission === 'private') {
+          this.onCreateChannelPassword(form)
+            .then(response => {
+              console.log('=== response:', response);
+              this.router.navigate(['channel', form.value.channelName]);
+              form.reset();
+              this.dialogRef.close();
+            })
+            .catch(error => console.log('=== Error:', error))
+        } 
+        else {
+          this.router.navigate(['channel', form.value.channelName]);
+          form.reset();
+          this.dialogRef.close();
+        }
       })
       .catch(error => { this.errorChannelCreation = 'Error: could not create channel.' });
+  }
+
+  // Create a new channel password if the channel is private
+  onCreateChannelPassword(form: NgForm): Promise<any> {
+    return this.createChannelService.onCreateChannelPassword(form)
   }
 
   onNoClick(): void {
