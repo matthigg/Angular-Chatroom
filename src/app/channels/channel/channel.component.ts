@@ -95,11 +95,6 @@ export class ChannelComponent implements OnDestroy, OnInit {
       doc => {
         this.zone.run(() => {
           doc.data() ? this.channelUsersService.userList.next(doc.data().users) : this.channelUsersService.userList.next(null);
-          // if (doc.data()) {
-          //   this.channelUsersService.userList.next(doc.data().users)
-          // } else {
-          //   this.channelUsersService.userList.next(null)
-          // }
         })
       }
     )
