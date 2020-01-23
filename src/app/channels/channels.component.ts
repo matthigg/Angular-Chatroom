@@ -21,7 +21,7 @@ import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.servi
 })
 export class ChannelsComponent implements OnDestroy, OnInit {
   private listAllChannelsSub: Subscription;
-  allChannels: string[] = [];
+  allChannels: {}[] = [];
   channelsExist: boolean;
   errorChannelCreation: string = '';
   errorChannelDeletion: string = '';
@@ -59,7 +59,11 @@ export class ChannelsComponent implements OnDestroy, OnInit {
             this.channelsExist = true;
             this.allChannels = [];
             channels.forEach(channel => {
-              this.allChannels.push(channel.payload.doc.id);
+              this.allChannels.push({
+                channelName: channel.payload.doc.id,
+                channelPermission: (channel.payload.doc.data() as any).permission,
+                channelCreator: (channel.payload.doc.data() as any).creator,
+              });
             });
           } else {
             this.channelsExist = false;
@@ -76,8 +80,16 @@ export class ChannelsComponent implements OnDestroy, OnInit {
       .catch(error => { this.errorChannelCreation = 'Error: could not create channel.' });
   }
 
-  onDeleteChannel(channelName: string): Promise<any> {
-    return this.deleteChannelService.onDeleteChannel(channelName)
+  onDeleteChannel(
+    channelName: string, 
+    channelPermission: string, 
+    channelCreator: string,
+  ): Promise<any> {
+    return this.deleteChannelService.onDeleteChannel(
+      channelName, 
+      channelPermission, 
+      channelCreator,
+    )
       .then(
         response => {
           this.onListAllChannels();
