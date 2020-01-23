@@ -109,7 +109,7 @@ export class CreateChannelDialog implements OnInit {
           this.dialogRef.close();
         }
       })
-      .catch(error => { this.errorChannelCreation = 'Error: could not create channel.', error });
+      .catch(error => this.errorChannelCreation = 'Error: could not create channel. ' + error );
   }
 
   // Create a new channel password if the channel is private
