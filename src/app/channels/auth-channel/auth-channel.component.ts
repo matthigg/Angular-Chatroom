@@ -83,21 +83,13 @@ export class AuthChannelComponent implements OnInit {
     this.firestore.firestore.collection('accounts').doc(firebase.auth().currentUser.uid).update(
       { lastSubmittedPassword: form.value.channelPassword }
     )
-    this.firestore.firestore.collection('channels').doc(this.channelName).update(
+    this.firestore.firestore.collection('channels').doc(this.channelName).collection('users').doc('users').update(
       { users: firebase.firestore.FieldValue.arrayUnion(this.userName) }
     )
       .then(response => {
         this.authChannelService.authenticatedChannel.next(this.channelName);
-        this.channelUsersService.addANewUser(this.userName, this.channelName)
-          .then(response => this.router.navigate(['/channel', this.channelName]))
-          .catch(error => console.log('=== Error:', error));
+        this.router.navigate(['/channel', this.channelName]);
       })
       .catch(error => this.errorMessage = 'Password could not be authenticated.');
   }
 }
-
-
-
-// function existingData() { return resource.data }
-// function incomingData() { return request.resource.data }
-// function currentUser() { return request.auth }
