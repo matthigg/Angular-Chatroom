@@ -10,6 +10,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 // Services
 import { ChannelMessagesService } from '../channels/channel/services/channel-messages.service';
+import { ChannelUsersService } from '../channels/channel/services/channel-users.service';
 import { CreateChannelService } from '../channels/services/create-channel.service';
 import { ToggleSideNavService } from './services/toggle-side-nav.service';
 
@@ -31,6 +32,7 @@ export class SideNavComponent implements OnDestroy, OnInit {
   constructor(
     public dialog: MatDialog,
     private channelMessagesService: ChannelMessagesService,
+    private channelUsersService: ChannelUsersService,
     private toggleSideNavService: ToggleSideNavService,
   ) { }
 
@@ -48,7 +50,7 @@ export class SideNavComponent implements OnDestroy, OnInit {
     });
 
     // Get list of users in current channel
-    this.usersListSub = this.channelMessagesService.userList
+    this.usersListSub = this.channelUsersService.userList
       .subscribe(usersArray => this.users = usersArray);
 
     // Keep track of whether or not there is an active channel
@@ -89,21 +91,25 @@ export class CreateChannelDialog implements OnInit {
       .then(response => { 
         if (form.value.permission === 'private') {
           this.onCreateChannelPassword(form)
+
+            // TODO - ensure that credentials are entered so that when a user
+            // creates a new private channel they are automatically taken to that
+            // channel before the channel guard prompts them to enter the
+            // password that they just created
+
             .then(response => {
-              console.log('=== response:', response);
               this.router.navigate(['channel', form.value.channelName]);
               form.reset();
               this.dialogRef.close();
             })
             .catch(error => console.log('=== Error:', error))
-        } 
-        else {
+        } else {
           this.router.navigate(['channel', form.value.channelName]);
           form.reset();
           this.dialogRef.close();
         }
       })
-      .catch(error => { this.errorChannelCreation = 'Error: could not create channel.' });
+      .catch(error => { this.errorChannelCreation = 'Error: could not create channel.', error });
   }
 
   // Create a new channel password if the channel is private

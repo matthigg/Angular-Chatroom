@@ -55,6 +55,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
           this.channelMessagesService.activeChannel.next(value.name);
         }, 0)
         this.retrieveMessages(value.name);
+        this.retrieveUsers(value.name);
         this.authChannelServiceSub = this.authChannelService.channelIsPrivate.subscribe(
           response => this.isChannelPrivate = response, 
           error => console.log('=== Error:', error)
@@ -75,16 +76,31 @@ export class ChannelComponent implements OnDestroy, OnInit {
     }
   }
 
-  // GET chat messages and user list from Firestore
+  // GET chat messages from Firestore
   retrieveMessages(channelName: string): void {
     this.isLoading = true;
     this.channelMessagesService.retrieveMessages(channelName).onSnapshot(
       doc => {
         this.zone.run(() => { 
           doc.data() ? this.messages = doc.data().messages : this.messages = null;
-          doc.data() ? this.channelMessagesService.userList.next(doc.data().users) : this.channelMessagesService.userList.next(null);
           this.isLoading = false;
         });
+      }
+    )
+  }
+
+  // GET users from Firestore
+  retrieveUsers(channelName: string): void {
+    this.channelUsersService.retrieveUsers(channelName).onSnapshot(
+      doc => {
+        this.zone.run(() => {
+          doc.data() ? this.channelUsersService.userList.next(doc.data().users) : this.channelUsersService.userList.next(null);
+          // if (doc.data()) {
+          //   this.channelUsersService.userList.next(doc.data().users)
+          // } else {
+          //   this.channelUsersService.userList.next(null)
+          // }
+        })
       }
     )
   }

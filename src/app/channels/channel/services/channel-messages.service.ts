@@ -13,7 +13,6 @@ import '@firebase/firestore';
 })
 export class ChannelMessagesService {
   activeChannel: BehaviorSubject<string> = new BehaviorSubject(null);
-  userList: BehaviorSubject<string[]> = new BehaviorSubject(null);
 
   constructor(private firestore: AngularFirestore) { }
 
@@ -32,7 +31,7 @@ export class ChannelMessagesService {
     )
   }
 
-  // Get chatroom messages & user list from Firestore
+  // Get chatroom messages from Firestore
   retrieveMessages(channelName: string) {
     return this.firestore.firestore.collection('channels').doc(channelName)
   }

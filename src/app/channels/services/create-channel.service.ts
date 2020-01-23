@@ -38,15 +38,26 @@ export class CreateChannelService {
               message: `Channel ${form.value.channelName} has been created.`,
             }
           ],
-          users: [],
           permission: form.value.permission,
           creator: this.userName,
         }
-      );
+      )
+
+      // If there is an error with creating the channel in the preceding set()
+      // method, the following then() in this promise chain may still attempt to 
+      // create the 'users' subcollection which may have to be manually cleaned 
+      // up.
+      .then(response => {
+        return this.firestore
+          .collection('channels')
+          .doc(form.value.channelName)
+          .collection('users')
+          .doc('users')
+          .set({ users: [] });
+      });
   }
 
   onCreateChannelPassword(form: NgForm): Promise<any> {
-    console.log('=== PRIVATE ===');
     return this.firestore
       .collection('channels')
       .doc(form.value.channelName)

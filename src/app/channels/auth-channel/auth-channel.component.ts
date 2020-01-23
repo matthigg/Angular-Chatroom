@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 // Services
 import { AuthChannelService } from './services/auth-channel.service';
 import { AuthService } from '../../auth/services/auth.service';
+import { ChannelUsersService } from '../channel/services/channel-users.service';
 
 // Models
 import { User } from '../../auth/models/user.model';
@@ -29,6 +30,7 @@ export class AuthChannelComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private authChannelService: AuthChannelService,
     private authService: AuthService,
+    private channelUsersService: ChannelUsersService,
     private firestore: AngularFirestore,
     private router: Router,
   ) { }
@@ -86,7 +88,9 @@ export class AuthChannelComponent implements OnInit {
     )
       .then(response => {
         this.authChannelService.authenticatedChannel.next(this.channelName);
-        this.router.navigate(['/channel', this.channelName])
+        this.channelUsersService.addANewUser(this.userName, this.channelName)
+          .then(response => this.router.navigate(['/channel', this.channelName]))
+          .catch(error => console.log('=== Error:', error));
       })
       .catch(error => this.errorMessage = 'Password could not be authenticated.');
   }
