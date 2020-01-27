@@ -22,10 +22,13 @@ export class CreateChannelService {
   ) { }
 
   onCreateChannel(form: NgForm): Promise<any> {
+
+    // Grab the current user name
     this.authService.user
       .pipe(take(1))
       .subscribe(user => { this.userName = user.name });
 
+    // Create a new channel with an initial 'System' message
     return this.firestore
       .collection('channels')
       .doc(form.value.channelName)
@@ -43,20 +46,34 @@ export class CreateChannelService {
         }
       )
 
-      // If there is an error with creating the channel in the preceding set()
-      // method, the following then() in this promise chain may still attempt to 
-      // create the 'users' subcollection which may have to be manually cleaned 
-      // up.
+      // Initialize an empty channel user list
       .then(response => {
-        return this.firestore
-          .collection('channels')
-          .doc(form.value.channelName)
-          .collection('users')
-          .doc('users')
-          .set({ users: [] });
+        return this.onCreateChannelUsersList(form.value.channelName);
+      })
+
+      // Create a subcollection to store channel meta data
+      .then(response => {
+        return this.onCreateChannelMetaData(form.value.channelName);
       });
   }
 
+
+  // Create a subcollection to store channel meta data, ie. creator, permissions
+  onCreateChannelMetaData(channelName: string): Promise<any> {
+    return this.firestore
+      .collection('channels')
+      .doc(channelName)
+      .collection('metaData')
+      .doc('metaData')
+      .set(
+        { 
+          creator: '',
+          permission: '',
+        }
+      );
+  }
+
+  // Create a channel password for private channels
   onCreateChannelPassword(form: NgForm): Promise<any> {
     return this.firestore
       .collection('channels')
@@ -64,6 +81,15 @@ export class CreateChannelService {
       .collection('credentials')
       .doc('password')
       .set({ password: form.value.password });
-    // return new Promise((res, rej) => res('=== onCreateChannelPassword response ==='))
+  }
+
+  // Create a new channel's user list
+  onCreateChannelUsersList(channelName: string): Promise<any> {
+    return this.firestore
+      .collection('channels')
+      .doc(channelName)
+      .collection('users')
+      .doc('users')
+      .set({ users: [] });
   }
 }
