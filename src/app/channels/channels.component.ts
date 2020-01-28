@@ -21,7 +21,7 @@ import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.servi
   styleUrls: ['./channels.component.scss']
 })
 export class ChannelsComponent implements OnDestroy, OnInit {
-  private listAllChannelsSub: Subscription;
+  private subscriptions = new Subscription();
   allChannels: {}[] = [];
   channelsExist: boolean;
   errorChannelCreation: string = '';
@@ -41,7 +41,7 @@ export class ChannelsComponent implements OnDestroy, OnInit {
   ngOnDestroy() {
     /* istanbul ignore else*/
     // https://stackoverflow.com/questions/31883320/how-to-ignore-branch-coverage-for-missing-else
-    if (this.listAllChannelsSub) this.listAllChannelsSub.unsubscribe();
+    if (this.subscriptions) this.subscriptions.unsubscribe();
   }
 
   ngOnInit() {
@@ -60,15 +60,15 @@ export class ChannelsComponent implements OnDestroy, OnInit {
   private onListAllChannels(): void {
     console.log("=== onListAllChannels() ===")
     this.isLoading = true;
-    this.listAllChannelsSub = this.listChannelsService.onListAllChannels()
+    this.subscriptions.add(this.listChannelsService.onListAllChannels()
       .subscribe(
         channels => {
+          console.log('=== channels:', channels)
           if (channels.length > 0) {
-            console.log('=== channels:', channels)
             this.channelsExist = true;
             this.allChannels = [];
             channels.forEach(channel => {
-              let channelCreator, channelPermission;
+              console.log('=== channel:', channel)
 
               // This grabs the meta data for a channel, ie. 'creator' and
               // 'permissions', from a Firestore sub-collection
@@ -77,17 +77,17 @@ export class ChannelsComponent implements OnDestroy, OnInit {
                 .subscribe(
                   channelMetaData => {
                     console.log('=== channelMetaData:', channelMetaData.payload.data())
-                    channelCreator = channelMetaData.payload.data().creator;
-                    channelPermission = channelMetaData.payload.data().permission;
-                    // channelCreator = '';
-                    // channelPermission = '';
+                    console.log('=== this.allChannels 1:', this.allChannels)
+
                     this.allChannels.push(
                       {
                         channelName: channel.payload.doc.id,
-                        channelCreator: channelCreator,
-                        channelPermission: channelPermission,
+                        channelCreator: channelMetaData.payload.data().creator,
+                        channelPermission: channelMetaData.payload.data().permission,
                       }
                     );
+                    
+                    console.log('=== this.allChannels 1:', this.allChannels)
                   },
                   error => console.log('=== Error:', error),
                 );
@@ -98,7 +98,8 @@ export class ChannelsComponent implements OnDestroy, OnInit {
           this.isLoading = false;
         },
         error => this.errorFetchChannels = 'Error: Could not get list of channels. ' + error
-      );
+      )
+    );
   }
 
   // Delete a channel
