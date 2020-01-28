@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { Observable } from 'rxjs';
+
 // Firestore
 import { AngularFirestore } from '@angular/fire/firestore';
 
@@ -12,7 +14,19 @@ export class ListChannelsService {
 
   // Return an observable that emits an event from the Firestore database to the 
   // client whenever the channels Firestore collection is updated
-  onListAllChannels() {
-    return this.firestore.collection('channels').snapshotChanges();
+  onListAllChannels(): Observable<any> {
+    return this.firestore
+      .collection('channels')
+      .snapshotChanges();
+  }
+
+  onGetChannelMetaData(channelName: string): Observable<any> {
+    console.log('=== onGetChannelMetaData channelName:', channelName)
+    return this.firestore
+      .collection('channels')
+      .doc(channelName)
+      .collection('metaData')
+      .doc('metaData')
+      .snapshotChanges();
   }
 }

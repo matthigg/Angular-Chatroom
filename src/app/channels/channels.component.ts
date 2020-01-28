@@ -3,7 +3,8 @@ import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
 // RxJS
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 // Angular Material Modules
 import { MatSnackBar } from '@angular/material';
@@ -50,20 +51,46 @@ export class ChannelsComponent implements OnDestroy, OnInit {
     this.onListAllChannels();
   }
 
-  private onListAllChannels() {
+  // Get channel meta data, ie. creator, permissions
+  private onGetChannelMetaData(channelName: string): Observable<any> {
+    return <any>this.listChannelsService.onGetChannelMetaData(channelName)
+  }
+
+  // Gather a list of all active channels to be displayed 
+  private onListAllChannels(): void {
+    console.log("=== onListAllChannels() ===")
     this.isLoading = true;
     this.listAllChannelsSub = this.listChannelsService.onListAllChannels()
       .subscribe(
         channels => {
           if (channels.length > 0) {
+            console.log('=== channels:', channels)
             this.channelsExist = true;
             this.allChannels = [];
             channels.forEach(channel => {
-              this.allChannels.push({
-                channelName: channel.payload.doc.id,
-                channelPermission: (channel.payload.doc.data() as any).permission,
-                channelCreator: (channel.payload.doc.data() as any).creator,
-              });
+              let channelCreator, channelPermission;
+
+              // This grabs the meta data for a channel, ie. 'creator' and
+              // 'permissions', from a Firestore sub-collection
+              this.onGetChannelMetaData(channel.payload.doc.id)
+                .pipe(take(1))
+                .subscribe(
+                  channelMetaData => {
+                    console.log('=== channelMetaData:', channelMetaData.payload.data())
+                    channelCreator = channelMetaData.payload.data().creator;
+                    channelPermission = channelMetaData.payload.data().permission;
+                    // channelCreator = '';
+                    // channelPermission = '';
+                    this.allChannels.push(
+                      {
+                        channelName: channel.payload.doc.id,
+                        channelCreator: channelCreator,
+                        channelPermission: channelPermission,
+                      }
+                    );
+                  },
+                  error => console.log('=== Error:', error),
+                );
             });
           } else {
             this.channelsExist = false;
@@ -74,12 +101,7 @@ export class ChannelsComponent implements OnDestroy, OnInit {
       );
   }
 
-  onCreateChannel(form: NgForm): Promise<any> {
-    return this.createChannelService.onCreateChannel(form)
-      .then(response => { this.router.navigate(['channel', form.value.channelName]) })
-      .catch(error => { this.errorChannelCreation = 'Error: could not create channel.' });
-  }
-
+  // Delete a channel
   onDeleteChannel(
     channelName: string, 
     channelPermission: string, 

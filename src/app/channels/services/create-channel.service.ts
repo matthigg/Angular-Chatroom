@@ -28,47 +28,47 @@ export class CreateChannelService {
       .pipe(take(1))
       .subscribe(user => { this.userName = user.name });
 
-    // Create a new channel with an initial 'System' message
-    return this.firestore
-      .collection('channels')
-      .doc(form.value.channelName)
-      .set(
-        {
-          messages: [
-            { 
-              user: 'System',
-              time: new Date(),
-              message: `Channel ${form.value.channelName} has been created.`,
-            }
-          ],
-          permission: form.value.permission,
-          creator: this.userName,
-        }
-      )
+    // Create a subcollection to store channel meta data
+    return this.onCreateChannelMetaData(form)
+
+      // Create a new channel with an initial 'System' message
+      .then(response => {
+        this.firestore
+        .collection('channels')
+        .doc(form.value.channelName)
+        .set(
+          {
+            messages: [
+              { 
+                user: 'System',
+                time: new Date(),
+                message: `Channel ${form.value.channelName} has been created.`,
+              }
+            ],
+            permission: form.value.permission,
+            creator: this.userName,
+          }
+        )
+      })
 
       // Initialize an empty channel user list
       .then(response => {
+        console.log('=== onCreateChannel() then 1:', response)
         return this.onCreateChannelUsersList(form.value.channelName);
       })
-
-      // Create a subcollection to store channel meta data
-      .then(response => {
-        return this.onCreateChannelMetaData(form.value.channelName);
-      });
   }
 
-
   // Create a subcollection to store channel meta data, ie. creator, permissions
-  onCreateChannelMetaData(channelName: string): Promise<any> {
+  onCreateChannelMetaData(form: NgForm): Promise<any> {
     return this.firestore
       .collection('channels')
-      .doc(channelName)
+      .doc(form.value.channelName)
       .collection('metaData')
       .doc('metaData')
       .set(
         { 
-          creator: '',
-          permission: '',
+          creator: this.userName,
+          permission: form.value.permission,
         }
       );
   }
