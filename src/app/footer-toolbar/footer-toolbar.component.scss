@@ -8,3 +8,9 @@ form {
     }
   }
 }
+
+.mat-form-field.mat-form-field-invalid .mat-form-field-ripple  {
+  background-color: green;
+  opacity: 0;
+  width: 0;
+}

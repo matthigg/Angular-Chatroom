@@ -53,7 +53,6 @@ export class CreateChannelService {
 
       // Initialize an empty channel user list
       .then(response => {
-        console.log('=== onCreateChannel() then 1:', response)
         return this.onCreateChannelUsersList(form.value.channelName);
       })
   }
