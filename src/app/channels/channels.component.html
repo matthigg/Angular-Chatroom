@@ -1,4 +1,4 @@
-<h1>Channels</h1>
+<h1 color="primary">Channels</h1>
 
 <!-- Channel List Errors -->
 <div *ngIf="!channelsExist && !isLoading">
@@ -15,13 +15,14 @@
 <div *ngIf="channelsExist">
   <mat-nav-list>
     <div class="channel-link-and-delete-button-wrapper" *ngFor="let channel of objectKeys(allChannels)">
-      <a 
+      <a
         mat-list-item 
         [routerLink]="['/channel', channel]"
       >
         {{ channel }}
       </a>
       <button
+        color="warn"
         mat-button
         (click)="onDeleteChannel(
           channel, 
