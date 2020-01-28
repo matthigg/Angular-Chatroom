@@ -21,7 +21,6 @@ export class ListChannelsService {
   }
 
   onGetChannelMetaData(channelName: string): Observable<any> {
-    console.log('=== onGetChannelMetaData channelName:', channelName)
     return this.firestore
       .collection('channels')
       .doc(channelName)

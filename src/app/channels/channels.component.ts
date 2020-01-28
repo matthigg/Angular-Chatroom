@@ -59,7 +59,6 @@ export class ChannelsComponent implements OnDestroy, OnInit {
 
   // Gather a list of all active channels to be displayed 
   private onListAllChannels(): void {
-    console.log("=== onListAllChannels() ===")
     this.isLoading = true;
     this.subscriptions.add(this.listChannelsService.onListAllChannels()
       .subscribe(
