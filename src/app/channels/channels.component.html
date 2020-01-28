@@ -14,19 +14,19 @@
 <!-- Channel List -->
 <div *ngIf="channelsExist">
   <mat-nav-list>
-    <div class="channel-link-and-delete-button-wrapper" *ngFor="let channel of allChannels">
+    <div class="channel-link-and-delete-button-wrapper" *ngFor="let channel of objectKeys(allChannels)">
       <a 
         mat-list-item 
-        [routerLink]="['/channel', channel.channelName]"
+        [routerLink]="['/channel', channel]"
       >
-        {{ channel.channelName }}
+        {{ channel }}
       </a>
       <button
         mat-button
         (click)="onDeleteChannel(
-          channel.channelName, 
-          channel.channelPermission,
-          channel.channelCreator
+          channel, 
+          allChannels[channel].channelPermission,
+          allChannels[channel].channelCreator
         )"
       >
         x

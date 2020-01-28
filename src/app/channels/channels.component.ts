@@ -22,12 +22,13 @@ import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.servi
 })
 export class ChannelsComponent implements OnDestroy, OnInit {
   private subscriptions = new Subscription();
-  allChannels: {}[] = [];
+  allChannels = {};
   channelsExist: boolean;
   errorChannelCreation: string = '';
   errorChannelDeletion: string = '';
   errorFetchChannels: string = '';
   isLoading: boolean;
+  objectKeys = Object.keys;
 
   constructor(
     private createChannelService: CreateChannelService,
@@ -63,12 +64,10 @@ export class ChannelsComponent implements OnDestroy, OnInit {
     this.subscriptions.add(this.listChannelsService.onListAllChannels()
       .subscribe(
         channels => {
-          console.log('=== channels:', channels)
           if (channels.length > 0) {
             this.channelsExist = true;
-            this.allChannels = [];
+            this.allChannels = {}
             channels.forEach(channel => {
-              console.log('=== channel:', channel)
 
               // This grabs the meta data for a channel, ie. 'creator' and
               // 'permissions', from a Firestore sub-collection
@@ -76,18 +75,10 @@ export class ChannelsComponent implements OnDestroy, OnInit {
                 .pipe(take(1))
                 .subscribe(
                   channelMetaData => {
-                    console.log('=== channelMetaData:', channelMetaData.payload.data())
-                    console.log('=== this.allChannels 1:', this.allChannels)
-
-                    this.allChannels.push(
-                      {
-                        channelName: channel.payload.doc.id,
-                        channelCreator: channelMetaData.payload.data().creator,
-                        channelPermission: channelMetaData.payload.data().permission,
-                      }
-                    );
-                    
-                    console.log('=== this.allChannels 1:', this.allChannels)
+                    this.allChannels[channel.payload.doc.id] = {
+                      channelCreator: channelMetaData.payload.data().creator,
+                      channelPermission: channelMetaData.payload.data().permission,
+                    } 
                   },
                   error => console.log('=== Error:', error),
                 );
