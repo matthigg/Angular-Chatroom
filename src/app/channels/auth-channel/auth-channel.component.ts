@@ -49,8 +49,6 @@ export class AuthChannelComponent implements OnInit {
     // Determine if channel is public or private
     this.authChannelService.isChannelPrivate(this.channelName)
       .then(response => {
-        console.log('=== isChannelPrivate() response:', response)
-
 
         // If channel's permission is 'public' then automatically authenticate 
         // this channel (since it is public), halt loading this component, and 
