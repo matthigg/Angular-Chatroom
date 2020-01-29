@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 // Services
+import { AuthChannelService } from '../channels/auth-channel/services/auth-channel.service';
 import { ChannelMessagesService } from '../channels/channel/services/channel-messages.service';
 import { ChannelUsersService } from '../channels/channel/services/channel-users.service';
 import { CreateChannelService } from '../channels/services/create-channel.service';
@@ -78,6 +79,7 @@ export class CreateChannelDialog implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<CreateChannelDialog>,
+    private authChannelService: AuthChannelService,
     private createChannelService: CreateChannelService, 
     private router: Router,
   ) {}
@@ -98,6 +100,7 @@ export class CreateChannelDialog implements OnInit {
             // password that they just created
 
             .then(response => {
+              this.authChannelService.authenticatedChannel.next(form.value.channelName);
               this.router.navigate(['channel', form.value.channelName]);
               form.reset();
               this.dialogRef.close();
