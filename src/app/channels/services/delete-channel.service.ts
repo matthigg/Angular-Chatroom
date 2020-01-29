@@ -45,7 +45,6 @@ export class DeleteChannelService {
           });
         }
       })
-      .catch(error => console.log('=== Error:', error))
   }
 
   // Delete a channel's credentials/password

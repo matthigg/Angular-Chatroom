@@ -119,6 +119,8 @@ export class ChannelsComponent implements OnDestroy, OnInit {
           );
         },
       )
-      .catch(error => this.errorChannelDeletion = 'Error: could not delete channel.')
+      .catch(error => {
+        this.errorChannelDeletion = 'Error: Could not delete channel.'
+      });
   }
 }
