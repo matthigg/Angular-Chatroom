@@ -3,7 +3,9 @@
 // @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 // @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 // @import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
-@import '~@angular/material/prebuilt-themes/purple-green.css';
+// @import '~@angular/material/prebuilt-themes/purple-green.css';
+// @import '../node_modules/@angular/material/prebuilt-themes/purple-green.css';
+@import './custom-theme.scss';
 
 html, body { height: 100%; }
 
@@ -17,5 +19,13 @@ body {
   background-color: #333;
   & .mat-simple-snackbar {
     color: white;
+  }
+}
+
+// Style the footer input bar here, instead of using ::ng-deep or altering the
+// footer component's view encapsulation
+.footer-input-bar {
+  & .mat-form-field-underline .mat-form-field-ripple {
+    background-color: white;
   }
 }

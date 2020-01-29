@@ -1,16 +1,10 @@
 form {
   width: 100%;
-  & .toolbar-message {
+  & mat-toolbar.toolbar-message {
     display: flex;
     justify-content: space-around;
     & mat-form-field {
       width: 80%;
     }
   }
-}
-
-.mat-form-field.mat-form-field-invalid .mat-form-field-ripple  {
-  background-color: green;
-  opacity: 0;
-  width: 0;
 }

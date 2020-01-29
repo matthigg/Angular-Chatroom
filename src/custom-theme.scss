@@ -1,0 +1,11 @@
+@import '~@angular/material/theming';
+@include mat-core();
+
+$custom-theme-primary: mat-palette($mat-light-blue);
+$custom-theme-accent: mat-palette($mat-green);
+$custom-theme-warn: mat-palette($mat-orange);
+$custom-theme: mat-dark-theme($custom-theme-primary, $custom-theme-accent, $custom-theme-warn);
+@include angular-material-theme($custom-theme);
+
+// @import 'app/footer-toolbar/footer-toolbar.component.scss';
+// @include footers-theme($custom-theme);
