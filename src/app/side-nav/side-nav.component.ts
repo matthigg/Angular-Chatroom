@@ -93,12 +93,6 @@ export class CreateChannelDialog implements OnInit {
       .then(response => { 
         if (form.value.permission === 'private') {
           this.onCreateChannelPassword(form)
-
-            // TODO - ensure that credentials are entered so that when a user
-            // creates a new private channel they are automatically taken to that
-            // channel before the channel guard prompts them to enter the
-            // password that they just created
-
             .then(response => {
               this.authChannelService.authenticatedChannel.next(form.value.channelName);
               this.router.navigate(['channel', form.value.channelName]);
