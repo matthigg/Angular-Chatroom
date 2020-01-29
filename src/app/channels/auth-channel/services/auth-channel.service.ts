@@ -18,7 +18,7 @@ export class AuthChannelService {
   // Determine whether the channel is public or private
   // https://stackoverflow.com/questions/58776761/documentreference-getfield-not-working
   async isChannelPrivate(channelName: string): Promise<any> {
-    return await this.firestore.firestore.collection('channels').doc(channelName).get()
+    return await this.firestore.firestore.collection('channels').doc(channelName).collection('metaData').doc('metaData').get()
       .then(documentSnapshot =>  { return documentSnapshot.get('permission') }) 
   }
 }

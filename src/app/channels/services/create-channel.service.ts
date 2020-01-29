@@ -45,8 +45,8 @@ export class CreateChannelService {
                 message: `Channel ${form.value.channelName} has been created.`,
               }
             ],
-            permission: form.value.permission,
-            creator: this.userName,
+            // permission: form.value.permission,
+            // creator: this.userName,
           }
         )
       })

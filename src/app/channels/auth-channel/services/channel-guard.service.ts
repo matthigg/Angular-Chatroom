@@ -33,7 +33,10 @@ export class ChannelGuardService {
     this.authChannelService.authenticatedChannel
       .pipe(take(1))
       .subscribe(
-        response => currentAuthenticatedChannel = response,
+        response => {
+          currentAuthenticatedChannel = response
+          console.log('=== currentAuthCh:', currentAuthenticatedChannel)
+        },
         error => console.log('=== Error:', error)
       );
 
