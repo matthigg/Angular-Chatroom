@@ -1,6 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { Router } from '@angular/router';
 
 // RxJS
 import { Observable, Subscription } from 'rxjs';
@@ -10,7 +8,7 @@ import { take } from 'rxjs/operators';
 import { MatSnackBar } from '@angular/material';
  
 // Services
-import { CreateChannelService } from './services/create-channel.service';
+import { AuthService } from '../auth/services/auth.service';
 import { DeleteChannelService } from './services/delete-channel.service';
 import { ListChannelsService } from './services/list-channels.service';
 import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.service';
@@ -29,12 +27,12 @@ export class ChannelsComponent implements OnDestroy, OnInit {
   errorFetchChannels: string = '';
   isLoading: boolean;
   objectKeys = Object.keys;
+  userName: string;
 
   constructor(
-    private createChannelService: CreateChannelService,
+    private authService: AuthService,
     private deleteChannelService: DeleteChannelService,
     private listChannelsService: ListChannelsService,
-    private router: Router,
     private toggleSideNavService: ToggleSideNavService,
     private _snackBar: MatSnackBar
   ) { }
@@ -49,6 +47,11 @@ export class ChannelsComponent implements OnDestroy, OnInit {
     setTimeout(() => {
       this.toggleSideNavService.handleSideNav('open');
     }, 0)
+
+    // Get the current user name
+    this.userName = this.authService.user.value.name;
+
+    // Get a list of all active channels from Firestore
     this.onListAllChannels();
   }
 

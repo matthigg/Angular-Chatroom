@@ -24,6 +24,7 @@
       <button
         color="warn"
         mat-button
+        *ngIf="allChannels[channel].channelCreator == userName"
         (click)="onDeleteChannel(
           channel, 
           allChannels[channel].channelPermission,
