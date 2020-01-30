@@ -12,14 +12,17 @@
     </button>
 
     <!-- Logout Button -->
-    <button 
-      class="button-logout"
-      mat-button 
-      type="button"
-      (click)="onLogout()"
-    >
-      Logout
-    </button>
+    <div>
+      <button (click)="onToggleTheme()">O</button>
+      <button 
+        class="button-logout"
+        mat-button 
+        type="button"
+        (click)="onLogout()"
+      >
+        Logout
+      </button>
+    </div>
     
   </div>
 </mat-toolbar>

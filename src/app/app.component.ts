@@ -18,4 +18,8 @@ export class AppComponent implements OnInit {
     // Automatically log in user if user data is stored in localStorage
     this.authService.autoLogin();
   }
+
+  handleToggleTheme() {
+    this.darkTheme = !this.darkTheme
+  }
  }

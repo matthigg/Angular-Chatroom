@@ -1,6 +1,5 @@
-<!-- <div> -->
 <div [ngClass]="{ 'dark-theme': darkTheme }">
-  <app-nav-toolbar></app-nav-toolbar>
+  <app-nav-toolbar (toggleTheme)="handleToggleTheme()"></app-nav-toolbar>
   <app-side-nav></app-side-nav>
   <app-footer-toolbar></app-footer-toolbar>
 </div>
