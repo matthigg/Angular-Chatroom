@@ -114,7 +114,7 @@ export class ChannelsComponent implements OnDestroy, OnInit {
             { 
               duration: 3000,
               horizontalPosition: 'center',
-              panelClass: ['delete-channel-snackbar'],
+              // panelClass: ['dark-theme'],
             },
           );
         },

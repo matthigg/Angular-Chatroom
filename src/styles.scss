@@ -15,12 +15,12 @@ body {
   overflow: hidden;
 }
 
-.delete-channel-snackbar {
-  background-color: #333;
-  & .mat-simple-snackbar {
-    color: white;
-  }
-}
+// .delete-channel-snackbar {
+//   background-color: #333;
+//   & .mat-simple-snackbar {
+//     color: white;
+//   }
+// }
 
 // Style the footer input bar here, instead of using ::ng-deep or altering the
 // footer component's view encapsulation
