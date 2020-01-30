@@ -2,7 +2,10 @@
     <mat-toolbar class="toolbar-message">
 
       <!-- Message Input Field -->
-      <mat-form-field class="footer-input-bar" *ngIf="activeChannel">
+      <mat-form-field 
+        class="footer-input-bar"
+        *ngIf="activeChannel"
+      >
         <input 
           class="input-message"
           formControlName="input"

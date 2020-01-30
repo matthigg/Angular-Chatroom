@@ -24,8 +24,12 @@ body {
 
 // Style the footer input bar here, instead of using ::ng-deep or altering the
 // footer component's view encapsulation
-.footer-input-bar {
-  & .mat-form-field-underline .mat-form-field-ripple {
-    background-color: white;
+.footer-input-bar .mat-form-field-underline .mat-form-field-ripple {
+  background-color: black !important;
+}
+
+.dark-theme {
+  & .footer-input-bar .mat-form-field-underline .mat-form-field-ripple {
+    background-color: white !important;
   }
 }
