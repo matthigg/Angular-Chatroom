@@ -8,6 +8,7 @@ import { ChannelsRoutingModule } from './channels/channels-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 // Angular Material Modules
 import { 
@@ -88,4 +89,8 @@ import { environment } from 'src/environments/environment';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(overlayContainer: OverlayContainer) {
+    overlayContainer.getContainerElement().classList.add('dark-theme')
+  }
+}
