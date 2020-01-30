@@ -16,9 +16,8 @@ export class DeleteChannelService {
     channelCreator: string,
   ): Promise<any> {
 
-    // Delete a channel's users list first
+    // Delete a channel
     return this.onDeleteChannelUsers(channelName)
-      .then(response => { return this.onDeleteMetaData(channelName) })
 
       // If a channel has nested Firestore credentials, ie. the channel is private,
       // then delete the credentials before deleting the channel itself.
@@ -45,6 +44,9 @@ export class DeleteChannelService {
           });
         }
       })
+
+      // After a channel has been deleted, delete its meta data
+      .then(response => { return this.onDeleteMetaData(channelName) });
   }
 
   // Delete a channel's credentials/password
