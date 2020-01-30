@@ -11,3 +11,7 @@ mat-sidenav {
 mat-sidenav-content {
   height: calc(100vh - 128px);
 }
+
+mat-slide-toggle {
+  padding: calc(0.5rem + 0.5vw);
+}

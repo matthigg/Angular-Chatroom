@@ -24,6 +24,7 @@ import {
   MatListModule,
   MatRadioModule,
   MatSidenavModule,
+  MatSlideToggleModule,
   MatTabsModule,
   MatToolbarModule,
 } from '@angular/material';
@@ -82,6 +83,7 @@ import { environment } from 'src/environments/environment';
     MatListModule,
     MatRadioModule,
     MatSidenavModule,
+    MatSlideToggleModule,
     MatTabsModule,
     MatToolbarModule,
     ReactiveFormsModule,

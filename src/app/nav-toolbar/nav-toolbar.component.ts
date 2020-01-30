@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 
 // RxJS
 import { Subscription } from 'rxjs';
@@ -15,7 +15,6 @@ import { ToggleSideNavService } from '../side-nav/services/toggle-side-nav.servi
 export class NavToolbarComponent implements OnDestroy, OnInit {
   private userSubscription: Subscription;
   isAuthenticated: boolean = false;
-  @Output() toggleTheme = new EventEmitter<string>();
 
   constructor(
     private authService: AuthService,
@@ -41,9 +40,5 @@ export class NavToolbarComponent implements OnDestroy, OnInit {
 
   onToggleSideNav() {
     this.toggleSideNavService.handleSideNav('toggle');
-  }
-
-  onToggleTheme() {
-    this.toggleTheme.emit()
   }
 }

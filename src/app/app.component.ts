@@ -9,7 +9,7 @@ import { AuthService } from './auth/services/auth.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  darkTheme: boolean = true;
+  darkTheme: boolean = false;
 
   constructor(public authService: AuthService) { }
 

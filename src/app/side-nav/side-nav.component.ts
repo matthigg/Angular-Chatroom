@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -29,6 +29,8 @@ export class SideNavComponent implements OnDestroy, OnInit {
   private activeChannelSub: Subscription;
   private sideNavSubjectSub: Subscription;
   private usersListSub: Subscription;
+  @Input('darkTheme') darkTheme: string;
+  @Output() toggleTheme = new EventEmitter<string>();
 
   constructor(
     public dialog: MatDialog,
@@ -63,6 +65,10 @@ export class SideNavComponent implements OnDestroy, OnInit {
   openCreateChannelDialog(): void {
     this.dialog.open(CreateChannelDialog, { width: '40vw' });
   }
+
+  onToggleTheme() {
+    this.toggleTheme.emit()
+  }
 }
 
 // ===== DIALOG COMPONENT ===== 
@@ -76,6 +82,8 @@ export class CreateChannelDialog implements OnInit {
   errorChannelCreation: string = '';
   passwordIsVisible: boolean = false;
   selectedRadioButton: string = 'public';
+  @Input('darkTheme') darkTheme: string;
+  @Output() toggleTheme = new EventEmitter<string>();
 
   constructor(
     public dialogRef: MatDialogRef<CreateChannelDialog>,
