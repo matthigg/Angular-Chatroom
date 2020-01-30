@@ -88,7 +88,7 @@ export class ChannelsComponent implements OnDestroy, OnInit {
           } else {
             this.channelsExist = false;
           }
-          // this.isLoading = false;
+          this.isLoading = false;
         },
         error => this.errorFetchChannels = 'Error: Could not get list of channels. ' + error
       )
