@@ -1,22 +1,33 @@
 import { ActivatedRoute } from '@angular/router';
-import { Component, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { 
+  AfterViewInit, 
+  Component, 
+  ElementRef, 
+  NgZone, 
+  OnDestroy, 
+  OnInit, 
+  ViewChild 
+} from '@angular/core';
 
 // RxJS
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { take } from 'rxjs/operators';
+
+import { MatList } from '@angular/material';
 
 // Services
 import { AuthChannelService } from '../auth-channel/services/auth-channel.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { ChannelMessagesService } from './services/channel-messages.service';
 import { ChannelUsersService } from './services/channel-users.service';
+import { ScrollToBottomOfSidenavContentService } from '../../side-nav/services/scroll-to-bottom-of-sidenav-content.service';
 
 @Component({
   selector: 'app-channel',
   templateUrl: './channel.component.html',
-  styleUrls: ['./channel.component.scss']
+  styleUrls: ['./channel.component.scss'],
 })
-export class ChannelComponent implements OnDestroy, OnInit {
+export class ChannelComponent implements AfterViewInit, OnDestroy, OnInit {
   channelName: string;
   isChannelPrivate: boolean;
   isLoading: boolean = false;
@@ -24,6 +35,7 @@ export class ChannelComponent implements OnDestroy, OnInit {
   userName: string;
   private authChannelServiceSub: Subscription;
   private channelNameSub: Subscription;
+  @ViewChild('matList', { static: false, read: ElementRef }) matList: ElementRef;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -31,8 +43,12 @@ export class ChannelComponent implements OnDestroy, OnInit {
     private authService: AuthService,
     private channelMessagesService: ChannelMessagesService,
     private channelUsersService: ChannelUsersService,
+    private scrollToBottomOfSidenavContentService: ScrollToBottomOfSidenavContentService,
     private zone: NgZone,
   ) { }
+
+  ngAfterViewInit() {
+  }
 
   ngOnDestroy() {
     if (this.authChannelServiceSub) this.authChannelServiceSub.unsubscribe();
@@ -54,6 +70,9 @@ export class ChannelComponent implements OnDestroy, OnInit {
         setTimeout(() => {
           this.channelMessagesService.activeChannel.next(value.name);
         }, 0)
+
+         // Since this method relies on a @ViewChild element, this entire
+         // subscription may need to be placed within ngAfterViewInit
         this.retrieveMessages(value.name);
         this.retrieveUsers(value.name);
         this.authChannelServiceSub = this.authChannelService.channelIsPrivate.subscribe(
@@ -82,10 +101,16 @@ export class ChannelComponent implements OnDestroy, OnInit {
     this.channelMessagesService.retrieveMessages(channelName).onSnapshot(
       doc => {
         this.zone.run(() => { 
-          doc.data() ? this.messages = doc.data().messages : this.messages = null;
+          if (doc.data()) {
+            this.messages = doc.data().messages;
+            setTimeout(() => this.setScrollHeight());
+          } else {
+            this.messages = null;
+          } 
           this.isLoading = false;
         });
-      }
+      },
+      error => console.log('=== Error:', error)
     )
   }
 
@@ -97,6 +122,12 @@ export class ChannelComponent implements OnDestroy, OnInit {
           doc.data() ? this.channelUsersService.userList.next(doc.data().users) : this.channelUsersService.userList.next(null);
         })
       }
-    )
+    );
+  }
+
+  // Scroll to the bottom of the list of channel messages
+  setScrollHeight() {
+    const scrollHeight = this.matList.nativeElement.scrollHeight;
+    this.scrollToBottomOfSidenavContentService.setScrollHeight = scrollHeight
   }
 }

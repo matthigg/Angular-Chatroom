@@ -1,4 +1,14 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { 
+  Component, 
+  ElementRef,
+  EventEmitter, 
+  Input, 
+  AfterViewInit,
+  OnDestroy, 
+  OnInit, 
+  Output, 
+  ViewChild 
+} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -13,6 +23,7 @@ import { AuthChannelService } from '../channels/auth-channel/services/auth-chann
 import { ChannelMessagesService } from '../channels/channel/services/channel-messages.service';
 import { ChannelUsersService } from '../channels/channel/services/channel-users.service';
 import { CreateChannelService } from '../channels/services/create-channel.service';
+import { ScrollToBottomOfSidenavContentService } from './services/scroll-to-bottom-of-sidenav-content.service';
 import { ToggleSideNavService } from './services/toggle-side-nav.service';
 
 // ===== SIDE NAV COMPONENT =====
@@ -21,26 +32,41 @@ import { ToggleSideNavService } from './services/toggle-side-nav.service';
   templateUrl: './side-nav.component.html',
   styleUrls: ['./side-nav.component.scss']
 })
-export class SideNavComponent implements OnDestroy, OnInit {
+export class SideNavComponent implements AfterViewInit, OnDestroy, OnInit {
   activeChannel: string;
   isSideNavOpen: boolean = this.toggleSideNavService.isSideNavOpen;
   users: string[] = [];
   usersLength = users => { if (users) return users.length };
   private activeChannelSub: Subscription;
+  private scrollHeightSub: Subscription;
   private sideNavSubjectSub: Subscription;
   private usersListSub: Subscription;
   @Input('darkTheme') darkTheme: string;
   @Output() toggleTheme = new EventEmitter<string>();
+  @ViewChild('matSidenavContent', { static: false, read: ElementRef }) matSideNavContent: ElementRef;
 
   constructor(
     public dialog: MatDialog,
     private channelMessagesService: ChannelMessagesService,
     private channelUsersService: ChannelUsersService,
+    private scrollToBottomOfSidenavContentService: ScrollToBottomOfSidenavContentService,
     private toggleSideNavService: ToggleSideNavService,
   ) { }
 
+  ngAfterViewInit() {
+    this.scrollHeightSub = this.scrollToBottomOfSidenavContentService.scrollHeight
+      .subscribe(
+
+        // Assuming the viewport has a height > 0px this will over-scroll; however,
+        // there are no visual side effects
+        height => this.matSideNavContent.nativeElement.scrollTop = height,
+        error => console.log("=== Error:", error)
+      )
+  }
+
   ngOnDestroy() {
     if (this.activeChannelSub) this.activeChannelSub.unsubscribe();
+    if (this.scrollHeightSub) this.scrollHeightSub.unsubscribe();
     if (this.sideNavSubjectSub) this.sideNavSubjectSub.unsubscribe();
     if (this.usersListSub) this.usersListSub.unsubscribe();
   }

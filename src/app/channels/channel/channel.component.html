@@ -7,10 +7,10 @@
 </mat-card-content>
 
 <!-- Messages -->
-<mat-list>
+<mat-list #matList>
   <mat-list-item
     class="message"
-    *ngFor="let message of messages"
+    *ngFor="let message of messages; let last = last"
   >
     <mat-chip-list>
       {{ message?.time?.seconds * 1000 | date:'hh:mm:ss' }}
