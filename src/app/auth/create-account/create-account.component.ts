@@ -82,6 +82,11 @@ export class CreateAccountComponent implements OnInit {
     const userName = this.formCreateAccount.value.username;
     const email = this.formCreateAccount.value.email;
     const password = this.formCreateAccount.value.passwords.password;
+
+    // TODO - make a Firestore sub-collection with un/less-restricted access to
+    // allow checking whether or not a username/email already exists during
+    // account creation
+
     await this.authService.checkIfUsernameOrEmailExists(userName, email)
       .then(response => this.createAccount(userName, email, password))
       .catch(error => {
