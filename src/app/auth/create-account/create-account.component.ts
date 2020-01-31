@@ -88,6 +88,7 @@ export class CreateAccountComponent implements OnInit {
         this.isLoading = false;
         this.isError = true;
         this.errorMessage = error;
+        console.log('=== Error:', error);
       });
   }
 }

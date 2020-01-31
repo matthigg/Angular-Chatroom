@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 // Services
 import { AuthService } from '../services/auth.service';
@@ -24,6 +25,7 @@ export class DeleteAccountComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private firestore: AngularFirestore,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -40,6 +42,9 @@ export class DeleteAccountComponent implements OnInit {
       .delete()
       .then(response => {
         return firebase.auth().currentUser.delete()
+      })
+      .then(response => {
+        this.router.navigate(['/auth']);
       })
       .catch(error => console.log('=== Error:', error));
   }
