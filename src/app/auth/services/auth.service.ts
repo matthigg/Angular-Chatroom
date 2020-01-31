@@ -135,7 +135,8 @@ export class AuthService {
     }
   }
 
-  // Create a new account
+  // Create a new account in Firebase Authentication, and store user information
+  // in Firestore
   createAccount(userName: string, email: string, password: string) {
     let authenticatedUser = firebase.auth().createUserWithEmailAndPassword(email, password)
       .then(response => {

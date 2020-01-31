@@ -1,0 +1,22 @@
+<h1>Delete Account</h1>
+<mat-toolbar>User: {{ user }}</mat-toolbar>
+<div class="delete-account-password-wrapper">
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+    <mat-form-field>
+      <input 
+        ngModel
+        matInput
+        name="password"
+        placeholder="Enter Password to Delete Account"
+        required
+        type="text"
+      >
+    </mat-form-field>
+    <br>
+    <button
+      mat-raised-button
+    >
+      Delete
+    </button>
+  </form>
+</div>

@@ -59,6 +59,7 @@ export class CreateAccountComponent implements OnInit {
     });
   }
 
+  // Create a new account 
   createAccount(userName, email, password) {
     this.authService.createAccount(userName, email, password)
       .then(response => {
@@ -73,6 +74,8 @@ export class CreateAccountComponent implements OnInit {
       });
   }
 
+  // When user submits information for account creation, first check whether or
+  // not the username and/or email exists, then attempt to create a new account
   async onSubmit() {
     if (!this.formCreateAccount.valid) throw null
     this.isLoading = true;
