@@ -77,15 +77,21 @@ export class AuthChannelComponent implements OnInit {
     // this.firestore.firestore.collection('channels').doc(this.channelName).get()
     //   .then(documentSnapshot => { documentSnapshot.get('password') })
 
-    // Attempt to add the current user to the users[] array of a private channel
-    // in Firestore, and navigate the user to that private channel if the 
-    // submitted password is valid
-    this.firestore.firestore.collection('accounts').doc(firebase.auth().currentUser.uid).update(
-      { lastSubmittedPassword: form.value.channelPassword }
-    )
-    this.firestore.firestore.collection('channels').doc(this.channelName).collection('users').doc('users').update(
-      { users: firebase.firestore.FieldValue.arrayUnion(this.userName) }
-    )
+    // Check that the submitted password is valid, attempt to add the current 
+    // user to the users[] array of a private channel in Firestore, and then
+    // navigate the user to that private channel.
+    this.firestore.firestore
+      .collection('accounts')
+      .doc(firebase.auth().currentUser.uid)
+      .update({ lastSubmittedPassword: form.value.channelPassword })
+      .then(response => {
+        this.firestore.firestore
+          .collection('channels')
+          .doc(this.channelName)
+          .collection('users')
+          .doc('users')
+          .update({ users: firebase.firestore.FieldValue.arrayUnion(this.userName) })
+      })
       .then(response => {
         this.authChannelService.authenticatedChannel.next(this.channelName);
         this.router.navigate(['/channel', this.channelName]);

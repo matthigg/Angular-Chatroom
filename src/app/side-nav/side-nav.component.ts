@@ -125,15 +125,24 @@ export class CreateChannelDialog implements OnInit {
   onCreateChannel(form: NgForm): void {
     this.createChannelService.onCreateChannel(form)
       .then(response => { 
+
+        // Create a private channel, but wait for the password to be created 
+        // in Firestore before trying to navigate to the newly created channel.
+        // Authenticate channel before navigating the user to the channel to give 
+        // the authChannelService a second to update.
         if (form.value.permission === 'private') {
-          this.onCreateChannelPassword(form)
+          this.createChannelService.onCreateChannelPassword(form)
             .then(response => {
               this.authChannelService.authenticatedChannel.next(form.value.channelName);
+            })
+            .then(response => {
               this.router.navigate(['channel', form.value.channelName]);
               form.reset();
               this.dialogRef.close();
             })
-            .catch(error => console.log('=== Error:', error))
+            .catch(error => console.log('=== Error:', error));
+
+        // Create a public channel
         } else {
           this.router.navigate(['channel', form.value.channelName]);
           form.reset();
@@ -141,11 +150,6 @@ export class CreateChannelDialog implements OnInit {
         }
       })
       .catch(error => this.errorChannelCreation = 'Error: could not create channel. ' + error );
-  }
-
-  // Create a new channel password if the channel is private
-  onCreateChannelPassword(form: NgForm): Promise<any> {
-    return this.createChannelService.onCreateChannelPassword(form)
   }
 
   onNoClick(): void {
